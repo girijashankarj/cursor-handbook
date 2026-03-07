@@ -1,0 +1,9 @@
+# Default owners for the repository
+* @girijashankarj
+
+# Rules
+.cursor/rules/ @girijashankarj
+
+# Security-sensitive files
+.cursor/rules/security/ @girijashankarj
+.cursor/hooks/shell-guard.sh @girijashankarj

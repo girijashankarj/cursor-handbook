@@ -1,0 +1,20 @@
+{
+	"description": "Recommended keybindings for cursor-handbook workflows",
+	"keybindings": [
+		{
+			"key": "ctrl+shift+t",
+			"command": "Type Check",
+			"description": "Run type check"
+		},
+		{
+			"key": "ctrl+shift+r",
+			"command": "Code Review",
+			"description": "Start code review"
+		},
+		{
+			"key": "ctrl+shift+f",
+			"command": "Test Single File",
+			"description": "Test current file"
+		}
+	]
+}

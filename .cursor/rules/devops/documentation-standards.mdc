@@ -1,0 +1,56 @@
+---
+description: "Documentation standards for code, APIs, and architecture"
+alwaysApply: true
+---
+
+# Documentation Standards
+
+## Code Documentation
+- Document **why**, not **what** — code should be self-documenting for the "what"
+- Use JSDoc/TSDoc for all public functions and classes
+- Document complex algorithms with inline comments
+- Keep README.md up to date with every significant change
+
+### JSDoc Template
+```{{CONFIG.techStack.language}}
+/**
+ * Calculates the total price for an order including taxes and discounts.
+ *
+ * @param items - Array of order items with price and quantity
+ * @param taxRate - Tax rate as a decimal (e.g., 0.08 for 8%)
+ * @param discountCode - Optional promotional discount code
+ * @returns The calculated total with breakdown
+ * @throws {ValidationError} When items array is empty
+ * @example
+ * const total = calculateOrderTotal(items, 0.08, 'SAVE10');
+ */
+export function calculateOrderTotal(
+  items: OrderItem[],
+  taxRate: number,
+  discountCode?: string
+): OrderTotal { ... }
+```
+
+## API Documentation
+- Use OpenAPI/Swagger for REST APIs
+- Document all endpoints: method, path, params, body, responses
+- Include example requests and responses
+- Document error codes and their meanings
+- Keep docs in sync with code (prefer auto-generation)
+
+## Architecture Documentation
+- Architecture Decision Records (ADRs) for significant decisions
+- System diagrams updated quarterly
+- Data flow diagrams for complex processes
+- Runbooks for operational procedures
+- Incident post-mortems documented and shared
+
+## README Template
+Every repository MUST include:
+1. Project description and purpose
+2. Quick start / setup instructions
+3. Development workflow
+4. Testing instructions
+5. Deployment process
+6. Architecture overview
+7. Contributing guidelines

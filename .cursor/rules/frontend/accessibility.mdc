@@ -1,0 +1,48 @@
+---
+description: "Accessibility (a11y) rules for frontend components"
+alwaysApply: true
+---
+
+# Accessibility Rules
+
+## WCAG 2.1 AA Compliance (Minimum)
+
+### Semantic HTML
+- Use semantic elements: `<nav>`, `<main>`, `<article>`, `<section>`, `<aside>`
+- Use heading hierarchy: `<h1>` → `<h2>` → `<h3>` (never skip levels)
+- Use `<button>` for actions, `<a>` for navigation — never swap them
+- Use `<label>` for all form inputs with `htmlFor` attribute
+- Use `<fieldset>` and `<legend>` for related form groups
+
+### ARIA Attributes
+- Add `aria-label` to icon-only buttons
+- Use `aria-live` regions for dynamic content updates
+- Add `role` attributes when semantic HTML isn't sufficient
+- Use `aria-expanded` for collapsible sections
+- Use `aria-describedby` for complex form validation messages
+
+### Keyboard Navigation
+- All interactive elements MUST be keyboard accessible
+- Visible focus indicators on all focusable elements
+- Logical tab order (avoid `tabIndex` > 0)
+- Escape key closes modals and dropdowns
+- Enter/Space activates buttons and links
+
+### Visual
+- Minimum contrast ratio: 4.5:1 for normal text, 3:1 for large text
+- Don't convey information through color alone — use icons or text
+- Support text zoom up to 200% without loss of content
+- Provide text alternatives for all images: `alt` attribute
+- Animated content must be pausable
+
+### Forms
+- Clear error messages linked to the field via `aria-describedby`
+- Required fields marked with `aria-required="true"`
+- Form validation errors announced to screen readers
+- Autofill support for common fields (name, email, address)
+
+### Testing
+- Test with keyboard navigation
+- Test with screen readers (VoiceOver, NVDA)
+- Use axe-core or Lighthouse for automated a11y audits
+- Include a11y tests in CI pipeline

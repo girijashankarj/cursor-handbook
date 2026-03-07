@@ -1,0 +1,75 @@
+---
+description: "Database query patterns, optimization, and safety rules"
+alwaysApply: true
+---
+
+# Database Query Patterns
+
+## Absolute Rules
+
+### 1. Soft Delete Only
+- **NEVER** use `DELETE FROM` statements
+- **ALWAYS** use soft delete: `UPDATE table SET {{CONFIG.database.softDeleteField}} = false WHERE id = $1`
+- All queries MUST filter by `{{CONFIG.database.softDeleteField}} = true` unless explicitly recovering deleted records
+- Column naming convention: `{{CONFIG.database.naming}}`
+
+### 2. Parameterized Queries Only
+```sql
+-- CORRECT: Parameterized
+SELECT * FROM orders WHERE id = $1 AND {{CONFIG.database.softDeleteField}} = true;
+
+-- WRONG: String concatenation (SQL injection risk)
+SELECT * FROM orders WHERE id = '${orderId}';
+```
+
+### 3. Required Columns
+Every table MUST include:
+| Column | Type | Description |
+|--------|------|-------------|
+| `id` | UUID / BIGINT | Primary key |
+| `{{CONFIG.database.timestampFields.created}}` | TIMESTAMP | Record creation time |
+| `{{CONFIG.database.timestampFields.updated}}` | TIMESTAMP | Last update time |
+| `{{CONFIG.database.softDeleteField}}` | BOOLEAN | Soft delete flag (default: true) |
+
+## Query Optimization
+
+### Indexing Strategy
+- Index all foreign key columns
+- Index columns used in WHERE clauses frequently
+- Use composite indexes for multi-column queries
+- Consider partial indexes for filtered queries
+- Monitor slow query logs and add indexes accordingly
+
+### Pagination
+- **Prefer cursor-based pagination** for large datasets
+- Use `LIMIT` + `OFFSET` only for small datasets
+- Always include `ORDER BY` with pagination
+- Return `hasNextPage` and `cursor` in pagination metadata
+
+```sql
+-- Cursor-based pagination (preferred)
+SELECT * FROM orders
+WHERE {{CONFIG.database.softDeleteField}} = true
+  AND {{CONFIG.database.timestampFields.created}} < $1
+ORDER BY {{CONFIG.database.timestampFields.created}} DESC
+LIMIT 20;
+
+-- Offset pagination (simple cases only)
+SELECT * FROM orders
+WHERE {{CONFIG.database.softDeleteField}} = true
+ORDER BY {{CONFIG.database.timestampFields.created}} DESC
+LIMIT $1 OFFSET $2;
+```
+
+### N+1 Prevention
+- Use JOINs or batch queries instead of loops
+- Use DataLoader pattern for GraphQL resolvers
+- Preload associations when you know they'll be needed
+- Monitor query counts per request in development
+
+## Migration Rules
+- Every schema change MUST be a migration
+- Migrations MUST be reversible (up and down)
+- Test migrations against a copy of production data
+- Never modify existing migrations — create new ones
+- Name format: `YYYYMMDDHHMMSS_descriptive_name`

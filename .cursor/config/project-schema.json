@@ -1,0 +1,401 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Cursor Config Project Configuration",
+  "description": "Configuration schema for cursor-handbook project settings",
+  "type": "object",
+  "required": [
+    "project",
+    "cursor",
+    "techStack"
+  ],
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "JSON Schema reference"
+    },
+    "project": {
+      "type": "object",
+      "description": "Project metadata",
+      "required": [
+        "name"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Project name",
+          "minLength": 1
+        },
+        "description": {
+          "type": "string",
+          "description": "Project description"
+        },
+        "version": {
+          "type": "string",
+          "description": "Project version",
+          "pattern": "^\\d+\\.\\d+\\.\\d+"
+        },
+        "repository": {
+          "type": "string",
+          "description": "Repository URL",
+          "format": "uri"
+        }
+      }
+    },
+    "cursor": {
+      "type": "object",
+      "description": "Cursor IDE settings",
+      "properties": {
+        "include": {
+          "type": "object",
+          "properties": {
+            "patterns": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "Glob patterns for files to include in context"
+            },
+            "priorityFiles": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "Files to prioritize in context"
+            }
+          }
+        },
+        "exclude": {
+          "type": "object",
+          "properties": {
+            "patterns": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "Glob patterns for files to exclude from context"
+            },
+            "largeFiles": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "Large file patterns to exclude"
+            },
+            "secrets": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "Secret file patterns to exclude"
+            }
+          }
+        },
+        "tokenOptimization": {
+          "type": "object",
+          "properties": {
+            "maxRuleLines": {
+              "type": "integer",
+              "minimum": 50,
+              "maximum": 500,
+              "description": "Maximum lines per rule file"
+            },
+            "maxSkillLines": {
+              "type": "integer",
+              "minimum": 50,
+              "maximum": 500,
+              "description": "Maximum lines per skill file"
+            },
+            "maxAgentLines": {
+              "type": "integer",
+              "minimum": 50,
+              "maximum": 300,
+              "description": "Maximum lines per agent file"
+            },
+            "contextLayers": {
+              "type": "object",
+              "properties": {
+                "immediate": {
+                  "type": "integer",
+                  "description": "Tokens for immediate context"
+                },
+                "relevant": {
+                  "type": "integer",
+                  "description": "Tokens for relevant context"
+                },
+                "extended": {
+                  "type": "integer",
+                  "description": "Tokens for extended context"
+                },
+                "reference": {
+                  "type": "integer",
+                  "description": "Tokens for reference context"
+                }
+              }
+            }
+          }
+        },
+        "models": {
+          "type": "object",
+          "properties": {
+            "default": {
+              "type": "string"
+            },
+            "complex": {
+              "type": "string"
+            },
+            "simple": {
+              "type": "string"
+            },
+            "fast": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "paths": {
+      "type": "object",
+      "description": "Project path configuration",
+      "properties": {
+        "source": {
+          "type": "string"
+        },
+        "apiPath": {
+          "type": "string"
+        },
+        "handlerBasePath": {
+          "type": "string"
+        },
+        "commonPath": {
+          "type": "string"
+        },
+        "eventsPath": {
+          "type": "string"
+        },
+        "configPath": {
+          "type": "string"
+        }
+      }
+    },
+    "domain": {
+      "type": "object",
+      "description": "Domain model configuration",
+      "properties": {
+        "entities": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Domain entities"
+        },
+        "lifecycles": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "Entity lifecycle state machines"
+        },
+        "businessRules": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Business rules to enforce"
+        }
+      }
+    },
+    "patterns": {
+      "type": "object",
+      "description": "Code pattern configuration",
+      "properties": {
+        "handlerFlowSteps": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Number of steps in handler flow"
+        },
+        "handlerFlow": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Handler flow step names"
+        },
+        "errorHandling": {
+          "type": "string",
+          "enum": [
+            "centralized",
+            "distributed",
+            "hybrid"
+          ]
+        },
+        "logging": {
+          "type": "string",
+          "enum": [
+            "structured",
+            "unstructured",
+            "hybrid"
+          ]
+        }
+      }
+    },
+    "techStack": {
+      "type": "object",
+      "description": "Technology stack configuration",
+      "required": [
+        "language"
+      ],
+      "properties": {
+        "language": {
+          "type": "string",
+          "description": "Primary programming language"
+        },
+        "runtime": {
+          "type": "string",
+          "description": "Runtime environment"
+        },
+        "framework": {
+          "type": "string",
+          "description": "Web framework"
+        },
+        "cloud": {
+          "type": "string",
+          "description": "Cloud provider"
+        },
+        "database": {
+          "type": "string",
+          "description": "Database system"
+        },
+        "orm": {
+          "type": "string",
+          "description": "ORM/Query builder"
+        },
+        "testing": {
+          "type": "string",
+          "description": "Test framework"
+        },
+        "linter": {
+          "type": "string",
+          "description": "Linter tool"
+        },
+        "formatter": {
+          "type": "string",
+          "description": "Code formatter"
+        },
+        "packageManager": {
+          "type": "string",
+          "description": "Package manager"
+        },
+        "containerization": {
+          "type": "string",
+          "description": "Container tool"
+        },
+        "cicd": {
+          "type": "string",
+          "description": "CI/CD platform"
+        }
+      }
+    },
+    "testing": {
+      "type": "object",
+      "description": "Testing configuration",
+      "properties": {
+        "coverageMinimum": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "Minimum code coverage percentage"
+        },
+        "testCommand": {
+          "type": "string"
+        },
+        "typeCheckCommand": {
+          "type": "string"
+        },
+        "lintCommand": {
+          "type": "string"
+        },
+        "coverageCommand": {
+          "type": "string"
+        }
+      }
+    },
+    "database": {
+      "type": "object",
+      "description": "Database conventions",
+      "properties": {
+        "softDeleteField": {
+          "type": "string"
+        },
+        "timestampFields": {
+          "type": "object",
+          "properties": {
+            "created": {
+              "type": "string"
+            },
+            "updated": {
+              "type": "string"
+            }
+          }
+        },
+        "naming": {
+          "type": "string",
+          "enum": [
+            "snake_case",
+            "camelCase",
+            "PascalCase"
+          ]
+        }
+      }
+    },
+    "packages": {
+      "type": "object",
+      "properties": {
+        "internalPrefix": {
+          "type": "string",
+          "description": "Internal package scope prefix"
+        },
+        "registryUrl": {
+          "type": "string",
+          "description": "Package registry URL"
+        }
+      }
+    },
+    "fileNames": {
+      "type": "object",
+      "description": "File naming conventions",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "folderNames": {
+      "type": "object",
+      "description": "Folder naming conventions",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "conventions": {
+      "type": "object",
+      "description": "Development conventions",
+      "properties": {
+        "branchPrefix": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "commitFormat": {
+          "type": "string",
+          "enum": [
+            "conventional",
+            "angular",
+            "custom"
+          ]
+        },
+        "prTemplate": {
+          "type": "boolean"
+        }
+      }
+    }
+  }
+}

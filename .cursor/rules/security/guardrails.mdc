@@ -1,0 +1,66 @@
+---
+description: "Security guardrails applied to all AI interactions"
+alwaysApply: true
+---
+
+# Security Guardrails
+
+## Absolute Rules (NEVER Violate)
+
+### 1. Secrets Management
+- **NEVER** hardcode any of the following in source code:
+  - API keys, tokens, or credentials
+  - Database connection strings with passwords
+  - Private keys or certificates
+  - Webhook URLs with secrets
+- **ALWAYS** use environment variables: `process.env.VARIABLE_NAME`
+- **ALWAYS** use a secrets manager for production: AWS Secrets Manager, Vault, etc.
+- Reference secrets via: `{{CONFIG.techStack.cloud}}` secrets manager
+
+### 2. PII Protection
+- **NEVER** log personally identifiable information:
+  - Full names, email addresses, phone numbers
+  - Social Security Numbers, tax IDs
+  - Credit card numbers, bank account numbers
+  - IP addresses (in most contexts)
+  - Physical addresses, dates of birth
+- When logging user-related operations, use only: `userId`, `sessionId`, `correlationId`
+- Mask data in logs: `email: "j***@example.com"`, `phone: "***-***-1234"`
+
+### 3. Infrastructure Obfuscation
+- **NEVER** include real infrastructure names in:
+  - Code comments
+  - Documentation
+  - Error messages shown to users
+  - Git commit messages
+- Use generic placeholders:
+  - `[AWS_ACCOUNT_ID]` instead of actual account numbers
+  - `[QUEUE_NAME]` instead of actual SQS/queue names
+  - `[API_ENDPOINT]` instead of actual URLs
+  - `[BUCKET_NAME]` instead of actual S3 bucket names
+  - `[DB_HOST]` instead of actual database hostnames
+
+### 4. Input Validation
+- Validate ALL user input at the API boundary
+- Use allowlists over denylists
+- Sanitize data before database queries (parameterized queries only)
+- Validate file uploads: type, size, content
+- Rate limit all public endpoints
+
+### 5. Authentication & Authorization
+- Never store passwords in plain text
+- Use bcrypt/argon2 for password hashing
+- Implement proper session management
+- Use short-lived tokens with refresh mechanism
+- Apply principle of least privilege for all operations
+
+## Code Review Security Checklist
+Before approving any code change, verify:
+- [ ] No hardcoded secrets or credentials
+- [ ] No PII in logs or error messages
+- [ ] Input validation on all external inputs
+- [ ] Parameterized database queries (no string concatenation)
+- [ ] Proper error handling (no stack traces to users)
+- [ ] Authentication checks on protected routes
+- [ ] Authorization checks for resource access
+- [ ] No sensitive data in URL parameters

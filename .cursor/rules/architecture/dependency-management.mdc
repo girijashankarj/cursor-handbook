@@ -1,0 +1,47 @@
+---
+description: "Dependency management and package security rules"
+alwaysApply: true
+---
+
+# Dependency Management Rules
+
+## Package Manager: {{CONFIG.techStack.packageManager}}
+
+### Adding Dependencies
+- Always specify exact versions in production
+- Review package before adding: size, maintenance, license, security
+- Prefer packages with: >1000 GitHub stars, active maintenance, TypeScript support
+- Check for known vulnerabilities before adding
+- Document why each major dependency was chosen
+
+### Dependency Categories
+| Type | File Section | Example |
+|------|-------------|---------|
+| Production | `dependencies` | express, zod, prisma |
+| Development | `devDependencies` | jest, eslint, typescript |
+| Peer | `peerDependencies` | react (for libraries) |
+
+### Internal Packages
+- Prefix: `{{CONFIG.packages.internalPrefix}}`
+- Version: Follow semver strictly
+- Registry: `{{CONFIG.packages.registryUrl}}`
+- Document public API changes in CHANGELOG
+
+### Security
+- Run `npm audit` / `pip audit` weekly and in CI
+- No critical or high vulnerabilities allowed in production
+- Automated dependency updates via Dependabot or Renovate
+- Review all dependency update PRs before merging
+- Pin transitive dependencies when security requires it
+
+### Update Strategy
+- Patch updates: Auto-merge after CI passes
+- Minor updates: Review changelog, merge within 1 week
+- Major updates: Evaluate breaking changes, plan migration
+- Security updates: Apply within 24 hours for critical
+
+### Bundle Size
+- Monitor bundle size in CI pipeline
+- Set size budgets for frontend packages
+- Use tree-shaking-compatible packages
+- Prefer packages that support ESM

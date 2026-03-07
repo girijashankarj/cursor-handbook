@@ -1,0 +1,54 @@
+---
+description: "Container and Docker best practices"
+alwaysApply: true
+---
+
+# Containerization Rules
+
+## Dockerfile Best Practices
+
+### Multi-Stage Build Template
+```dockerfile
+# Stage 1: Dependencies
+FROM node:20-alpine AS deps
+WORKDIR /app
+COPY package.json {{CONFIG.techStack.packageManager}}-lock.yaml ./
+RUN {{CONFIG.techStack.packageManager}} install --frozen-lockfile
+
+# Stage 2: Build
+FROM node:20-alpine AS builder
+WORKDIR /app
+COPY --from=deps /app/node_modules ./node_modules
+COPY . .
+RUN {{CONFIG.techStack.packageManager}} run build
+
+# Stage 3: Production
+FROM node:20-alpine AS runner
+WORKDIR /app
+RUN addgroup --system --gid 1001 appgroup && \
+    adduser --system --uid 1001 appuser
+COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/package.json ./
+USER appuser
+EXPOSE 3000
+HEALTHCHECK --interval=30s --timeout=3s --start-period=10s CMD wget --spider http://localhost:3000/health || exit 1
+CMD ["node", "dist/index.js"]
+```
+
+## Rules
+- **ALWAYS** use multi-stage builds for minimal image size
+- **ALWAYS** run as non-root user in production
+- **NEVER** use `latest` tag — pin specific versions
+- **ALWAYS** include a health check endpoint
+- Use `.dockerignore` to exclude: node_modules, .git, tests, docs, .env
+- Minimize layers — combine RUN commands where logical
+- Order Dockerfile commands from least to most frequently changed (for cache optimization)
+- Scan images for vulnerabilities before pushing to registry
+
+## Docker Compose (Development)
+- Use for local development environment
+- Define all service dependencies (database, cache, queue)
+- Mount source code as volumes for hot reload
+- Use environment files for configuration
+- Include health checks for all services

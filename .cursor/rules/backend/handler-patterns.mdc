@@ -1,0 +1,86 @@
+---
+description: "Backend handler/controller pattern rules and flow"
+alwaysApply: true
+---
+
+# Handler Pattern Rules
+
+## Handler Flow
+Every API handler MUST follow this {{CONFIG.patterns.handlerFlowSteps}}-step flow:
+
+### Step-by-Step Flow
+1. **Validate Request** — Schema validation, type checking, required fields
+2. **Validate Business** — Business rule validation, entity state checks
+3. **Pre-Processing** — Data transformation, enrichment, defaults
+4. **Operation** — Core business logic execution
+5. **Post-Operation** — Side effects (events, notifications, cache invalidation)
+6. **Response** — Format and return response
+7. **Exit** — Cleanup, logging
+
+### Handler Directory Structure
+```
+{{CONFIG.paths.handlerBasePath}}/{entity}/{operation}/
+├── {{CONFIG.fileNames.handlerEntry}}        # Handler entry point
+├── {{CONFIG.folderNames.logic}}/
+│   ├── validate-request.ts                   # Step 1
+│   ├── validate-business.ts                  # Step 2
+│   ├── pre-processing.ts                     # Step 3
+│   ├── operation.ts                          # Step 4
+│   ├── post-operation.ts                     # Step 5
+│   └── response.ts                           # Step 6
+└── {{CONFIG.folderNames.schemas}}/
+    ├── {{CONFIG.fileNames.requestSchema}}    # Request validation schema
+    └── {{CONFIG.fileNames.responseSchema}}   # Response format schema
+```
+
+### Handler Entry Point Template
+```{{CONFIG.techStack.language}}
+import { Request, Response, NextFunction } from '{{CONFIG.techStack.framework}}';
+import { validateRequest } from './logic/validate-request';
+import { validateBusiness } from './logic/validate-business';
+import { preProcessing } from './logic/pre-processing';
+import { operation } from './logic/operation';
+import { postOperation } from './logic/post-operation';
+import { formatResponse } from './logic/response';
+import { logger } from '{{CONFIG.paths.commonPath}}/logger';
+
+export async function handler(req: Request, res: Response, next: NextFunction) {
+  const correlationId = req.headers['x-correlation-id'] as string;
+  const log = logger.child({ correlationId, operation: 'handler-name' });
+
+  try {
+    // Step 1: Validate Request
+    const validatedInput = await validateRequest(req.body);
+
+    // Step 2: Validate Business Rules
+    await validateBusiness(validatedInput);
+
+    // Step 3: Pre-Processing
+    const processedData = await preProcessing(validatedInput);
+
+    // Step 4: Core Operation
+    const result = await operation(processedData);
+
+    // Step 5: Post-Operation (async side effects)
+    await postOperation(result);
+
+    // Step 6: Response
+    const response = formatResponse(result);
+
+    // Step 7: Exit
+    log.info({ status: 'success' }, 'Handler completed');
+    return res.status(200).json(response);
+  } catch (error) {
+    log.error({ error: error.message }, 'Handler failed');
+    next(error);
+  }
+}
+```
+
+## Rules
+- Each logic step MUST be a pure function (no side effects except in post-operation)
+- Each logic file should have a single default export
+- Schemas MUST be JSON Schema format for request/response validation
+- Use dependency injection for external services
+- Handler functions MUST be async
+- Always pass correlationId through the entire flow

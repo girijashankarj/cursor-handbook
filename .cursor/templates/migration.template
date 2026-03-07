@@ -1,0 +1,56 @@
+# Migration Template
+# Usage: Copy this template when creating a new database migration
+# Name format: YYYYMMDDHHMMSS_descriptive_name.sql
+
+## UP Migration
+```sql
+-- Migration: {DESCRIPTION}
+-- Date: {DATE}
+-- Author: {AUTHOR}
+
+BEGIN;
+
+-- Create table (example)
+CREATE TABLE IF NOT EXISTS {table_name} (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    -- Add your columns here
+    name VARCHAR(255) NOT NULL,
+    description TEXT,
+    status VARCHAR(50) NOT NULL DEFAULT 'ACTIVE',
+    
+    -- Standard columns (REQUIRED)
+    {{CONFIG.database.softDeleteField}} BOOLEAN NOT NULL DEFAULT true,
+    {{CONFIG.database.timestampFields.created}} TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
+    {{CONFIG.database.timestampFields.updated}} TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
+    created_by UUID,
+    updated_by UUID
+);
+
+-- Create indexes
+CREATE INDEX idx_{table_name}_status ON {table_name}(status) 
+    WHERE {{CONFIG.database.softDeleteField}} = true;
+
+-- Create trigger for auto-updating timestamp
+CREATE OR REPLACE FUNCTION update_{{CONFIG.database.timestampFields.updated}}_column()
+RETURNS TRIGGER AS $$
+BEGIN
+    NEW.{{CONFIG.database.timestampFields.updated}} = NOW();
+    RETURN NEW;
+END;
+$$ language 'plpgsql';
+
+CREATE TRIGGER set_{{CONFIG.database.timestampFields.updated}}
+    BEFORE UPDATE ON {table_name}
+    FOR EACH ROW
+    EXECUTE FUNCTION update_{{CONFIG.database.timestampFields.updated}}_column();
+
+COMMIT;
+```
+
+## DOWN Migration
+```sql
+BEGIN;
+DROP TRIGGER IF EXISTS set_{{CONFIG.database.timestampFields.updated}} ON {table_name};
+DROP TABLE IF EXISTS {table_name};
+COMMIT;
+```

@@ -1,0 +1,60 @@
+---
+description: "CI/CD pipeline patterns and deployment rules"
+alwaysApply: true
+---
+
+# CI/CD Rules
+
+## Pipeline Stages
+```
+1. Lint & Format Check  →  2. Type Check  →  3. Unit Tests  →  4. Build  →  5. Integration Tests  →  6. Security Scan  →  7. Deploy
+```
+
+### Stage Details
+| Stage | Tool | Fail Condition |
+|-------|------|---------------|
+| Lint | {{CONFIG.techStack.linter}} | Any errors |
+| Type Check | `{{CONFIG.testing.typeCheckCommand}}` | Any type errors |
+| Unit Tests | `{{CONFIG.testing.testCommand}}` | <{{CONFIG.testing.coverageMinimum}}% coverage or failures |
+| Build | Package manager build | Build failure |
+| Integration | Integration test suite | Any failures |
+| Security | `npm audit` / Snyk / Trivy | Critical vulnerabilities |
+| Deploy | CD tool | Deployment failure |
+
+## Branch Strategy
+- `main` — production-ready code
+- `develop` — integration branch
+- `{{CONFIG.conventions.branchPrefix.feature}}*` — new features
+- `{{CONFIG.conventions.branchPrefix.bugfix}}*` — bug fixes
+- `{{CONFIG.conventions.branchPrefix.hotfix}}*` — production hotfixes
+- `{{CONFIG.conventions.branchPrefix.release}}*` — release preparation
+
+## Deployment Rules
+- **NEVER** deploy directly to production without CI passing
+- Use blue/green or canary deployments for zero downtime
+- Automated rollback on health check failure
+- Database migrations run before code deployment
+- Feature flags for gradual rollouts
+- Smoke tests after every deployment
+
+## Commit Convention ({{CONFIG.conventions.commitFormat}})
+```
+<type>(<scope>): <description>
+
+Types: feat, fix, docs, style, refactor, test, chore, perf, ci
+Scope: module or feature name
+Description: imperative mood, lowercase, no period
+
+Examples:
+  feat(orders): add order cancellation endpoint
+  fix(auth): handle expired refresh tokens
+  test(payments): add integration tests for refund flow
+```
+
+## Docker
+- Multi-stage builds for minimal image size
+- Non-root user in production containers
+- Pin base image versions (no `latest` tag)
+- Use `.dockerignore` to exclude unnecessary files
+- Health check endpoint in every service
+- Scan images for vulnerabilities before deployment

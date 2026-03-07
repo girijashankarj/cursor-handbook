@@ -1,0 +1,95 @@
+---
+description: "Frontend component architecture and patterns"
+alwaysApply: true
+---
+
+# Frontend Component Patterns
+
+## Component Structure
+```
+src/components/
+├── ui/                    # Atomic/base components
+│   ├── Button/
+│   │   ├── Button.tsx
+│   │   ├── Button.test.tsx
+│   │   ├── Button.stories.tsx
+│   │   └── index.ts
+│   ├── Input/
+│   └── Modal/
+├── features/              # Feature-specific components
+│   ├── Auth/
+│   ├── Dashboard/
+│   └── Settings/
+├── layout/                # Layout components
+│   ├── Header/
+│   ├── Sidebar/
+│   └── Footer/
+└── shared/                # Shared/utility components
+    ├── ErrorBoundary/
+    ├── LoadingSpinner/
+    └── ProtectedRoute/
+```
+
+## Component Guidelines
+
+### Functional Components Only
+- Use functional components with hooks — no class components
+- Use `React.FC` or explicit return types
+- Destructure props at the function signature level
+
+### Props
+- Define props interface above the component
+- Use descriptive prop names
+- Provide default values where appropriate
+- Document complex props with JSDoc comments
+
+```tsx
+interface ButtonProps {
+  /** Button label text */
+  label: string;
+  /** Visual style variant */
+  variant?: 'primary' | 'secondary' | 'danger';
+  /** Disabled state */
+  disabled?: boolean;
+  /** Click handler */
+  onClick: () => void;
+}
+
+export const Button: React.FC<ButtonProps> = ({
+  label,
+  variant = 'primary',
+  disabled = false,
+  onClick,
+}) => {
+  return (
+    <button
+      className={`btn btn-${variant}`}
+      disabled={disabled}
+      onClick={onClick}
+    >
+      {label}
+    </button>
+  );
+};
+```
+
+### State Management
+- Local state: `useState` for component-scoped state
+- Shared state: Context API or state library (Zustand, Redux Toolkit)
+- Server state: React Query / TanStack Query
+- Form state: React Hook Form or Formik
+- **NEVER** prop-drill more than 2 levels — use context or state management
+
+### Performance
+- Memoize expensive computations with `useMemo`
+- Memoize callbacks with `useCallback` when passing to child components
+- Use `React.memo` for pure presentational components
+- Lazy load routes and heavy components with `React.lazy`
+- Virtualize long lists (react-window or react-virtuoso)
+
+## Styling Rules
+- Use CSS Modules, Tailwind CSS, or styled-components — pick one, be consistent
+- No inline styles except for dynamic values
+- Follow design system tokens for colors, spacing, typography
+- Mobile-first responsive design
+- Support dark mode via CSS variables or theme context

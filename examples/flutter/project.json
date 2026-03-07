@@ -1,0 +1,43 @@
+{
+  "$schema": "../../.cursor/config/project-schema.json",
+  "project": {
+    "name": "my-flutter-app",
+    "description": "Cross-platform mobile app built with Flutter",
+    "version": "1.0.0"
+  },
+  "techStack": {
+    "language": "Dart",
+    "runtime": "Flutter 3.x",
+    "framework": "Flutter",
+    "cloud": "Firebase",
+    "database": "Firestore",
+    "orm": "N/A",
+    "testing": "flutter_test",
+    "linter": "dart analyze",
+    "formatter": "dart format",
+    "packageManager": "pub",
+    "containerization": "N/A",
+    "cicd": "GitHub Actions"
+  },
+  "paths": {
+    "source": "lib",
+    "apiPath": "lib/services",
+    "commonPath": "lib/core",
+    "configPath": "lib/config"
+  },
+  "testing": {
+    "coverageMinimum": 80,
+    "testCommand": "flutter test",
+    "typeCheckCommand": "dart analyze",
+    "lintCommand": "dart analyze",
+    "coverageCommand": "flutter test --coverage"
+  },
+  "folderNames": {
+    "controllers": "controllers",
+    "services": "services",
+    "models": "models",
+    "middleware": "middleware",
+    "types": "models",
+    "utils": "utils"
+  }
+}

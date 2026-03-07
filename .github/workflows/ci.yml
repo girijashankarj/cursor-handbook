@@ -1,0 +1,52 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate:
+    name: Validate Components
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate JSON files
+        run: |
+          echo "Validating JSON files..."
+          for f in $(find . -name "*.json" -not -path "*/node_modules/*"); do
+            python3 -m json.tool "$f" > /dev/null 2>&1 || echo "Invalid JSON: $f"
+          done
+
+      - name: Count components
+        run: |
+          RULES=$(find .cursor/rules -name "*.mdc" | wc -l | tr -d ' ')
+          AGENTS=$(find .cursor/agents -name "*.md" | wc -l | tr -d ' ')
+          SKILLS=$(find .cursor/skills -name "SKILL.md" | wc -l | tr -d ' ')
+          COMMANDS=$(find .cursor/commands -name "*.md" | wc -l | tr -d ' ')
+          HOOKS=$(find .cursor/hooks -name "*.sh" | wc -l | tr -d ' ')
+          echo "Rules: $RULES"
+          echo "Agents: $AGENTS"
+          echo "Skills: $SKILLS"
+          echo "Commands: $COMMANDS"
+          echo "Hooks: $HOOKS"
+          echo "Total: $((RULES + AGENTS + SKILLS + COMMANDS + HOOKS))"
+
+      - name: Check for secrets
+        run: |
+          echo "Checking for potential secrets..."
+          # Check for AWS keys
+          if grep -rE "AKIA[A-Z0-9]{16}" --include="*.md" --include="*.mdc" --include="*.json" --include="*.sh" .; then
+            echo "ERROR: AWS key pattern found!"
+            exit 1
+          fi
+          echo "No secrets found."
+
+      - name: Validate shell scripts
+        run: |
+          echo "Checking shell scripts..."
+          for f in .cursor/hooks/*.sh; do
+            bash -n "$f" || echo "Syntax error in: $f"
+          done

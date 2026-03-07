@@ -1,0 +1,50 @@
+---
+description: "Frontend performance optimization rules"
+alwaysApply: true
+---
+
+# Frontend Performance Rules
+
+## Core Web Vitals Targets
+| Metric | Target | Description |
+|--------|--------|-------------|
+| **LCP** | <2.5s | Largest Contentful Paint |
+| **FID/INP** | <100ms | First Input Delay / Interaction to Next Paint |
+| **CLS** | <0.1 | Cumulative Layout Shift |
+| **TTFB** | <800ms | Time to First Byte |
+
+## Loading Performance
+- Code split routes with `React.lazy()` or dynamic `import()`
+- Preload critical resources: fonts, above-the-fold images
+- Use `loading="lazy"` for below-the-fold images
+- Implement skeleton screens instead of spinners
+- Set explicit dimensions on images and embeds to prevent CLS
+- Use responsive images with `srcset` and `sizes`
+
+## Bundle Optimization
+- Maximum initial bundle size: **200KB** (gzipped)
+- Analyze bundle with webpack-bundle-analyzer or equivalent
+- Tree-shake unused exports
+- Externalize large libraries to CDN when appropriate
+- Use dynamic imports for heavy components (charts, editors, maps)
+
+## Runtime Performance
+- Virtualize long lists (>100 items) — use react-window or react-virtuoso
+- Debounce search inputs (300ms), throttle scroll/resize handlers (16ms)
+- Use `requestAnimationFrame` for smooth animations
+- Avoid layout thrashing — batch DOM reads and writes
+- Use Web Workers for CPU-intensive operations
+
+## Caching Strategy
+- Service Worker for offline support and asset caching
+- Cache API responses with appropriate TTL
+- Use `stale-while-revalidate` pattern for non-critical data
+- Implement HTTP caching headers: `Cache-Control`, `ETag`, `Last-Modified`
+- Use CDN for static assets
+
+## Monitoring
+- Track Core Web Vitals in production (via web-vitals library)
+- Set up performance budgets in CI
+- Alert on performance regressions
+- Monitor third-party script impact
+- Review Lighthouse scores monthly

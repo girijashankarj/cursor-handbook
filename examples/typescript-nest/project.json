@@ -1,0 +1,50 @@
+{
+  "$schema": "../../.cursor/config/project-schema.json",
+  "project": {
+    "name": "my-nest-api",
+    "description": "API built with NestJS framework and TypeScript",
+    "version": "1.0.0"
+  },
+  "techStack": {
+    "language": "TypeScript",
+    "runtime": "Node.js",
+    "framework": "NestJS",
+    "cloud": "AWS",
+    "database": "PostgreSQL",
+    "orm": "TypeORM",
+    "testing": "Jest",
+    "linter": "ESLint",
+    "formatter": "Prettier",
+    "packageManager": "pnpm",
+    "containerization": "Docker",
+    "cicd": "GitHub Actions"
+  },
+  "paths": {
+    "source": "src",
+    "apiPath": "src/modules",
+    "handlerBasePath": "src/modules",
+    "commonPath": "src/common",
+    "eventsPath": "src/events",
+    "configPath": "src/config"
+  },
+  "testing": {
+    "coverageMinimum": 85,
+    "testCommand": "pnpm run test",
+    "typeCheckCommand": "pnpm run build --noEmit",
+    "lintCommand": "pnpm run lint",
+    "coverageCommand": "pnpm run test:cov"
+  },
+  "database": {
+    "softDeleteField": "is_active",
+    "timestampFields": { "created": "created_at", "updated": "updated_at" },
+    "naming": "snake_case"
+  },
+  "packages": { "internalPrefix": "@my-org" },
+  "folderNames": {
+    "controllers": "controllers",
+    "services": "services",
+    "models": "entities",
+    "middleware": "middleware",
+    "types": "dto"
+  }
+}

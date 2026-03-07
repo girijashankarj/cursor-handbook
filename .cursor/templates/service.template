@@ -1,0 +1,65 @@
+# Service Template
+# Usage: Copy this template when creating a new service class
+
+## {ServiceName}.service.ts
+```typescript
+import { logger } from '{{CONFIG.paths.commonPath}}/logger';
+import { AppError, NotFoundError } from '{{CONFIG.paths.commonPath}}/errors';
+
+interface {Entity}Input {
+  // Define input properties
+}
+
+interface {Entity}Output {
+  // Define output properties
+}
+
+export class {ServiceName}Service {
+  private readonly log = logger.child({ service: '{ServiceName}Service' });
+
+  constructor(
+    private readonly repository: {Entity}Repository,
+    // Inject other dependencies
+  ) {}
+
+  async create(input: {Entity}Input, correlationId: string): Promise<{Entity}Output> {
+    this.log.info({ correlationId, operation: 'create' }, 'Creating {entity}');
+    
+    // Validate business rules
+    await this.validateBusinessRules(input);
+    
+    // Create entity
+    const entity = await this.repository.create({
+      ...input,
+      {{CONFIG.database.softDeleteField}}: true,
+    });
+    
+    this.log.info({ correlationId, entityId: entity.id }, '{Entity} created');
+    return entity;
+  }
+
+  async findById(id: string, correlationId: string): Promise<{Entity}Output> {
+    const entity = await this.repository.findOne({
+      where: { id, {{CONFIG.database.softDeleteField}}: true },
+    });
+    
+    if (!entity) {
+      throw new NotFoundError('{Entity}', id);
+    }
+    
+    return entity;
+  }
+
+  async softDelete(id: string, correlationId: string): Promise<void> {
+    this.log.info({ correlationId, entityId: id }, 'Soft deleting {entity}');
+    
+    await this.repository.update(id, {
+      {{CONFIG.database.softDeleteField}}: false,
+    });
+  }
+
+  private async validateBusinessRules(input: {Entity}Input): Promise<void> {
+    // Add business rule validations
+  }
+}
+```

@@ -1,0 +1,63 @@
+---
+description: "REST API design conventions and standards"
+alwaysApply: true
+---
+
+# API Design Rules
+
+## URL Structure
+```
+/api/v{version}/{resource}                    # Collection
+/api/v{version}/{resource}/{id}               # Single resource
+/api/v{version}/{resource}/{id}/{sub-resource} # Sub-resource
+```
+
+### HTTP Methods
+| Method | Action | Response Code | Idempotent |
+|--------|--------|--------------|------------|
+| GET | Read | 200 | Yes |
+| POST | Create | 201 | No |
+| PUT | Full update | 200 | Yes |
+| PATCH | Partial update | 200 | Yes |
+| DELETE | Soft delete | 200 | Yes |
+
+### Response Envelope
+```json
+{
+  "data": {},
+  "meta": {
+    "correlationId": "abc-123",
+    "timestamp": "2026-01-15T10:30:00Z",
+    "pagination": {
+      "page": 1,
+      "pageSize": 20,
+      "total": 150,
+      "hasNextPage": true,
+      "cursor": "eyJpZCI6MTIzfQ=="
+    }
+  }
+}
+```
+
+## Versioning
+- Use URL path versioning: `/api/v1/`, `/api/v2/`
+- Support at most 2 active versions simultaneously
+- Deprecation notice 6 months before version removal
+- Document breaking changes in changelog
+
+## Query Parameters
+| Parameter | Purpose | Example |
+|-----------|---------|---------|
+| `page`, `pageSize` | Pagination | `?page=2&pageSize=20` |
+| `cursor` | Cursor pagination | `?cursor=abc123` |
+| `sort` | Sorting | `?sort=-created_at,name` |
+| `filter` | Filtering | `?filter[status]=active` |
+| `fields` | Field selection | `?fields=id,name,email` |
+| `include` | Related resources | `?include=items,customer` |
+
+## Rate Limiting
+- Include rate limit headers in all responses:
+  - `X-RateLimit-Limit`: Max requests per window
+  - `X-RateLimit-Remaining`: Remaining requests
+  - `X-RateLimit-Reset`: Window reset timestamp
+- Return 429 when limit exceeded with `Retry-After` header

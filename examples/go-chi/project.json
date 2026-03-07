@@ -1,0 +1,50 @@
+{
+  "$schema": "../../.cursor/config/project-schema.json",
+  "project": {
+    "name": "my-go-api",
+    "description": "API built with Go and Chi router",
+    "version": "1.0.0"
+  },
+  "techStack": {
+    "language": "Go",
+    "runtime": "Go 1.22",
+    "framework": "Chi",
+    "cloud": "AWS",
+    "database": "PostgreSQL",
+    "orm": "sqlx",
+    "testing": "go test",
+    "linter": "golangci-lint",
+    "formatter": "gofmt",
+    "packageManager": "go modules",
+    "containerization": "Docker",
+    "cicd": "GitHub Actions"
+  },
+  "paths": {
+    "source": ".",
+    "apiPath": "internal/api",
+    "handlerBasePath": "internal/api/handlers",
+    "commonPath": "internal/common",
+    "eventsPath": "internal/events",
+    "configPath": "internal/config"
+  },
+  "testing": {
+    "coverageMinimum": 80,
+    "testCommand": "go test ./...",
+    "typeCheckCommand": "go build ./...",
+    "lintCommand": "golangci-lint run",
+    "coverageCommand": "go test -coverprofile=coverage.out ./..."
+  },
+  "database": {
+    "softDeleteField": "is_active",
+    "timestampFields": { "created": "created_at", "updated": "updated_at" },
+    "naming": "snake_case"
+  },
+  "packages": { "internalPrefix": "github.com/my-org" },
+  "folderNames": {
+    "controllers": "handlers",
+    "services": "services",
+    "models": "models",
+    "middleware": "middleware",
+    "types": "types"
+  }
+}

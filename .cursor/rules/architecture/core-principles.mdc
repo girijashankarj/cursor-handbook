@@ -1,0 +1,63 @@
+---
+description: "Core architecture principles and design patterns"
+alwaysApply: true
+---
+
+# Core Architecture Principles
+
+## Design Philosophy
+1. **Configuration over code** — behavior controlled via `{{CONFIG.paths.configPath}}`
+2. **Convention over configuration** — sensible defaults, override when needed
+3. **Composition over inheritance** — prefer small, composable functions
+4. **Explicit over implicit** — no magic, clear data flow
+5. **Fail fast** — validate early, return clear errors
+
+## Code Organization
+
+### Directory Structure
+```
+{{CONFIG.paths.source}}/
+├── {{CONFIG.folderNames.controllers}}/   # Request handlers
+├── {{CONFIG.folderNames.services}}/      # Business logic
+├── {{CONFIG.folderNames.models}}/        # Data models
+├── {{CONFIG.folderNames.middleware}}/     # Middleware
+├── {{CONFIG.folderNames.types}}/         # Type definitions
+├── {{CONFIG.folderNames.utils}}/         # Utility functions
+├── {{CONFIG.folderNames.common}}/        # Shared code
+├── {{CONFIG.folderNames.routes}}/        # Route definitions
+└── config/                               # Configuration
+```
+
+### File Naming Conventions
+- Use kebab-case for file names: `user-service.ts`, `order-handler.ts`
+- Use PascalCase for class files that match the class name
+- Test files: `*.test.ts` or `*.spec.ts`
+- Type files: `*.types.ts` or in `{{CONFIG.folderNames.types}}/` directory
+- Constants: `*.constants.ts`
+
+## Dependency Rules
+- **No circular dependencies** — use dependency injection or event-based communication
+- **Unidirectional data flow**: Controllers → Services → Models → Database
+- **Shared types** must live in `{{CONFIG.folderNames.common}}/` or `{{CONFIG.folderNames.types}}/`
+- **Internal packages** use `{{CONFIG.packages.internalPrefix}}` prefix
+
+## Error Handling
+- Use centralized error handling middleware
+- Define typed error classes extending a base `AppError`
+- Always include: error code, message, HTTP status, correlationId
+- Never expose internal error details to API consumers
+- Log full error details server-side with structured logging
+
+## Logging Standards
+- Use structured JSON logging
+- Every log entry MUST include `correlationId`
+- Log levels: `error` → `warn` → `info` → `debug`
+- **NEVER** log PII, secrets, or full request/response bodies
+- Include: timestamp, service name, operation, duration for performance logs
+
+## API Design
+- RESTful conventions with versioned endpoints (`/api/v1/...`)
+- Consistent response envelope: `{ data, meta, errors }`
+- Use HTTP status codes correctly (don't use 200 for errors)
+- Pagination: cursor-based preferred, offset-based acceptable
+- Rate limiting headers in all responses

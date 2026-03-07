@@ -1,0 +1,73 @@
+---
+description: "Testing standards and patterns for all code"
+alwaysApply: true
+---
+
+# Testing Standards
+
+## Coverage Requirements
+- Minimum coverage: **{{CONFIG.testing.coverageMinimum}}%**
+- Test command: `{{CONFIG.testing.testCommand}}`
+- Coverage command: `{{CONFIG.testing.coverageCommand}}`
+
+## Test Pyramid
+| Level | Proportion | Speed | What to Test |
+|-------|-----------|-------|-------------|
+| **Unit** | 70% | Fast (<100ms) | Functions, classes, utilities |
+| **Integration** | 20% | Medium (<5s) | API endpoints, DB queries, service interactions |
+| **E2E** | 10% | Slow (<30s) | Critical user flows only |
+
+## Unit Test Rules
+- Test one thing per test case
+- Use descriptive test names: `should {expected behavior} when {condition}`
+- Follow Arrange-Act-Assert (AAA) pattern
+- Mock all external dependencies
+- No real network calls, database queries, or file I/O
+- Test edge cases: null, undefined, empty, boundary values
+- Test error cases as thoroughly as success cases
+
+```{{CONFIG.techStack.language}}
+describe('OrderService', () => {
+  describe('calculateTotal', () => {
+    it('should return sum of item prices when items exist', () => {
+      // Arrange
+      const items = [{ price: 10 }, { price: 20 }, { price: 30 }];
+
+      // Act
+      const result = calculateTotal(items);
+
+      // Assert
+      expect(result).toBe(60);
+    });
+
+    it('should return 0 when items array is empty', () => {
+      expect(calculateTotal([])).toBe(0);
+    });
+
+    it('should throw when items is null', () => {
+      expect(() => calculateTotal(null)).toThrow('Items required');
+    });
+  });
+});
+```
+
+## Mock Rules
+- Use centralized mock infrastructure in `tests/mocks/`
+- Mock at the boundary — don't mock internal implementation
+- Keep mocks simple and maintainable
+- Reset mocks between tests
+- Never use real credentials in test fixtures
+
+## Integration Test Rules
+- Use test databases (not production)
+- Clean up test data after each test (or use transactions)
+- Test actual API contracts (request/response shapes)
+- Test error responses and status codes
+- Use factories/fixtures for test data creation
+
+## What NOT to Test
+- Framework internals
+- Third-party library behavior
+- Trivial getters/setters
+- Private methods directly (test via public API)
+- Generated code

@@ -1,0 +1,54 @@
+---
+description: "Security compliance standards and regulatory requirements"
+alwaysApply: true
+---
+
+# Security Compliance Rules
+
+## Data Classification
+| Level | Examples | Handling |
+|-------|----------|----------|
+| **Public** | Marketing content, docs | No restrictions |
+| **Internal** | Business logic, configs | Access controls required |
+| **Confidential** | User data, financials | Encryption required |
+| **Restricted** | PII, credentials, keys | Encryption + audit logging |
+
+## Compliance Requirements
+
+### Data in Transit
+- **ALWAYS** use TLS/HTTPS for all external communication
+- Minimum TLS 1.2, prefer TLS 1.3
+- Certificate pinning for mobile clients
+- Encrypt internal service-to-service communication
+
+### Data at Rest
+- Encrypt all database storage (AES-256)
+- Encrypt backups and snapshots
+- Use envelope encryption for sensitive fields
+- Secure key management via {{CONFIG.techStack.cloud}} KMS
+
+### Data Retention
+- Define retention periods for all data types
+- Implement automated data purging
+- Soft delete with configurable hard delete schedule
+- Audit log retention: minimum 1 year
+
+## API Security
+- OAuth 2.0 / OpenID Connect for authentication
+- API key rotation every 90 days
+- Rate limiting on all endpoints
+- Request size limits
+- CORS configuration — allowlist only trusted origins
+- Security headers: CSP, HSTS, X-Frame-Options, X-Content-Type-Options
+
+## Dependency Security
+- Run `npm audit` / `pip audit` in CI pipeline
+- No dependencies with known critical vulnerabilities
+- Pin dependency versions in production
+- Review transitive dependencies quarterly
+
+## Incident Response
+- Log all security-relevant events
+- Alert on: failed auth attempts (>5), privilege escalation, data export anomalies
+- Maintain incident response runbook
+- Post-incident review within 48 hours

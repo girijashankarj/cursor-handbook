@@ -1,0 +1,59 @@
+---
+description: "Database schema design conventions and standards"
+alwaysApply: true
+---
+
+# Database Schema Design
+
+## Naming Conventions ({{CONFIG.database.naming}})
+| Object | Convention | Example |
+|--------|-----------|---------|
+| Tables | Plural snake_case | `orders`, `order_items` |
+| Columns | snake_case | `created_at`, `order_total` |
+| Primary keys | `id` | `id` |
+| Foreign keys | `{table_singular}_id` | `order_id`, `user_id` |
+| Indexes | `idx_{table}_{columns}` | `idx_orders_user_id` |
+| Unique constraints | `uq_{table}_{columns}` | `uq_users_email` |
+| Check constraints | `chk_{table}_{description}` | `chk_orders_positive_total` |
+
+## Standard Table Template
+```sql
+CREATE TABLE {table_name} (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    -- Business columns here
+    {{CONFIG.database.softDeleteField}} BOOLEAN NOT NULL DEFAULT true,
+    {{CONFIG.database.timestampFields.created}} TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
+    {{CONFIG.database.timestampFields.updated}} TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
+    created_by UUID REFERENCES users(id),
+    updated_by UUID REFERENCES users(id)
+);
+
+-- Auto-update timestamp trigger
+CREATE TRIGGER set_updated_at
+    BEFORE UPDATE ON {table_name}
+    FOR EACH ROW
+    EXECUTE FUNCTION update_{{CONFIG.database.timestampFields.updated}}();
+
+-- Default index on soft delete flag
+CREATE INDEX idx_{table_name}_active
+    ON {table_name}({{CONFIG.database.softDeleteField}})
+    WHERE {{CONFIG.database.softDeleteField}} = true;
+```
+
+## Data Types
+| Use Case | Type | Notes |
+|----------|------|-------|
+| Identifiers | `UUID` | Use `gen_random_uuid()` |
+| Money/currency | `NUMERIC(19,4)` | Never use FLOAT |
+| Timestamps | `TIMESTAMP WITH TIME ZONE` | Always timezone-aware |
+| Short text | `VARCHAR(n)` | With appropriate length |
+| Long text | `TEXT` | For unbounded text |
+| Booleans | `BOOLEAN` | Not integers |
+| Enums | `VARCHAR` or native ENUM | Prefer VARCHAR for flexibility |
+| JSON data | `JSONB` | Not JSON (JSONB is indexed) |
+
+## Relationship Patterns
+- Use foreign keys with appropriate ON DELETE/UPDATE actions
+- Junction tables for many-to-many relationships
+- Consider denormalization for read-heavy queries
+- Use database-level constraints for data integrity

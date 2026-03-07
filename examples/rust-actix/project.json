@@ -1,0 +1,49 @@
+{
+  "$schema": "../../.cursor/config/project-schema.json",
+  "project": {
+    "name": "my-rust-api",
+    "description": "API built with Rust and Actix Web",
+    "version": "1.0.0"
+  },
+  "techStack": {
+    "language": "Rust",
+    "runtime": "Rust 1.75",
+    "framework": "Actix Web",
+    "cloud": "AWS",
+    "database": "PostgreSQL",
+    "orm": "Diesel",
+    "testing": "cargo test",
+    "linter": "clippy",
+    "formatter": "rustfmt",
+    "packageManager": "cargo",
+    "containerization": "Docker",
+    "cicd": "GitHub Actions"
+  },
+  "paths": {
+    "source": "src",
+    "apiPath": "src/api",
+    "handlerBasePath": "src/api/handlers",
+    "commonPath": "src/common",
+    "eventsPath": "src/events",
+    "configPath": "src/config"
+  },
+  "testing": {
+    "coverageMinimum": 80,
+    "testCommand": "cargo test",
+    "typeCheckCommand": "cargo check",
+    "lintCommand": "cargo clippy -- -D warnings",
+    "coverageCommand": "cargo tarpaulin --out html"
+  },
+  "database": {
+    "softDeleteField": "is_active",
+    "timestampFields": { "created": "created_at", "updated": "updated_at" },
+    "naming": "snake_case"
+  },
+  "folderNames": {
+    "controllers": "handlers",
+    "services": "services",
+    "models": "models",
+    "middleware": "middleware",
+    "types": "types"
+  }
+}

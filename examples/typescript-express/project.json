@@ -1,0 +1,48 @@
+{
+  "$schema": "../../.cursor/config/project-schema.json",
+  "project": {
+    "name": "my-express-api",
+    "description": "RESTful API built with Express.js and TypeScript",
+    "version": "1.0.0"
+  },
+  "techStack": {
+    "language": "TypeScript",
+    "runtime": "Node.js",
+    "framework": "Express.js",
+    "cloud": "AWS",
+    "database": "PostgreSQL",
+    "orm": "Prisma",
+    "testing": "Jest",
+    "linter": "ESLint",
+    "formatter": "Prettier",
+    "packageManager": "pnpm",
+    "containerization": "Docker",
+    "cicd": "GitHub Actions"
+  },
+  "paths": {
+    "source": "src",
+    "apiPath": "src/apis",
+    "handlerBasePath": "src/apis/handlers/v1",
+    "commonPath": "src/apis/common",
+    "eventsPath": "src/events/handlers",
+    "configPath": "config"
+  },
+  "testing": {
+    "coverageMinimum": 90,
+    "testCommand": "pnpm run test",
+    "typeCheckCommand": "pnpm run type-check",
+    "lintCommand": "pnpm run lint",
+    "coverageCommand": "pnpm run test:coverage"
+  },
+  "database": {
+    "softDeleteField": "active_indicator",
+    "timestampFields": { "created": "created_at", "updated": "updated_at" },
+    "naming": "snake_case"
+  },
+  "packages": { "internalPrefix": "@my-org" },
+  "fileNames": {
+    "handlerEntry": "index.ts",
+    "requestSchema": "request_schema.json",
+    "responseSchema": "response_schema.json"
+  }
+}

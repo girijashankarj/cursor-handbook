@@ -1,0 +1,91 @@
+---
+description: "Backend code organization and structure rules"
+alwaysApply: true
+---
+
+# Code Organization Rules
+
+## Project Structure
+```
+{{CONFIG.paths.source}}/
+├── {{CONFIG.paths.apiPath}}/
+│   ├── {{CONFIG.folderNames.common}}/     # Shared API utilities
+│   │   ├── errors/                         # Error classes
+│   │   ├── middleware/                      # Shared middleware
+│   │   ├── {{CONFIG.folderNames.types}}/   # Shared type definitions
+│   │   ├── validators/                     # Shared validators
+│   │   └── logger.ts                       # Logging utility
+│   └── handlers/
+│       └── v1/                             # Versioned handlers
+│           ├── {entity}/
+│           │   ├── create/
+│           │   ├── read/
+│           │   ├── update/
+│           │   └── list/
+├── {{CONFIG.paths.eventsPath}}/            # Event handlers
+├── {{CONFIG.folderNames.services}}/        # Business services
+├── {{CONFIG.folderNames.models}}/          # Data models
+└── config/                                 # Configuration
+```
+
+## Naming Conventions
+
+### Files
+| Type | Pattern | Example |
+|------|---------|---------|
+| Handler | `kebab-case` | `create-order.ts` |
+| Service | `kebab-case.service` | `order.service.ts` |
+| Model | `kebab-case.model` | `order.model.ts` |
+| Type | `kebab-case.types` | `order.types.ts` |
+| Test | `kebab-case.test` | `order.service.test.ts` |
+| Constants | `kebab-case.constants` | `order.constants.ts` |
+| Utility | `kebab-case.util` | `date.util.ts` |
+| Middleware | `kebab-case.middleware` | `auth.middleware.ts` |
+
+### Code
+| Type | Convention | Example |
+|------|-----------|---------|
+| Variables | camelCase | `orderTotal` |
+| Functions | camelCase | `calculateTotal()` |
+| Classes | PascalCase | `OrderService` |
+| Interfaces | PascalCase with I prefix (optional) | `OrderInput` or `IOrderInput` |
+| Constants | UPPER_SNAKE_CASE | `MAX_RETRY_COUNT` |
+| Enums | PascalCase | `OrderStatus` |
+| Database columns | snake_case | `created_at` |
+
+## Import Rules
+1. External packages first (alphabetical)
+2. Internal packages (`{{CONFIG.packages.internalPrefix}}/...`) second
+3. Relative imports last (parent → sibling → child)
+4. Blank line between each group
+5. No circular dependencies
+
+```{{CONFIG.techStack.language}}
+// 1. External packages
+import express from 'express';
+import { z } from 'zod';
+
+// 2. Internal packages
+import { logger } from '{{CONFIG.packages.internalPrefix}}/logger';
+
+// 3. Relative imports
+import { OrderService } from '../services/order.service';
+import { OrderInput } from './types/order.types';
+import { validateOrder } from './validators/order.validator';
+```
+
+## Database Rules
+- **Soft delete ONLY** — use `UPDATE {{CONFIG.database.softDeleteField}} = false`
+- **NEVER** use `DELETE FROM` statements
+- All tables MUST have: `{{CONFIG.database.timestampFields.created}}`, `{{CONFIG.database.timestampFields.updated}}`, `{{CONFIG.database.softDeleteField}}`
+- Use parameterized queries — NEVER concatenate SQL strings
+- Database column naming: `{{CONFIG.database.naming}}`
+- Use migrations for all schema changes
+- Index frequently queried columns
+
+## Function Guidelines
+- Maximum function length: 30 lines (prefer < 20)
+- Maximum parameters: 3 (use an options object for more)
+- Single responsibility — one function, one purpose
+- Pure functions preferred — side effects at boundaries only
+- Always specify return types explicitly

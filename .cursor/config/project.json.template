@@ -1,0 +1,126 @@
+{
+  "$schema": "./project-schema.json",
+  "project": {
+    "name": "{{PROJECT_NAME}}",
+    "description": "{{PROJECT_DESCRIPTION}}",
+    "version": "1.0.0",
+    "repository": "{{REPOSITORY_URL}}"
+  },
+  "cursor": {
+    "include": {
+      "patterns": ["src/**", "lib/**", "app/**", "tests/**", "config/**"],
+      "priorityFiles": ["README.md", "package.json", "tsconfig.json"]
+    },
+    "exclude": {
+      "patterns": ["node_modules/**", "dist/**", "build/**", ".git/**", "coverage/**"],
+      "largeFiles": ["*.lock", "*.map", "*.min.js", "*.min.css"],
+      "secrets": [".env", ".env.*", "*.pem", "*.key", "credentials.*"]
+    },
+    "tokenOptimization": {
+      "maxRuleLines": 300,
+      "maxSkillLines": 200,
+      "maxAgentLines": 150,
+      "contextLayers": {
+        "immediate": 2000,
+        "relevant": 5000,
+        "extended": 10000,
+        "reference": 20000
+      }
+    },
+    "models": {
+      "default": "claude-4-opus",
+      "complex": "claude-4-opus",
+      "simple": "claude-4-sonnet",
+      "fast": "claude-4-sonnet"
+    }
+  },
+  "paths": {
+    "source": "{{SOURCE_PATH}}",
+    "apiPath": "{{API_PATH}}",
+    "handlerBasePath": "{{HANDLER_BASE_PATH}}",
+    "commonPath": "{{COMMON_PATH}}",
+    "eventsPath": "{{EVENTS_PATH}}",
+    "configPath": "{{CONFIG_PATH}}"
+  },
+  "domain": {
+    "entities": ["{{ENTITY_1}}", "{{ENTITY_2}}"],
+    "lifecycles": {
+      "{{ENTITY_1}}": "{{LIFECYCLE_STATES}}"
+    },
+    "businessRules": []
+  },
+  "patterns": {
+    "handlerFlowSteps": 8,
+    "handlerFlow": [
+      "Validate Request",
+      "Validate Business",
+      "Pre-Processing",
+      "Operation",
+      "Post-Operation",
+      "Response",
+      "Exit"
+    ],
+    "errorHandling": "centralized",
+    "logging": "structured"
+  },
+  "techStack": {
+    "language": "{{LANGUAGE}}",
+    "runtime": "{{RUNTIME}}",
+    "framework": "{{FRAMEWORK}}",
+    "cloud": "{{CLOUD_PROVIDER}}",
+    "database": "{{DATABASE}}",
+    "orm": "{{ORM}}",
+    "testing": "{{TEST_FRAMEWORK}}",
+    "linter": "{{LINTER}}",
+    "formatter": "{{FORMATTER}}",
+    "packageManager": "{{PACKAGE_MANAGER}}",
+    "containerization": "{{CONTAINER_TOOL}}",
+    "cicd": "{{CICD_TOOL}}"
+  },
+  "testing": {
+    "coverageMinimum": 90,
+    "testCommand": "{{TEST_COMMAND}}",
+    "typeCheckCommand": "{{TYPE_CHECK_COMMAND}}",
+    "lintCommand": "{{LINT_COMMAND}}",
+    "coverageCommand": "{{COVERAGE_COMMAND}}"
+  },
+  "database": {
+    "softDeleteField": "{{SOFT_DELETE_FIELD}}",
+    "timestampFields": {
+      "created": "{{CREATED_AT_FIELD}}",
+      "updated": "{{UPDATED_AT_FIELD}}"
+    },
+    "naming": "snake_case"
+  },
+  "packages": {
+    "internalPrefix": "{{INTERNAL_PREFIX}}",
+    "registryUrl": "{{REGISTRY_URL}}"
+  },
+  "fileNames": {
+    "handlerEntry": "{{HANDLER_ENTRY_FILE}}",
+    "requestSchema": "{{REQUEST_SCHEMA_FILE}}",
+    "responseSchema": "{{RESPONSE_SCHEMA_FILE}}"
+  },
+  "folderNames": {
+    "logic": "logic",
+    "schemas": "schemas",
+    "common": "common",
+    "services": "services",
+    "types": "types",
+    "utils": "utils",
+    "middleware": "middleware",
+    "models": "models",
+    "controllers": "controllers",
+    "routes": "routes"
+  },
+  "conventions": {
+    "branchPrefix": {
+      "feature": "feature/",
+      "bugfix": "fix/",
+      "hotfix": "hotfix/",
+      "release": "release/"
+    },
+    "commitFormat": "conventional",
+    "prTemplate": true
+  }
+}

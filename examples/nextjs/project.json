@@ -1,0 +1,49 @@
+{
+  "$schema": "../../.cursor/config/project-schema.json",
+  "project": {
+    "name": "my-nextjs-app",
+    "description": "Full-stack Next.js application with TypeScript",
+    "version": "1.0.0"
+  },
+  "techStack": {
+    "language": "TypeScript",
+    "runtime": "Node.js",
+    "framework": "Next.js",
+    "cloud": "Vercel",
+    "database": "PostgreSQL",
+    "orm": "Prisma",
+    "testing": "Jest",
+    "linter": "ESLint",
+    "formatter": "Prettier",
+    "packageManager": "pnpm",
+    "containerization": "Docker",
+    "cicd": "GitHub Actions"
+  },
+  "paths": {
+    "source": "src",
+    "apiPath": "src/app/api",
+    "handlerBasePath": "src/app/api",
+    "commonPath": "src/lib",
+    "configPath": "src/config"
+  },
+  "testing": {
+    "coverageMinimum": 80,
+    "testCommand": "pnpm run test",
+    "typeCheckCommand": "pnpm run type-check",
+    "lintCommand": "next lint",
+    "coverageCommand": "pnpm run test:coverage"
+  },
+  "database": {
+    "softDeleteField": "is_active",
+    "timestampFields": { "created": "created_at", "updated": "updated_at" },
+    "naming": "snake_case"
+  },
+  "packages": { "internalPrefix": "@my-org" },
+  "folderNames": {
+    "common": "lib",
+    "services": "services",
+    "types": "types",
+    "utils": "utils",
+    "models": "models"
+  }
+}

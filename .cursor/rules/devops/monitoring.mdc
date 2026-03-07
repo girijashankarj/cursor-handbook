@@ -1,0 +1,67 @@
+---
+description: "Monitoring, observability, and alerting rules"
+alwaysApply: true
+---
+
+# Monitoring & Observability Rules
+
+## Three Pillars of Observability
+
+### 1. Logging
+- Structured JSON format for all logs
+- Every log entry MUST include: `timestamp`, `level`, `correlationId`, `service`
+- Log levels: ERROR → WARN → INFO → DEBUG
+- **NEVER** log PII, secrets, or full request/response bodies
+- Use sampling for high-volume debug logs in production
+
+```json
+{
+  "timestamp": "2026-01-15T10:30:00Z",
+  "level": "info",
+  "correlationId": "abc-123-def",
+  "service": "{{CONFIG.project.name}}",
+  "operation": "createOrder",
+  "duration_ms": 245,
+  "status": "success"
+}
+```
+
+### 2. Metrics
+Key metrics to track:
+- **Request rate** (requests/second)
+- **Error rate** (errors/total requests)
+- **Latency** (p50, p95, p99)
+- **Saturation** (CPU, memory, disk, connections)
+- **Business metrics** (orders/minute, signups/day)
+
+### 3. Tracing
+- Implement distributed tracing across all services
+- Propagate trace context via headers (`traceparent`, `tracestate`)
+- Record spans for: HTTP calls, DB queries, cache operations, queue operations
+- Sample traces at 10% in production, 100% in staging
+
+## Alerting Rules
+
+### Severity Levels
+| Severity | Response Time | Example |
+|----------|--------------|---------|
+| **P1 - Critical** | 15 min | Service down, data loss |
+| **P2 - High** | 1 hour | Degraded performance, partial outage |
+| **P3 - Medium** | 4 hours | Elevated error rate, slow queries |
+| **P4 - Low** | Next business day | Warning thresholds, capacity planning |
+
+### Alert Thresholds
+- Error rate > 1% for 5 minutes → P2
+- Error rate > 5% for 2 minutes → P1
+- p99 latency > 2s for 10 minutes → P3
+- CPU > 80% for 15 minutes → P3
+- Disk > 90% → P2
+- Service health check failure → P1
+
+## Dashboard Requirements
+Every service MUST have a dashboard with:
+- Request rate and error rate over time
+- Latency percentiles (p50, p95, p99)
+- Resource utilization (CPU, memory)
+- Active connections / concurrent requests
+- Business-specific metrics

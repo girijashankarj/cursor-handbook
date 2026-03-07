@@ -1,0 +1,82 @@
+---
+description: "Mock and test fixture patterns for consistent testing"
+alwaysApply: true
+---
+
+# Mock Patterns
+
+## Centralized Mock Infrastructure
+```
+tests/
+├── mocks/
+│   ├── services/           # Service mocks
+│   │   ├── database.mock.ts
+│   │   ├── cache.mock.ts
+│   │   └── queue.mock.ts
+│   ├── factories/          # Test data factories
+│   │   ├── order.factory.ts
+│   │   ├── user.factory.ts
+│   │   └── product.factory.ts
+│   ├── fixtures/           # Static test data
+│   │   ├── orders.json
+│   │   └── users.json
+│   └── setup.ts            # Global test setup
+├── helpers/
+│   ├── test-server.ts      # Test server utilities
+│   └── assertions.ts       # Custom assertions
+└── integration/
+    └── setup.ts            # Integration test setup
+```
+
+## Factory Pattern
+```{{CONFIG.techStack.language}}
+// tests/mocks/factories/order.factory.ts
+import { faker } from '@faker-js/faker';
+
+interface OrderOverrides {
+  id?: string;
+  status?: string;
+  total?: number;
+}
+
+export function createOrder(overrides: OrderOverrides = {}) {
+  return {
+    id: overrides.id ?? faker.string.uuid(),
+    status: overrides.status ?? 'PENDING',
+    total: overrides.total ?? faker.number.float({ min: 1, max: 1000 }),
+    {{CONFIG.database.timestampFields.created}}: new Date().toISOString(),
+    {{CONFIG.database.timestampFields.updated}}: new Date().toISOString(),
+    {{CONFIG.database.softDeleteField}}: true,
+    ...overrides,
+  };
+}
+
+export function createOrders(count: number, overrides: OrderOverrides = {}) {
+  return Array.from({ length: count }, () => createOrder(overrides));
+}
+```
+
+## Service Mock Pattern
+```{{CONFIG.techStack.language}}
+// tests/mocks/services/database.mock.ts
+export const mockDatabase = {
+  query: jest.fn(),
+  transaction: jest.fn(),
+  connect: jest.fn(),
+  disconnect: jest.fn(),
+  reset() {
+    this.query.mockReset();
+    this.transaction.mockReset();
+    this.connect.mockReset();
+    this.disconnect.mockReset();
+  }
+};
+```
+
+## Rules
+- **NEVER** use real API endpoints in tests
+- **NEVER** use real database connections in unit tests
+- **NEVER** use real credentials in test fixtures
+- Reset all mocks in `beforeEach` or `afterEach`
+- Use factories for dynamic test data, fixtures for static data
+- Keep mock implementations simple — only mock what's needed

@@ -1,0 +1,60 @@
+---
+description: "Database migration patterns and safety rules"
+alwaysApply: true
+---
+
+# Database Migration Rules
+
+## Migration Safety
+
+### Pre-Migration Checklist
+- [ ] Migration has both UP and DOWN functions
+- [ ] Tested against a copy of production data
+- [ ] No data loss in the migration
+- [ ] Backward compatible with current code
+- [ ] Performance tested for large tables
+- [ ] Reviewed by another developer
+
+### Safe Migration Patterns
+```sql
+-- SAFE: Adding a column with a default
+ALTER TABLE orders ADD COLUMN priority VARCHAR(20) DEFAULT 'normal';
+
+-- SAFE: Adding an index concurrently (PostgreSQL)
+CREATE INDEX CONCURRENTLY idx_orders_priority ON orders(priority);
+
+-- UNSAFE: Renaming a column (breaks existing queries)
+-- Instead: Add new column → migrate data → update code → remove old column
+
+-- UNSAFE: Changing column type directly
+-- Instead: Add new column → migrate data → swap columns
+```
+
+### Migration Naming
+```
+Format: YYYYMMDDHHMMSS_descriptive_action.sql
+
+Examples:
+  20260101120000_create_orders_table.sql
+  20260102090000_add_priority_to_orders.sql
+  20260103150000_create_idx_orders_user_id.sql
+```
+
+## Zero-Downtime Migration Strategy
+For production databases, follow this sequence:
+1. **Expand**: Add new columns/tables (backward compatible)
+2. **Migrate**: Backfill data to new structure
+3. **Contract**: Update code to use new structure
+4. **Cleanup**: Remove old columns/tables (after verification)
+
+## Rollback Plan
+- Every migration MUST have a rollback script
+- Test rollback in staging before production deployment
+- Keep rollback scripts for the last 10 migrations
+- Document manual steps if automated rollback isn't possible
+
+## Data Backfill
+- Use batch processing for large tables (1000-5000 rows per batch)
+- Include progress logging
+- Implement idempotent backfills (safe to re-run)
+- Run during low-traffic periods for large tables

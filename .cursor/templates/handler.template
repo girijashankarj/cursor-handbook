@@ -1,0 +1,76 @@
+# Handler Template
+# Usage: Copy this template when creating a new API handler
+
+## Directory Structure
+{{CONFIG.paths.handlerBasePath}}/{entity}/{operation}/
+├── index.ts
+├── logic/
+│   ├── validate-request.ts
+│   ├── validate-business.ts
+│   ├── pre-processing.ts
+│   ├── operation.ts
+│   ├── post-operation.ts
+│   └── response.ts
+└── schemas/
+    ├── request_schema.json
+    └── response_schema.json
+
+## index.ts
+```typescript
+import { Request, Response, NextFunction } from 'express';
+import { validateRequest } from './logic/validate-request';
+import { validateBusiness } from './logic/validate-business';
+import { preProcessing } from './logic/pre-processing';
+import { operation } from './logic/operation';
+import { postOperation } from './logic/post-operation';
+import { formatResponse } from './logic/response';
+import { logger } from '{{CONFIG.paths.commonPath}}/logger';
+
+export async function handler(req: Request, res: Response, next: NextFunction) {
+  const correlationId = req.headers['x-correlation-id'] as string;
+  const log = logger.child({ correlationId, operation: '{OPERATION_NAME}' });
+
+  try {
+    const validatedInput = await validateRequest(req.body);
+    await validateBusiness(validatedInput);
+    const processedData = await preProcessing(validatedInput);
+    const result = await operation(processedData);
+    await postOperation(result);
+    const response = formatResponse(result);
+    log.info({ status: 'success' }, 'Handler completed');
+    return res.status(200).json(response);
+  } catch (error) {
+    log.error({ error: error.message }, 'Handler failed');
+    next(error);
+  }
+}
+```
+
+## validate-request.ts
+```typescript
+import Ajv from 'ajv';
+import requestSchema from '../schemas/request_schema.json';
+import { ValidationError } from '{{CONFIG.paths.commonPath}}/errors';
+
+const ajv = new Ajv();
+const validate = ajv.compile(requestSchema);
+
+export async function validateRequest(body: unknown) {
+  if (!validate(body)) {
+    throw new ValidationError('Invalid request', { errors: validate.errors });
+  }
+  return body as RequestInput;
+}
+```
+
+## response.ts
+```typescript
+export function formatResponse(result: OperationResult) {
+  return {
+    data: result,
+    meta: {
+      timestamp: new Date().toISOString(),
+    },
+  };
+}
+```

@@ -1,0 +1,125 @@
+# =============================================================================
+# .cursorignore - Files excluded from Cursor AI context
+# =============================================================================
+# Purpose: Reduce token consumption by excluding irrelevant files from AI context.
+# This can save 30%+ on token costs by preventing large, non-essential files
+# from being included in prompts.
+# =============================================================================
+
+# Dependencies & Package Managers
+node_modules/
+vendor/
+.pnp/
+.pnp.js
+bower_components/
+
+# Lock files (large, not useful for AI context)
+pnpm-lock.yaml
+package-lock.json
+yarn.lock
+Gemfile.lock
+Pipfile.lock
+poetry.lock
+composer.lock
+go.sum
+Cargo.lock
+
+# Build Output & Compiled Files
+dist/
+build/
+out/
+.next/
+.nuxt/
+.output/
+.svelte-kit/
+target/
+bin/
+obj/
+*.pyc
+__pycache__/
+*.class
+*.o
+*.so
+*.dll
+
+# Source Maps & Minified Files
+*.map
+*.min.js
+*.min.css
+*.bundle.js
+*.chunk.js
+
+# Test Coverage & Reports
+coverage/
+.nyc_output/
+htmlcov/
+test-results/
+*.lcov
+
+# IDE & Editor Files
+.idea/
+.vscode/settings.json
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Environment & Secrets (SECURITY)
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.cert
+*.p12
+*.pfx
+credentials.*
+secrets.*
+*.secret
+
+# Version Control
+.git/
+.svn/
+.hg/
+
+# Container & Infrastructure
+.terraform/
+*.tfstate
+*.tfstate.backup
+.pulumi/
+
+# Documentation Assets (large files)
+*.pdf
+*.docx
+*.xlsx
+*.pptx
+
+# Media Files
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.svg
+*.ico
+*.mp4
+*.mp3
+*.wav
+*.webp
+*.woff
+*.woff2
+*.ttf
+*.eot
+
+# Logs
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Temporary Files
+tmp/
+temp/
+.cache/
+.turbo/

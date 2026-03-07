@@ -1,0 +1,57 @@
+---
+description: "Frontend state management patterns and best practices"
+alwaysApply: true
+---
+
+# State Management Rules
+
+## State Categories
+
+| Category | Tool | Example |
+|----------|------|---------|
+| **UI State** | `useState` / `useReducer` | Modal open, form input, toggle |
+| **Shared UI State** | Context API / Zustand | Theme, sidebar, notifications |
+| **Server State** | TanStack Query / SWR | API data, user profile, lists |
+| **Form State** | React Hook Form | Form values, validation, submission |
+| **URL State** | Router params / search params | Filters, pagination, selected tab |
+
+## Rules
+
+### Local State
+- Keep state as close to where it's used as possible
+- Lift state up only when siblings need to share it
+- Use `useReducer` for complex state with multiple sub-values
+
+### Server State
+- Use TanStack Query (React Query) for all API calls
+- Configure stale time and cache time appropriately
+- Use query keys that include all dependencies
+- Implement optimistic updates for better UX
+- Handle loading, error, and empty states explicitly
+
+```tsx
+// CORRECT - Using TanStack Query
+const { data, isLoading, error } = useQuery({
+  queryKey: ['orders', filters],
+  queryFn: () => fetchOrders(filters),
+  staleTime: 5 * 60 * 1000, // 5 minutes
+});
+
+// WRONG - Manual fetch in useEffect
+const [data, setData] = useState(null);
+useEffect(() => {
+  fetch('/api/orders').then(r => r.json()).then(setData);
+}, []);
+```
+
+### Global State
+- Keep global state minimal — most state should be local or server
+- Use Zustand for lightweight global state
+- Use Redux Toolkit only if the app has complex client-side state
+- **NEVER** put server data in global state — use React Query
+
+### Performance
+- Avoid unnecessary re-renders by keeping state granular
+- Use selectors for derived state
+- Memoize expensive derived computations
+- Use `React.memo` for components that receive stable props

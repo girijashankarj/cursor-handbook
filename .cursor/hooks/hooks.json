@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json.schemastore.org/cursor-hooks",
+  "description": "Cursor hook configuration for automated AI loop tasks",
+  "hooks": {
+    "beforeSubmitPrompt": {
+      "enabled": true,
+      "scripts": ["context-enrichment.sh"],
+      "description": "Enrich prompts with project context before submission"
+    },
+    "afterFileEdit": {
+      "enabled": true,
+      "scripts": ["post-edit-check.sh", "auto-format.sh"],
+      "description": "Run checks after file edits"
+    },
+    "beforeShellExecution": {
+      "enabled": true,
+      "scripts": ["shell-guard.sh"],
+      "description": "Guard against dangerous shell commands"
+    },
+    "afterTestRun": {
+      "enabled": false,
+      "scripts": ["coverage-check.sh"],
+      "description": "Check coverage after test runs"
+    }
+  }
+}

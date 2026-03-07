@@ -1,0 +1,51 @@
+---
+description: "Token optimization rules to reduce AI costs by 30%+"
+alwaysApply: true
+---
+
+# Token Efficiency Rules
+
+## Context Layering Strategy
+Use layered context to minimize token consumption:
+
+| Layer | Token Budget | What to Include |
+|-------|-------------|-----------------|
+| Immediate | {{CONFIG.cursor.tokenOptimization.contextLayers.immediate}} | Current file, direct dependencies |
+| Relevant | {{CONFIG.cursor.tokenOptimization.contextLayers.relevant}} | Related modules, shared types |
+| Extended | {{CONFIG.cursor.tokenOptimization.contextLayers.extended}} | Broader codebase patterns |
+| Reference | {{CONFIG.cursor.tokenOptimization.contextLayers.reference}} | Documentation, examples |
+
+## Expensive Operations — REQUIRE CONFIRMATION
+
+### Operations that MUST require user confirmation:
+1. **Full test suite** (`{{CONFIG.testing.testCommand}}`) — estimated 100K+ tokens
+2. **Full lint** (`{{CONFIG.testing.lintCommand}}`) — estimated 50K+ tokens
+3. **Full build** — estimated 75K+ tokens
+4. **Reading 10+ files** — estimated 50K+ tokens
+
+### Preferred alternatives:
+- Use `read_lints` tool instead of running lint commands
+- Run `{{CONFIG.testing.typeCheckCommand}}` (~10K tokens) instead of full tests
+- Run tests for a **single file** instead of the entire suite
+- Read only the specific functions/sections needed, not entire files
+
+## Output Guidelines
+- **Summaries over verbose**: Use bullet points, not paragraphs
+- **Diff format**: Show only changed lines when editing files
+- **Max 3 sentences** for explanations unless user asks for more
+- **No redundant context**: Don't repeat information the user already provided
+- **Structured responses**: Use headers, lists, and tables
+- **Code blocks**: Only show relevant sections, not entire files
+
+## File Reading Strategy
+1. Read only the files directly related to the task
+2. Start with type definitions and interfaces
+3. Read implementation files only when needed
+4. Never read generated files (dist/, build/, coverage/)
+5. Use file search tools to find specific symbols instead of reading entire files
+
+## Token-Saving Patterns
+- When asked to "review" code, focus on: bugs, security issues, performance — skip style
+- When asked to "implement", show the minimal diff — not the entire file
+- When asked to "explain", use a layered approach: summary first, details on request
+- When asked to "test", create tests for the specific function — not the entire module

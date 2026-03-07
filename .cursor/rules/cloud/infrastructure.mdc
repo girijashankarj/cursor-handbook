@@ -1,0 +1,52 @@
+---
+description: "Cloud infrastructure patterns and best practices"
+alwaysApply: true
+---
+
+# Cloud Infrastructure Rules
+
+## Provider: {{CONFIG.techStack.cloud}}
+
+### Infrastructure as Code
+- **ALWAYS** use IaC (Terraform, CDK, CloudFormation, Pulumi)
+- **NEVER** make manual changes to production infrastructure
+- Version control all infrastructure code
+- Use separate state files per environment
+- Review infrastructure changes like code changes
+
+### Resource Naming
+- Format: `{project}-{environment}-{resource}-{qualifier}`
+- Example: `myapp-prod-api-gateway`, `myapp-staging-db-primary`
+- Use consistent naming across all resources
+- **NEVER** expose real resource names in code — use `[RESOURCE_NAME]` placeholders
+
+### Environment Strategy
+| Environment | Purpose | Data |
+|------------|---------|------|
+| `local` | Developer machine | Mock/seed data |
+| `dev` | Integration testing | Synthetic data |
+| `staging` | Pre-production | Anonymized prod data |
+| `production` | Live system | Real data |
+
+### Security
+- Enable encryption at rest for all storage services
+- Enable encryption in transit (TLS) for all communication
+- Use IAM roles — **NEVER** hardcode credentials
+- Apply principle of least privilege for all IAM policies
+- Enable audit logging (CloudTrail, Cloud Audit Logs)
+- Use VPC/private networking for internal services
+
+### Cost Optimization
+- Tag all resources with: project, environment, owner, cost-center
+- Use auto-scaling for compute resources
+- Right-size instances based on usage metrics
+- Use spot/preemptible instances for non-critical workloads
+- Set up billing alerts and budgets
+- Review unused resources monthly
+
+### Monitoring & Alerting
+- Monitor: CPU, memory, disk, network, request latency, error rates
+- Alert thresholds: error rate >1%, p99 latency >2s, CPU >80%
+- Use structured logging for all services
+- Implement distributed tracing
+- Set up dashboards for key metrics

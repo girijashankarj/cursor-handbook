@@ -1,0 +1,41 @@
+{
+  "$schema": "../../.cursor/config/project-schema.json",
+  "project": {
+    "name": "my-react-app",
+    "description": "React SPA with TypeScript",
+    "version": "1.0.0"
+  },
+  "techStack": {
+    "language": "TypeScript",
+    "runtime": "Node.js",
+    "framework": "React",
+    "cloud": "AWS",
+    "database": "N/A",
+    "orm": "N/A",
+    "testing": "Vitest",
+    "linter": "ESLint",
+    "formatter": "Prettier",
+    "packageManager": "pnpm",
+    "containerization": "Docker",
+    "cicd": "GitHub Actions"
+  },
+  "paths": {
+    "source": "src",
+    "apiPath": "src/api",
+    "commonPath": "src/shared",
+    "configPath": "src/config"
+  },
+  "testing": {
+    "coverageMinimum": 80,
+    "testCommand": "pnpm run test",
+    "typeCheckCommand": "pnpm run type-check",
+    "lintCommand": "pnpm run lint",
+    "coverageCommand": "pnpm run test:coverage"
+  },
+  "folderNames": {
+    "common": "shared",
+    "services": "services",
+    "types": "types",
+    "utils": "utils"
+  }
+}

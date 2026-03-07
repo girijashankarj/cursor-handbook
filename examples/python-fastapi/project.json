@@ -1,0 +1,50 @@
+{
+  "$schema": "../../.cursor/config/project-schema.json",
+  "project": {
+    "name": "my-fastapi-app",
+    "description": "API built with FastAPI and Python",
+    "version": "1.0.0"
+  },
+  "techStack": {
+    "language": "Python",
+    "runtime": "Python 3.12",
+    "framework": "FastAPI",
+    "cloud": "AWS",
+    "database": "PostgreSQL",
+    "orm": "SQLAlchemy",
+    "testing": "pytest",
+    "linter": "ruff",
+    "formatter": "black",
+    "packageManager": "poetry",
+    "containerization": "Docker",
+    "cicd": "GitHub Actions"
+  },
+  "paths": {
+    "source": "app",
+    "apiPath": "app/api",
+    "handlerBasePath": "app/api/v1",
+    "commonPath": "app/core",
+    "eventsPath": "app/events",
+    "configPath": "app/config"
+  },
+  "testing": {
+    "coverageMinimum": 90,
+    "testCommand": "poetry run pytest",
+    "typeCheckCommand": "poetry run mypy app/",
+    "lintCommand": "poetry run ruff check .",
+    "coverageCommand": "poetry run pytest --cov=app --cov-report=html"
+  },
+  "database": {
+    "softDeleteField": "is_active",
+    "timestampFields": { "created": "created_at", "updated": "updated_at" },
+    "naming": "snake_case"
+  },
+  "packages": { "internalPrefix": "my-org" },
+  "folderNames": {
+    "controllers": "routers",
+    "services": "services",
+    "models": "models",
+    "middleware": "middleware",
+    "types": "schemas"
+  }
+}

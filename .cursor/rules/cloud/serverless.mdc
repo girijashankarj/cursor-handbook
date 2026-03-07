@@ -1,0 +1,53 @@
+---
+description: "Serverless architecture patterns and Lambda/function best practices"
+alwaysApply: true
+---
+
+# Serverless Patterns
+
+## Function Design
+- **Single responsibility** — one function, one purpose
+- **Stateless** — no local state between invocations
+- **Idempotent** — safe to retry without side effects
+- Keep cold start time minimal (<500ms target)
+- Set appropriate memory and timeout limits
+
+## Cold Start Optimization
+- Minimize dependency bundle size
+- Use tree-shaking and dead code elimination
+- Initialize SDK clients outside the handler
+- Use provisioned concurrency for latency-sensitive functions
+- Prefer lightweight runtimes (Node.js, Python, Go)
+
+```{{CONFIG.techStack.language}}
+// Initialize OUTSIDE handler (reused across invocations)
+const dbClient = new DatabaseClient();
+const cacheClient = new CacheClient();
+
+// Handler function
+export async function handler(event: Event): Promise<Response> {
+  // Use pre-initialized clients
+  const result = await dbClient.query(event.input);
+  return formatResponse(result);
+}
+```
+
+## Event-Driven Architecture
+- Use message queues for async processing
+- Implement dead letter queues for failed messages
+- Use event schemas for type safety
+- Implement circuit breakers for external service calls
+- Design for at-least-once delivery — make handlers idempotent
+
+## Timeouts & Retries
+- API Gateway timeout: 29s max
+- Lambda/Function timeout: match workload (default 30s)
+- Use exponential backoff with jitter for retries
+- Set max retry count (typically 3)
+- Dead letter queue for exhausted retries
+
+## Observability
+- Structured JSON logging with correlationId
+- Custom metrics for business KPIs
+- Distributed tracing across functions
+- Alert on: error rate, duration p99, throttles, DLQ depth

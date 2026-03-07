@@ -1,0 +1,63 @@
+---
+description: "Integration testing patterns and database test setup"
+alwaysApply: true
+---
+
+# Integration Testing Rules
+
+## Setup
+- Use a dedicated test database (never production or development)
+- Reset database state before each test suite
+- Use transactions for test isolation when possible
+- Seed minimal data required for each test
+
+## API Integration Tests
+```{{CONFIG.techStack.language}}
+describe('POST /api/v1/orders', () => {
+  it('should create an order and return 201', async () => {
+    const payload = {
+      customerId: testCustomer.id,
+      items: [{ productId: testProduct.id, quantity: 2 }],
+    };
+
+    const response = await request(app)
+      .post('/api/v1/orders')
+      .set('Authorization', `Bearer ${testToken}`)
+      .set('X-Correlation-Id', 'test-123')
+      .send(payload)
+      .expect(201);
+
+    expect(response.body.data).toMatchObject({
+      customerId: testCustomer.id,
+      status: 'PENDING',
+    });
+    expect(response.body.meta.correlationId).toBe('test-123');
+  });
+
+  it('should return 400 for invalid payload', async () => {
+    const response = await request(app)
+      .post('/api/v1/orders')
+      .set('Authorization', `Bearer ${testToken}`)
+      .send({})
+      .expect(400);
+
+    expect(response.body.error.code).toBe('VALIDATION_ERROR');
+  });
+
+  it('should return 401 without auth token', async () => {
+    await request(app)
+      .post('/api/v1/orders')
+      .send({ customerId: 'test' })
+      .expect(401);
+  });
+});
+```
+
+## Rules
+- Test the full request/response cycle — no mocking the HTTP layer
+- Test all status codes: success, validation error, auth error, not found
+- Test request validation (missing fields, wrong types, boundary values)
+- Test pagination, sorting, and filtering
+- Verify response envelope format matches API contract
+- Clean up test data — don't leave artifacts
+- Use a separate port for test server to avoid conflicts

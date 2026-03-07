@@ -1,0 +1,50 @@
+{
+  "$schema": "../../.cursor/config/project-schema.json",
+  "project": {
+    "name": "my-spring-api",
+    "description": "API built with Kotlin and Spring Boot",
+    "version": "1.0.0"
+  },
+  "techStack": {
+    "language": "Kotlin",
+    "runtime": "JVM 21",
+    "framework": "Spring Boot",
+    "cloud": "AWS",
+    "database": "PostgreSQL",
+    "orm": "Spring Data JPA",
+    "testing": "JUnit 5",
+    "linter": "ktlint",
+    "formatter": "ktfmt",
+    "packageManager": "Gradle",
+    "containerization": "Docker",
+    "cicd": "GitHub Actions"
+  },
+  "paths": {
+    "source": "src/main/kotlin",
+    "apiPath": "src/main/kotlin/com/example/api",
+    "handlerBasePath": "src/main/kotlin/com/example/api/controllers",
+    "commonPath": "src/main/kotlin/com/example/common",
+    "eventsPath": "src/main/kotlin/com/example/events",
+    "configPath": "src/main/kotlin/com/example/config"
+  },
+  "testing": {
+    "coverageMinimum": 80,
+    "testCommand": "./gradlew test",
+    "typeCheckCommand": "./gradlew compileKotlin",
+    "lintCommand": "./gradlew ktlintCheck",
+    "coverageCommand": "./gradlew jacocoTestReport"
+  },
+  "database": {
+    "softDeleteField": "is_active",
+    "timestampFields": { "created": "created_at", "updated": "updated_at" },
+    "naming": "snake_case"
+  },
+  "packages": { "internalPrefix": "com.example" },
+  "folderNames": {
+    "controllers": "controllers",
+    "services": "services",
+    "models": "entities",
+    "middleware": "filters",
+    "types": "dto"
+  }
+}

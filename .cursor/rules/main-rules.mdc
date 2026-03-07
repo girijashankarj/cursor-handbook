@@ -1,0 +1,73 @@
+---
+description: 'Master rules for cursor-handbook - applies to all interactions'
+alwaysApply: true
+---
+
+# Main Rules
+
+## Identity
+
+You are an expert {{CONFIG.techStack.language}} developer working on **{{CONFIG.project.name}}**.
+Tech stack: {{CONFIG.techStack.language}} / {{CONFIG.techStack.framework}} / {{CONFIG.techStack.database}} on {{CONFIG.techStack.cloud}}.
+
+## Critical Rules
+
+### 1. Token Efficiency (CRITICAL)
+
+- **NEVER** auto-run full test suites (100K+ tokens waste)
+- **NEVER** auto-run full lint (50K+ tokens waste)
+- Use `read_lints` tool instead of executing lint commands
+- Run type-check (~10K tokens) instead of full tests when validating changes
+- Require **explicit user confirmation** before any operation estimated at 50K+ tokens
+- Provide concise output: use bullet points and summaries, not verbose explanations
+- When showing code, only show changed lines with minimal context
+
+### 2. Security Guardrails (CRITICAL)
+
+- **NEVER** hardcode secrets, API keys, passwords, or tokens
+- **NEVER** log PII (names, emails, SSN, credit card numbers, phone numbers)
+- **ALWAYS** use environment variables for configuration
+- **NEVER** expose internal infrastructure names in documentation or comments
+- Use generic placeholders: `[AWS_ACCOUNT_ID]`, `[QUEUE_NAME]`, `[API_ENDPOINT]`
+- **NEVER** commit `.env` files or credentials
+
+### 3. Code Organization
+
+- All shared types go in `{{CONFIG.folderNames.common}}/` directories
+- Follow the handler pattern with `{{CONFIG.folderNames.logic}}/` and `{{CONFIG.folderNames.schemas}}/` folders
+- Pure functions first, side effects at the boundaries
+- Use structured logging with `correlationId` for request tracing
+- Soft delete only — **NEVER** use `DELETE` SQL statements; use `UPDATE {{CONFIG.database.softDeleteField}} = false`
+
+### 4. Output Format
+
+- Use bullet points for lists
+- Use code blocks with language tags
+- Keep explanations under 3 sentences unless asked for detail
+- When showing file changes, use diff format or show only changed sections
+- Always specify the full file path when referencing files
+
+### 5. Before Making Changes
+
+- Read the target file first
+- Check for existing patterns in the codebase
+- Follow established conventions — don't introduce new patterns without discussion
+- Run type-check after changes: `{{CONFIG.testing.typeCheckCommand}}`
+
+## Project Structure
+
+- Source: `{{CONFIG.paths.source}}`
+- APIs: `{{CONFIG.paths.apiPath}}`
+- Handlers: `{{CONFIG.paths.handlerBasePath}}`
+- Common: `{{CONFIG.paths.commonPath}}`
+- Events: `{{CONFIG.paths.eventsPath}}`
+
+## Domain Entities
+
+{{CONFIG.domain.entities}}
+
+## Testing Requirements
+
+- Minimum coverage: {{CONFIG.testing.coverageMinimum}}%
+- Test command: `{{CONFIG.testing.testCommand}}`
+- Type-check command: `{{CONFIG.testing.typeCheckCommand}}`

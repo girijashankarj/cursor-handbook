@@ -1,0 +1,59 @@
+# Test Template
+# Usage: Copy this template when creating a new test file
+
+## Unit Test Template
+```typescript
+import { describe, it, expect, jest, beforeEach, afterEach } from '@jest/globals';
+
+// Import the module under test
+import { functionToTest } from '../path/to/module';
+
+// Import mocks
+import { mockDependency } from '../../mocks/services/dependency.mock';
+
+// Mock external dependencies
+jest.mock('../path/to/dependency', () => mockDependency);
+
+describe('ModuleName', () => {
+  beforeEach(() => {
+    // Reset mocks before each test
+    jest.clearAllMocks();
+  });
+
+  afterEach(() => {
+    // Cleanup after each test
+  });
+
+  describe('functionToTest', () => {
+    it('should return expected result when given valid input', () => {
+      // Arrange
+      const input = { key: 'value' };
+      const expected = { result: 'success' };
+      mockDependency.method.mockReturnValue(expected);
+
+      // Act
+      const result = functionToTest(input);
+
+      // Assert
+      expect(result).toEqual(expected);
+      expect(mockDependency.method).toHaveBeenCalledWith(input);
+    });
+
+    it('should throw ValidationError when input is invalid', () => {
+      // Arrange
+      const invalidInput = null;
+
+      // Act & Assert
+      expect(() => functionToTest(invalidInput)).toThrow('Validation failed');
+    });
+
+    it('should handle empty input gracefully', () => {
+      // Arrange & Act
+      const result = functionToTest({});
+
+      // Assert
+      expect(result).toEqual({ result: 'default' });
+    });
+  });
+});
+```

@@ -1,0 +1,71 @@
+# React Component Template
+# Usage: Copy this template when creating a new React component
+
+## Directory Structure
+src/components/{category}/{ComponentName}/
+├── {ComponentName}.tsx
+├── {ComponentName}.test.tsx
+├── {ComponentName}.stories.tsx (optional)
+└── index.ts
+
+## {ComponentName}.tsx
+```tsx
+import React from 'react';
+
+interface {ComponentName}Props {
+  /** Description of prop */
+  label: string;
+  /** Optional click handler */
+  onClick?: () => void;
+}
+
+export const {ComponentName}: React.FC<{ComponentName}Props> = ({
+  label,
+  onClick,
+}) => {
+  return (
+    <div
+      role="region"
+      aria-label={label}
+      onClick={onClick}
+      onKeyDown={(e) => e.key === 'Enter' && onClick?.()}
+      tabIndex={onClick ? 0 : undefined}
+    >
+      {label}
+    </div>
+  );
+};
+
+{ComponentName}.displayName = '{ComponentName}';
+```
+
+## {ComponentName}.test.tsx
+```tsx
+import { render, screen, fireEvent } from '@testing-library/react';
+import { {ComponentName} } from './{ComponentName}';
+
+describe('{ComponentName}', () => {
+  it('should render with label', () => {
+    render(<{ComponentName} label="Test" />);
+    expect(screen.getByText('Test')).toBeInTheDocument();
+  });
+
+  it('should call onClick when clicked', () => {
+    const onClick = jest.fn();
+    render(<{ComponentName} label="Test" onClick={onClick} />);
+    fireEvent.click(screen.getByText('Test'));
+    expect(onClick).toHaveBeenCalledTimes(1);
+  });
+
+  it('should be accessible', () => {
+    render(<{ComponentName} label="Test" />);
+    expect(screen.getByRole('region')).toHaveAttribute('aria-label', 'Test');
+  });
+});
+```
+
+## index.ts
+```typescript
+export { {ComponentName} } from './{ComponentName}';
+export type { {ComponentName}Props } from './{ComponentName}';
+```

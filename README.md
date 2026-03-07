@@ -1,8 +1,12 @@
 <p align="center">
-  <img src="https://img.shields.io/badge/Components-88-blue?style=for-the-badge" alt="88 Components" />
+  <img src="https://img.shields.io/github/stars/girijashankarj/cursor-handbook?style=social" alt="GitHub stars" />
+  <img src="https://img.shields.io/github/forks/girijashankarj/cursor-handbook?style=social" alt="GitHub forks" />
+  <img src="https://img.shields.io/github/last-commit/girijashankarj/cursor-handbook" alt="GitHub last commit" />
+  <img src="https://img.shields.io/github/issues/girijashankarj/cursor-handbook" alt="GitHub issues" />
+  <img src="https://img.shields.io/badge/license-MIT-green" alt="License MIT" />
+  <img src="https://img.shields.io/badge/version-1.4.0-blue" alt="Version" />
+  <img src="https://img.shields.io/badge/Components-88-green" alt="88 Components" />
   <img src="https://img.shields.io/badge/Token%20Savings-30%25%2B-green?style=for-the-badge" alt="30%+ Savings" />
-  <img src="https://img.shields.io/badge/Tech%20Stacks-9-orange?style=for-the-badge" alt="9 Stacks" />
-  <img src="https://img.shields.io/badge/License-MIT-purple?style=for-the-badge" alt="MIT License" />
 </p>
 
 # cursor-handbook
@@ -733,6 +737,7 @@ graph LR
 | [Config Reference](docs/reference/configuration-reference.md) | Full `project.json` schema reference |
 | [Component Index](COMPONENT_INDEX.md)                         | Complete list of all 88 components   |
 | [Contributing](CONTRIBUTING.md)                               | How to contribute                    |
+| [Publishing Checklist](docs/getting-started/publishing-checklist.md) | For maintainers: description, topics, social preview |
 
 ---
 

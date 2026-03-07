@@ -40,4 +40,9 @@ What actually happens.
 
 - Cursor IDE version:
 - OS:
-- Tech stack (from project.json):
+- cursor-handbook version:
+- AI model used (if relevant):
+
+## Screenshots
+
+If applicable, add screenshots.

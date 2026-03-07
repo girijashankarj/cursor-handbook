@@ -8,8 +8,6 @@ Images used in cursor-handbook documentation and marketing.
 | `readme-hero-banner.png` | Hero banner | README top |
 | `before-after-concept.png` | Before vs After visual | README Before vs After section |
 | `who-uses-this.png` | Audience illustration | README Who is this for section |
-| `architecture-flow.png` | Architecture flow | README How It Works section |
-| `one-line-install.png` | One-line install | README Quick Start section |
 | `social-preview-banner.png` | GitHub Social preview (1280×640) | Upload in **GitHub → Settings → Social preview** |
 
 ## Social preview

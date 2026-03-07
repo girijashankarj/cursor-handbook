@@ -146,15 +146,12 @@ graph TB
     style OUTPUT fill:#1a1a2e,stroke:#00d2ff,color:#fff
 ```
 
-<p align="center">
-  <img src="docs/snaps/architecture-flow.png" alt="cursor-handbook architecture flow" width="700" />
-</p>
-
 ---
 
 ## What's Inside
 
 ```mermaid
+%%{init: {'theme': 'neutral'}}%%
 mindmap
   root((cursor-handbook<br/>110 Components))
     Rules — 29
@@ -225,10 +222,6 @@ git clone https://github.com/girijashankarj/cursor-handbook.git .cursor && make 
 ```
 
 Then edit `.cursor/config/project.json` and restart Cursor.
-
-<p align="center">
-  <img src="docs/snaps/one-line-install.png" alt="One-line install" width="600" />
-</p>
 
 ### Step 1 — Clone
 

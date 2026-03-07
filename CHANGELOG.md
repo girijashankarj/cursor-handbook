@@ -10,7 +10,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - Rules engine branding (replaced "configuration boilerplate")
 - Star CTA, Table of Contents, Before vs After, Who is this for sections
 - One-line install command
-- Marketing images (hero, before-after, who-uses, architecture, one-line-install)
+- Marketing images (hero, before-after, who-uses)
 - docs/snaps/README.md with image index
 
 ### Changed

@@ -1,8 +1,5 @@
-# Optional: Add a "Sponsor" button on the GitHub repo page.
-# Uncomment and set your usernames to enable.
+# Sponsor button on the GitHub repo page.
+# Feel free to connect on LinkedIn for funding discussions.
 
-# github: girijashankarj
-# patreon: your-username
-# open_collective: your-org
-# ko_fi: your-username
-# buy_me_a_coffee: your-username
+github: girijashankarj
+custom: ['https://www.linkedin.com/in/girijashankarj']

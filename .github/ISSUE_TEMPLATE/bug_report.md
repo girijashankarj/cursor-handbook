@@ -1,9 +1,10 @@
 ---
 name: Bug Report
 about: Report an issue with cursor-handbook
-title: '[Bug] '
+title: "[Bug] "
 labels: bug
 assignees: ''
+
 ---
 
 ## Description

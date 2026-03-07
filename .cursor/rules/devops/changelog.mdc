@@ -1,0 +1,35 @@
+---
+description: "Changelog and release notes standards"
+alwaysApply: true
+---
+
+# Changelog Standards
+
+## Format
+- Use [Keep a Changelog](https://keepachangelog.com/) format
+- Sections: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `Security`
+- Date format: `YYYY-MM-DD`
+- Version format: [SemVer](https://semver.org/) — `MAJOR.MINOR.PATCH`
+
+## Content Rules
+- Write for users, not developers — focus on impact
+- Group related changes; avoid one-line-per-commit noise
+- Use imperative mood: "Add X" not "Added X"
+- Link to PRs or issues where helpful
+- **NEVER** include internal ticket IDs or raw commit hashes in user-facing changelogs
+
+## Location
+- `CHANGELOG.md` at project root
+- Update on every release; do not batch multiple releases
+- Unreleased section at top for work-in-progress
+
+## Example
+```markdown
+## [Unreleased]
+### Added
+- Changelog rule for release consistency
+
+## [1.2.0] - 2026-03-08
+### Added
+- New `/changelog` command for generating release notes
+```

@@ -5,13 +5,13 @@
   <img src="https://img.shields.io/github/issues/girijashankarj/cursor-handbook" alt="GitHub issues" />
   <img src="https://img.shields.io/badge/license-MIT-green" alt="License MIT" />
   <img src="https://img.shields.io/badge/version-1.4.0-blue" alt="Version" />
-  <img src="https://img.shields.io/badge/Components-110-green" alt="110 Components" />
+  <img src="https://img.shields.io/badge/Components-113-green" alt="113 Components" />
   <img src="https://img.shields.io/badge/Token%20Savings-30%25%2B-green?style=for-the-badge" alt="30%+ Savings" />
 </p>
 
 # cursor-handbook
 
-**The open-source rules engine for Cursor IDE — 110 rules, agents, and skills that turn your AI into a senior engineer who follows your standards, knows your codebase, and never wastes a token.**
+**The open-source rules engine for Cursor IDE — 113 rules, agents, and skills that turn your AI into a senior engineer who follows your standards, knows your codebase, and never wastes a token.**
 
 > Stop teaching your AI the same things every session. cursor-handbook gives Cursor permanent memory of your standards, security policies, and workflows — across every project, every team member, every prompt.
 
@@ -113,10 +113,10 @@ graph TB
     end
 
     subgraph ENGINE ["cursor-handbook Engine"]
-        D[29 Rules<br/>Always-applied standards]
+        D[30 Rules<br/>Always-applied standards]
         E[34 Agents<br/>Specialized AI assistants]
-        F[21 Skills<br/>Step-by-step workflows]
-        G[14 Commands<br/>Quick actions]
+        F[22 Skills<br/>Step-by-step workflows]
+        G[15 Commands<br/>Quick actions]
     end
 
     subgraph CONFIG ["Project Settings"]
@@ -153,8 +153,8 @@ graph TB
 ```mermaid
 %%{init: {'theme': 'neutral'}}%%
 mindmap
-  root((cursor-handbook<br/>110 Components))
-    Rules — 29
+  root((cursor-handbook<br/>113 Components))
+    Rules — 30
       Architecture — 3
       Backend — 6
       Frontend — 4
@@ -177,7 +177,7 @@ mindmap
       AI/ML — 1
       Docs — 1
       Platform — 1
-    Skills — 21
+    Skills — 22
       Backend — 4
       Frontend — 2
       Testing — 2
@@ -185,21 +185,21 @@ mindmap
       Cloud — 3
       DevOps — 4
       Docs — 3
-    Commands — 14
+    Commands — 15
     Hooks — 12
     Templates — 9
 ```
 
 | Layer         | Count | What It Does                                      | How It's Triggered                  |
 | ------------- | ----: | ------------------------------------------------- | ----------------------------------- |
-| **Rules**     |    29 | Enforces coding standards on every AI interaction | Automatically — always on           |
+| **Rules**     |    30 | Enforces coding standards on every AI interaction | Automatically — always on           |
 | **Agents**    |    34 | Specialized assistants for complex tasks          | On demand — `/agent-name`           |
-| **Skills**    |    21 | Step-by-step guided workflows with checklists     | Contextually — when patterns match  |
-| **Commands**  |    14 | Lightweight, token-efficient quick actions        | On demand — `/command`              |
+| **Skills**    |    22 | Step-by-step guided workflows with checklists     | Contextually — when patterns match  |
+| **Commands**  |    15 | Lightweight, token-efficient quick actions        | On demand — `/command`              |
 | **Hooks**     |    12 | Automation scripts in the AI loop                 | Event-driven — before/after actions |
 | **Templates** |     9 | Scaffolding for handlers, components, tests, etc. | Referenced by skills and agents     |
 
-> **Note:** The 110 component count = Rules + Agents + Skills + Commands + Hooks. Templates (9) are supporting assets referenced by skills and agents.
+> **Note:** The 113 component count = Rules + Agents + Skills + Commands + Hooks. Templates (9) are supporting assets referenced by skills and agents.
 
 ---
 
@@ -265,7 +265,7 @@ Edit `.cursor/config/project.json` — replace placeholders with your project de
 
 ### Step 3 — Restart Cursor IDE
 
-Close and reopen Cursor. All 110 components are now active.
+Close and reopen Cursor. All 113 components are now active.
 
 ### Step 4 — Verify
 
@@ -302,7 +302,7 @@ sequenceDiagram
     actor Dev as Developer
     participant C as Cursor IDE
     participant H as Hooks
-    participant R as Rules (29)
+    participant R as Rules (30)
     participant A as Agents/Skills
     participant Code as Codebase
 
@@ -311,7 +311,7 @@ sequenceDiagram
     H->>H: Enrich with project context
     H->>H: Guard against expensive ops
     H->>R: Pass enriched prompt
-    R->>R: Apply 29 always-on rules
+    R->>R: Apply 30 always-on rules
     Note over R: Token efficiency<br/>Security guardrails<br/>Code standards<br/>Architecture patterns
     R->>A: Route to agent/skill/command
     A->>Code: Generate or modify code
@@ -379,7 +379,7 @@ graph TD
 **Layer 1 — Pre-Processing (Hooks)**
 Before your prompt even reaches the AI, hooks inject your project context, block dangerous shell commands, and validate git operations.
 
-**Layer 2 — Rules Engine (29 Rules, Always Active)**
+**Layer 2 — Rules Engine (30 Rules, Always Active)**
 Every AI response is shaped by your rules. These aren't suggestions — they're hard constraints:
 
 | Rule Category     | What It Enforces                                            |
@@ -485,7 +485,7 @@ cp examples/typescript-express/project.json .cursor/config/project.json
 
 ## Component Deep Dive
 
-### Rules (29) — Your AI's Permanent Memory
+### Rules (30) — Your AI's Permanent Memory
 
 Rules are the backbone. They load on every interaction, every time, with zero effort.
 
@@ -589,7 +589,7 @@ graph LR
 | **Docs**         | Docs Agent           | `/docs-agent`           | Technical documentation           |
 | **Platform**     | DX Agent             | `/dx-agent`             | Developer experience              |
 
-### Commands (14) — Token-Efficient Quick Actions
+### Commands (15) — Token-Efficient Quick Actions
 
 ```mermaid
 graph LR
@@ -620,6 +620,7 @@ graph LR
 | `/audit-deps`       | Vulnerability scan         | Catch CVEs before shipping        |
 | `/audit`            | Full security audit        | Comprehensive security check      |
 | `/check-secrets`    | Secret detection           | Find leaked keys before commit    |
+| `/changelog`        | Generate changelog         | Draft release notes from commits   |
 
 ---
 
@@ -710,7 +711,7 @@ cursor-handbook/
 │   │   ├── project.json.template  #   Template (start here)
 │   │   ├── project.json.example   #   Complete example
 │   │   └── project-schema.json    #   JSON Schema validation
-│   ├── rules/                     # 29 always-applied rules
+│   ├── rules/                     # 30 always-applied rules
 │   │   ├── main-rules.mdc        #   Master rules
 │   │   ├── architecture/          #   3 architecture rules
 │   │   ├── backend/               #   6 backend rules
@@ -733,8 +734,8 @@ cursor-handbook/
 │   │   ├── ai-ml/                 #   1 agent
 │   │   ├── documentation/         #   1 agent
 │   │   └── platform/              #   1 agent
-│   ├── skills/                    # 21 guided workflows
-│   ├── commands/                  # 14 quick actions
+│   ├── skills/                    # 22 guided workflows
+│   ├── commands/                  # 15 quick actions
 │   ├── hooks/                     # 12 automation scripts
 │   ├── templates/                 # 9 code templates
 │   └── settings/                  # IDE settings
@@ -787,7 +788,7 @@ cursor-handbook/
 
 | Metric                      | Value              |
 | --------------------------- | ------------------ |
-| Components                  | 110                |
+| Components                  | 113                |
 | Supported tech stacks       | 9                  |
 | Token savings per operation | 67-96%             |
 | Setup time                  | ~5 minutes         |
@@ -837,7 +838,7 @@ graph LR
 | [Claude IDE support](docs/guides/claude-ide-support.md)       | Use with Claude Code and other IDEs  |
 | [Security Guide](docs/security/security-guide.md)             | Security features and policies       |
 | [Schema Reference](docs/reference/configuration-reference.md)  | Full `project.json` schema           |
-| [Component Index](COMPONENT_INDEX.md)                         | Complete list of all 110 components  |
+| [Component Index](COMPONENT_INDEX.md)                         | Complete list of all 113 components  |
 | [Contributing](CONTRIBUTING.md)                               | How to contribute                    |
 
 ---
@@ -850,7 +851,7 @@ graph LR
 
 <p align="center">
   <strong>Stop teaching your AI the same things twice.</strong><br/>
-  Clone cursor-handbook, set your project once, and let 110 rules, agents, and skills work for you — every prompt, every project, every day.
+  Clone cursor-handbook, set your project once, and let 113 rules, agents, and skills work for you — every prompt, every project, every day.
 </p>
 
 <p align="center">

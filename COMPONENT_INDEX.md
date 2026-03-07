@@ -2,7 +2,7 @@
 
 > Complete reference of all cursor-handbook components.
 
-## Rules (29)
+## Rules (30)
 
 | #   | File                                           | Category     | Description                       |
 | --- | ---------------------------------------------- | ------------ | --------------------------------- |
@@ -35,6 +35,7 @@
 | 27  | `rules/devops/ci-cd.mdc`                       | DevOps       | CI/CD pipelines                   |
 | 28  | `rules/devops/monitoring.mdc`                  | DevOps       | Monitoring and alerting           |
 | 29  | `rules/devops/documentation-standards.mdc`     | DevOps       | Documentation standards           |
+| 30  | `rules/devops/changelog.mdc`                   | DevOps       | Changelog and release standards   |
 
 ## Agents (34)
 
@@ -77,7 +78,7 @@ Agents are at **root level** (`.cursor/agents/*.md`) — Cursor does not discove
 | 33  | `agents/documentation-docs-agent.md`    | Documentation | `/docs-agent`           |
 | 34  | `agents/platform-dx-agent.md`            | Platform      | `/dx-agent`             |
 
-## Skills (21)
+## Skills (22)
 
 | #   | Directory                                 | Domain        | Description                |
 | --- | ----------------------------------------- | ------------- | -------------------------- |
@@ -102,8 +103,9 @@ Agents are at **root level** (`.cursor/agents/*.md`) — Cursor does not discove
 | 19  | `skills/documentation/api-docs/`          | Documentation | API documentation          |
 | 20  | `skills/documentation/architecture-docs/` | Documentation | Architecture docs          |
 | 21  | `skills/documentation/websearch/`         | Documentation | Web research workflow      |
+| 22  | `skills/devops/release-notes/`            | DevOps        | Draft release notes        |
 
-## Commands (14)
+## Commands (15)
 
 | #   | File                                   | Domain   | Invocation          | Token Savings |
 | --- | -------------------------------------- | -------- | ------------------- | ------------- |
@@ -121,6 +123,7 @@ Agents are at **root level** (`.cursor/agents/*.md`) — Cursor does not discove
 | 12  | `commands/security/audit-deps.md`      | Security | `/audit-deps`       | —             |
 | 13  | `commands/security/audit.md`           | Security | `/audit`            | —             |
 | 14  | `commands/security/check-secrets.md`   | Security | `/check-secrets`    | —             |
+| 15  | `commands/devops/changelog.md`        | DevOps   | `/changelog`        | —             |
 
 ## Hooks (12)
 

@@ -1,0 +1,56 @@
+# Label definitions with colors — synced via crazy-max/ghaction-github-labeler
+# See: https://github.com/crazy-max/ghaction-github-labeler
+
+# Issue template labels
+- name: bug
+  color: "#d73a4a"
+  description: Something isn't working
+
+- name: enhancement
+  color: "#a2eeef"
+  description: New feature or request
+
+# PR labeler labels (component-based)
+- name: rules
+  color: "#0366d6"
+  description: Changes to .cursor/rules
+
+- name: agents
+  color: "#6f42c1"
+  description: Changes to .cursor/agents
+
+- name: skills
+  color: "#28a745"
+  description: Changes to .cursor/skills
+
+- name: commands
+  color: "#fd7e14"
+  description: Changes to .cursor/commands
+
+- name: hooks
+  color: "#ffc107"
+  description: Changes to .cursor/hooks
+
+- name: templates
+  color: "#17a2b8"
+  description: Changes to .cursor/templates
+
+- name: config
+  color: "#6c757d"
+  description: Changes to .cursor/config
+
+- name: documentation
+  color: "#0075ca"
+  description: Documentation changes
+
+- name: examples
+  color: "#e83e8c"
+  description: Changes to examples
+
+- name: scripts
+  color: "#20c997"
+  description: Changes to scripts
+
+- name: ci
+  color: "#cf222e"
+  description: CI/CD and GitHub workflows

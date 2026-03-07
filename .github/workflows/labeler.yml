@@ -1,0 +1,16 @@
+name: Labeler
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  label:
+    name: Apply labels
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+      issues: write
+    steps:
+      - uses: actions/labeler@v6

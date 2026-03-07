@@ -1,0 +1,46 @@
+# PR labeler config — labels applied based on changed files (actions/labeler v6)
+# See: https://github.com/actions/labeler
+
+rules:
+- changed-files:
+  - any-glob-to-any-file: .cursor/rules/**/*
+
+agents:
+- changed-files:
+  - any-glob-to-any-file: .cursor/agents/**/*
+
+skills:
+- changed-files:
+  - any-glob-to-any-file: .cursor/skills/**/*
+
+commands:
+- changed-files:
+  - any-glob-to-any-file: .cursor/commands/**/*
+
+hooks:
+- changed-files:
+  - any-glob-to-any-file: .cursor/hooks/**/*
+
+templates:
+- changed-files:
+  - any-glob-to-any-file: .cursor/templates/**/*
+
+config:
+- changed-files:
+  - any-glob-to-any-file: .cursor/config/**/*
+
+documentation:
+- changed-files:
+  - any-glob-to-any-file: docs/**/*
+
+examples:
+- changed-files:
+  - any-glob-to-any-file: examples/**/*
+
+scripts:
+- changed-files:
+  - any-glob-to-any-file: scripts/**/*
+
+ci:
+- changed-files:
+  - any-glob-to-any-file: .github/**/*

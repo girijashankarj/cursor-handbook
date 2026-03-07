@@ -1,0 +1,27 @@
+// React Component Template — functional component with TypeScript
+// Replace {ComponentName} with your component name.
+
+import React from 'react';
+
+interface {ComponentName}Props {
+  /** Primary label */
+  label: string;
+  /** Optional callback */
+  onClick?: () => void;
+  /** Disabled state */
+  disabled?: boolean;
+}
+
+export const {ComponentName}: React.FC<{ComponentName}Props> = ({
+  label,
+  onClick,
+  disabled = false,
+}) => {
+  return (
+    <div role="region" aria-label={label}>
+      <button type="button" onClick={onClick} disabled={disabled}>
+        {label}
+      </button>
+    </div>
+  );
+};

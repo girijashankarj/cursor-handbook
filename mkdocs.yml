@@ -1,0 +1,26 @@
+# MkDocs configuration for cursor-handbook documentation.
+# Run: mkdocs serve / mkdocs build
+
+site_name: cursor-handbook
+site_description: Cursor IDE configuration boilerplate
+site_url: https://github.com/girijashankarj/cursor-handbook
+
+nav:
+  - Home: index.md
+  - Getting started:
+    - quick-start: docs/getting-started/quick-start.md
+    - setup: docs/getting-started/setup.md
+    - configuration: docs/getting-started/configuration.md
+  - Components:
+    - overview: docs/components/overview.md
+    - rules: docs/components/rules.md
+    - agents: docs/components/agents.md
+    - skills: docs/components/skills.md
+    - commands: docs/components/commands.md
+    - hooks: docs/components/hooks.md
+  - Reference:
+    - configuration: docs/reference/configuration-reference.md
+    - glossary: docs/reference/glossary.md
+
+plugins: []
+theme: readthedocs

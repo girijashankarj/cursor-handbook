@@ -1,0 +1,16 @@
+# Backend: Node.js
+
+## Runtime
+- Use LTS Node version (e.g. 20.x); document in README or engines.
+- Prefer ES modules where the project uses `"type": "module"`; otherwise CommonJS with consistent require/export.
+
+## Async
+- Prefer async/await over raw Promises; handle errors in try/catch or .catch().
+- Do not leave promises unhandled; use void or return for fire-and-forget.
+
+## Imports
+- Follow project import order: external → internal → relative.
+- Use path aliases from tsconfig or package.json if defined; otherwise relative paths.
+
+## Conventions
+- Align with backend code-organization and handler-patterns rules; use project logger with correlationId.

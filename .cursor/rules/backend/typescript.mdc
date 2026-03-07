@@ -1,0 +1,13 @@
+# Backend: TypeScript
+
+## Strictness
+- Prefer strict mode (strictNullChecks, strict); avoid `any`; use `unknown` for unvalidated input.
+- Define interfaces for request/response and domain types; keep them in common or types directories.
+
+## Types
+- Export types from a single place per domain (e.g. order.types.ts); avoid duplicating type definitions.
+- Use branded types or Zod/inferred types for validated payloads at the API boundary.
+
+## Conventions
+- Run type-check as the default validation step; do not run full test suite without confirmation.
+- Follow backend handler-patterns and code-organization; use explicit return types for public functions.

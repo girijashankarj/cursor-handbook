@@ -1,0 +1,12 @@
+# Backstage/software catalog descriptor (optional).
+# Replace placeholders with your org/service metadata.
+
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: cursor-handbook
+  description: Cursor IDE configuration boilerplate (rules, agents, skills, commands, hooks)
+spec:
+  type: documentation
+  lifecycle: experimental
+  owner: default-team

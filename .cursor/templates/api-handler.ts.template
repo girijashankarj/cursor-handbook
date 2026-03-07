@@ -1,0 +1,24 @@
+// API Handler Template — use with handler pattern (validate → operation → response)
+// Replace {ENTITY}, {OPERATION} with your entity and operation name.
+
+import { Request, Response, NextFunction } from 'express';
+import { logger } from '{{CONFIG.paths.commonPath}}/logger';
+
+export async function handler(req: Request, res: Response, next: NextFunction) {
+  const correlationId = (req.headers['x-correlation-id'] as string) || 'unknown';
+  const log = logger.child({ correlationId, operation: '{ENTITY}_{OPERATION}' });
+
+  try {
+    // 1. Validate request (schema + types)
+    // 2. Validate business rules
+    // 3. Pre-process / enrich
+    // 4. Operation (call service)
+    // 5. Post-operation (events, cache, etc.)
+    // 6. Format response
+    const result = {}; // replace with actual flow
+    return res.status(200).json({ data: result, meta: { correlationId } });
+  } catch (error) {
+    log.error({ err: error }, 'Handler failed');
+    next(error);
+  }
+}

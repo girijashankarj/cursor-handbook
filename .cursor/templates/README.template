@@ -1,0 +1,27 @@
+# {Project Name}
+
+Brief description of the project.
+
+## Quick start
+
+- **Prerequisites**: Node 20+, npm/pnpm
+- **Install**: `npm install`
+- **Config**: Copy `.cursor/config/project.json.template` to `project.json` and edit
+- **Run**: `npm run dev` / `npm start`
+
+## Scripts
+
+| Script | Purpose |
+|--------|--------|
+| `npm run type-check` | Type check only |
+| `npm run lint` | Lint |
+| `npm run test` | Run tests |
+| `npm run build` | Build for production |
+
+## Cursor
+
+This project uses cursor-handbook. See `AGENTS.md` and `docs/getting-started/quick-start.md`.
+
+## License
+
+See LICENSE.

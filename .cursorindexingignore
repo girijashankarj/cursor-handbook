@@ -1,0 +1,10 @@
+# Files/directories to exclude from Cursor indexing (optional).
+# Add paths that are large or irrelevant for AI context.
+
+node_modules
+dist
+build
+coverage
+.git
+*.min.js
+*.bundle.js

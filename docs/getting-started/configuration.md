@@ -1,8 +1,32 @@
-# Configuration Guide
+# Project Setup Guide
 
-## Configuration File
+## project.json — Your Project Settings
 
-All cursor-handbook components are driven by `.cursor/config/project.json`.
+All cursor-handbook components adapt to your project via `.cursor/config/project.json`.
+
+## project.json and Centralization
+
+**`project.json` is cursor-handbook's own convention** for centralizing project settings — it is **not** a Cursor-native feature. Cursor does not read `project.json` by default.
+
+### How It Works
+
+When you add a rule in Cursor chat, and that rule mentions or references `project.json` (or uses `{{CONFIG}}` placeholders that resolve from it), Cursor will read `project.json` as part of the rule's context. The effective combination is:
+
+```mermaid
+flowchart LR
+    P[Prompt] --> C[Context]
+    R[Rule] --> C
+    PJ[project.json] --> C
+    C --> AI[AI Response]
+```
+
+**Prompt + Rule + project.json**
+
+1. **Prompt** — What the user asks
+2. **Rule** — The rule file (e.g. `.cursor/rules/main-rules.mdc`) that contains `{{CONFIG.project.name}}`, `{{CONFIG.techStack.language}}`, etc.
+3. **project.json** — The central config file that provides values for those placeholders
+
+Rules that include `{{CONFIG.section.key}}` placeholders instruct the AI to use values from `project.json`. When the rule is loaded, the AI receives the rule content; if the rule references the config file, the AI can read it to resolve the placeholders. This gives you a single source of truth for project name, paths, tech stack, testing commands, and more — without duplicating config across dozens of rules.
 
 ## Schema
 

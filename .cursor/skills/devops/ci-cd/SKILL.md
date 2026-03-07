@@ -1,7 +1,9 @@
-# Skill: Set Up CI/CD Pipeline
+---
+name: ci-cd
+description: Workflow for creating a complete CI/CD pipeline. Use when the user needs to set up or modify CI/CD pipelines.
+---
 
-## Description
-Workflow for creating a complete CI/CD pipeline.
+# Skill: Set Up CI/CD Pipeline
 
 ## Trigger
 When the user needs to set up or modify CI/CD pipelines.
@@ -46,6 +48,16 @@ When the user needs to set up or modify CI/CD pipelines.
 - [ ] Verify all stages complete
 - [ ] Verify failure handling (intentionally break a stage)
 - [ ] Verify notifications work
+
+## If a step fails
+
+| Step | Failure | Recovery |
+|------|---------|----------|
+| Step 4 | Quality gate blocks pipeline | Fix failing tests, coverage, or type errors locally; do not lower thresholds to pass |
+| Step 5 | Deploy stage fails | Check secrets and env vars; verify target environment is reachable; rollback if prod deploy partially applied |
+| Step 6 | Pipeline fails on test trigger | Fix the broken stage; verify failure handling works (pipeline should fail fast, not deploy on failure) |
+
+Never remove manual approval for production. Never deploy on failure.
 
 ## Completion
 CI/CD pipeline is running, tested, and documented.

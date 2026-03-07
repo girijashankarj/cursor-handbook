@@ -1,10 +1,17 @@
-# Skill: Create API Documentation
+---
+name: api-docs
+description: Workflow for creating comprehensive API documentation. Use when the user needs to document API endpoints.
+---
 
-## Description
-Workflow for creating comprehensive API documentation.
+# Skill: Create API Documentation
 
 ## Trigger
 When the user needs to document API endpoints.
+
+## Prerequisites
+- [ ] API endpoints exist or are designed
+- [ ] OpenAPI/Swagger tooling available (optional)
+- [ ] Access to route definitions or handler files
 
 ## Steps
 
@@ -42,5 +49,16 @@ For each endpoint:
 - [ ] Error responses documented
 - [ ] Authentication flow documented
 
-## Completion
-API documentation is complete, hosted, and auto-updated.
+## Completion Checklist
+- [ ] All endpoints have method, URL, params, body, response
+- [ ] Error responses (4xx, 5xx) documented
+- [ ] Examples validated against live API or schema
+- [ ] OpenAPI spec validates (if used)
+
+## If Step Fails
+- **Step 1 (inventory)**: Search for route definitions: `**/*.route*.ts`, `**/routes/**`, `app.get|post|put|delete`
+- **Step 3 (OpenAPI)**: Use minimal spec first; add complexity incrementally. Validate with `swagger-cli validate`
+- **Step 4 (generate)**: Swagger UI needs valid spec; Redoc is more forgiving. Check CORS if hosted separately
+
+## Example
+Step 2 for `POST /api/v1/orders`: Method POST, URL `/api/v1/orders`, Body `{ customerId, items: [{ productId, quantity }] }`, Response 201 `{ data: { id, status } }`, Errors 400 validation, 404 customer not found.

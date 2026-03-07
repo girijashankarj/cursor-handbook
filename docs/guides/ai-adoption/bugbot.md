@@ -4,6 +4,14 @@
 
 ## What BugBot does
 
+```mermaid
+flowchart LR
+    PR[Pull Request] --> BugBot[BugBot]
+    BugBot --> |Reads| BUGBOT[.cursor/BUGBOT.md]
+    BugBot --> |Comments| Issues[Bugs, security, quality]
+    BugBot --> |Optional| Autofix[Push fixes]
+```
+
 - **Reviews PRs** — Analyzes diffs and comments with bugs, security issues, and quality problems.
 - **Runs automatically** — On every PR update, or when you comment `cursor review` or `bugbot run`.
 - **Autofix** — Can push suggested fixes to your branch or a new branch (configurable).

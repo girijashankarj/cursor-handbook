@@ -1,6 +1,7 @@
 ---
-description: "Database query patterns, optimization, and safety rules"
-alwaysApply: true
+description: "Database query patterns, optimization, and safety rules. Apply when writing or editing queries."
+alwaysApply: false
+globs: "**/*.sql,**/*.model.ts,**/*.repository.ts,**/migrations/**/*"
 ---
 
 # Database Query Patterns
@@ -73,3 +74,28 @@ LIMIT $1 OFFSET $2;
 - Test migrations against a copy of production data
 - Never modify existing migrations — create new ones
 - Name format: `YYYYMMDDHHMMSS_descriptive_name`
+
+## Anti-patterns
+- Don't use `SELECT *` in production — list columns explicitly
+- Don't use OFFSET for large tables — use cursor-based pagination
+- Don't run queries in loops — batch or JOIN
+- Don't skip `{{CONFIG.database.softDeleteField}}` filter — all reads must filter
+- Don't use raw strings in queries — always parameterize
+
+## Examples
+```sql
+-- BAD: String concatenation
+WHERE id = '${id}'
+
+-- GOOD: Parameterized
+WHERE id = $1 AND active_indicator = true
+```
+
+## Edge Cases
+- **NULL in unique index**: Use partial index or COALESCE for "one active per user"
+- **Large IN clauses**: Batch into chunks of 100–500; or use temp table
+- **Timezone in timestamps**: Always use `TIMESTAMP WITH TIME ZONE`
+
+## Related
+- Use `@create-migration` skill for new migrations
+- See `@schema-design` for table structure

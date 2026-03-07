@@ -1,7 +1,9 @@
-# Skill: AWS cost estimator
+---
+name: aws-cost-estimator
+description: Estimate or review cost for proposed AWS resources (compute, storage, data transfer). Use when the user asks for cost estimate or cost optimization.
+---
 
-## Description
-Estimate or review cost for proposed AWS resources (compute, storage, data transfer).
+# Skill: AWS cost estimator
 
 ## Trigger
 When the user asks for cost estimate, cost optimization, or "how much will this architecture cost."

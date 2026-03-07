@@ -1,7 +1,9 @@
-# Skill: Setup monitoring
+---
+name: setup-monitoring
+description: Guide for setting up or extending monitoring (metrics, logs, alerts) for a service. Use when the user asks to set up monitoring or add alerts.
+---
 
-## Description
-Guide for setting up or extending monitoring (metrics, logs, alerts) for a service.
+# Skill: Setup monitoring
 
 ## Trigger
 When the user asks to set up monitoring, add alerts, or configure dashboards.

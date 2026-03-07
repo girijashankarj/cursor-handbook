@@ -1,7 +1,9 @@
-# Skill: Debug issue
+---
+name: debug-issue
+description: Structured workflow for debugging a reported or reproduced issue. Use when the user asks to debug a bug, find root cause, or fix a failing scenario.
+---
 
-## Description
-Structured workflow for debugging a reported or reproduced issue.
+# Skill: Debug issue
 
 ## Trigger
 When the user asks to debug a bug, find the root cause, or fix a failing scenario.

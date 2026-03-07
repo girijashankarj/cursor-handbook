@@ -1,7 +1,9 @@
-# Skill: Optimize Database Query
+---
+name: query-optimization
+description: Workflow for identifying and fixing slow database queries. Use when a query is slow or the user asks to optimize database performance.
+---
 
-## Description
-Workflow for identifying and fixing slow database queries.
+# Skill: Optimize Database Query
 
 ## Trigger
 When a query is slow or user asks to optimize database performance.

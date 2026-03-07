@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "hooks": {
+    "beforeSubmitPrompt": [
+      { "command": ".cursor/hooks/context-enrichment.sh" }
+    ],
+    "afterFileEdit": [
+      { "command": ".cursor/hooks/post-edit-check.sh" },
+      { "command": ".cursor/hooks/auto-format.sh" }
+    ],
+    "beforeShellExecution": [
+      { "command": ".cursor/hooks/shell-guard.sh" }
+    ]
+  }
+}

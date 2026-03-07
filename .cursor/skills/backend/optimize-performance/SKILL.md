@@ -1,7 +1,9 @@
-# Skill: Optimize performance
+---
+name: optimize-performance
+description: Workflow for identifying and applying backend performance improvements. Use when the user asks to optimize, speed up, or reduce latency.
+---
 
-## Description
-Workflow for identifying and applying backend performance improvements.
+# Skill: Optimize performance
 
 ## Trigger
 When the user asks to optimize, speed up, or reduce latency of an endpoint or function.

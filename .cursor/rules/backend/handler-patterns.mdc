@@ -1,6 +1,7 @@
 ---
-description: "Backend handler/controller pattern rules and flow"
-alwaysApply: true
+description: "Backend handler/controller pattern rules and flow. Apply when editing handlers or API routes."
+alwaysApply: false
+globs: "**/handlers/**/*.ts,**/api/**/*.ts,**/*.handler.ts,**/*.controller.ts"
 ---
 
 # Handler Pattern Rules
@@ -84,3 +85,28 @@ export async function handler(req: Request, res: Response, next: NextFunction) {
 - Use dependency injection for external services
 - Handler functions MUST be async
 - Always pass correlationId through the entire flow
+
+## Anti-patterns
+- Don't put business logic in validate-request — validation only
+- Don't skip validate-business — always check entity state before operation
+- Don't call DB/services from pre-processing — only transform data
+- Don't await post-operation in handler — fire-and-forget or queue
+- Don't return raw result — always use formatResponse envelope
+
+## Examples
+```ts
+// BAD: correlationId not passed
+const result = await operation(processedData);
+
+// GOOD: correlationId in context
+const result = await operation({ ...processedData, correlationId });
+```
+
+## Edge Cases
+- **Idempotency for POST**: Use idempotency key header; check before create
+- **Pagination for list**: Return cursor + hasNextPage; never unbounded
+- **Concurrent updates**: Use optimistic locking (version field) or last-write-wins with audit
+
+## Related
+- Use `@create-handler` skill when creating new handlers
+- See `@api-design` for URL structure and response envelope

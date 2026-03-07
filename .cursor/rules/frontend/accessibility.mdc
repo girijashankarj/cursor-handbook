@@ -1,6 +1,7 @@
 ---
-description: "Accessibility (a11y) rules for frontend components"
-alwaysApply: true
+description: "Accessibility (a11y) rules for frontend components. Apply when editing UI or markup."
+alwaysApply: false
+globs: "**/*.tsx,**/*.jsx,**/*.vue,**/components/**/*"
 ---
 
 # Accessibility Rules

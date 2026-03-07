@@ -1,5 +1,15 @@
 # Configuration Reference
 
+## project.json — cursor-handbook Centralization
+
+`project.json` is **cursor-handbook's convention** for centralizing project settings. It is not a Cursor-native file. Cursor loads rules; when those rules mention or reference `project.json`, the AI reads it as context. The effective flow is:
+
+**Prompt + Rule + project.json**
+
+Rules use `{{CONFIG.section.key}}` placeholders that map to values in `project.json`. By keeping one config file, you avoid duplicating project name, paths, tech stack, and commands across dozens of rules. See [Configuration Guide — project.json and Centralization](../getting-started/configuration.md#projectjson-and-centralization).
+
+---
+
 ## project.json Schema
 
 ### project
@@ -18,7 +28,7 @@
 | exclude.patterns | string[] | Glob patterns for context exclusion |
 | exclude.largeFiles | string[] | Large files to exclude |
 | exclude.secrets | string[] | Secret files to exclude |
-| tokenOptimization.maxRuleLines | number | Max lines per rule (default: 300) |
+| tokenOptimization.maxRuleLines | number | Max lines per rule (default: 300). Cursor recommends &lt; 500; we use 300 for token efficiency. |
 | tokenOptimization.maxSkillLines | number | Max lines per skill (default: 200) |
 | tokenOptimization.maxAgentLines | number | Max lines per agent (default: 150) |
 | tokenOptimization.contextLayers | object | Token budgets per layer |

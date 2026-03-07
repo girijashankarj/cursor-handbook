@@ -1,7 +1,9 @@
-# Skill: Code Review Workflow
+---
+name: code-review
+description: Structured workflow for conducting thorough code reviews. Use when the user asks to review code, a PR, or specific files.
+---
 
-## Description
-Structured workflow for conducting thorough code reviews.
+# Skill: Code Review Workflow
 
 ## Trigger
 When the user asks to review code, a PR, or specific files.

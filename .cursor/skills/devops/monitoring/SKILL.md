@@ -1,7 +1,9 @@
-# Skill: Set Up Monitoring
+---
+name: monitoring
+description: Workflow for implementing comprehensive monitoring and alerting. Use when the user needs to set up or improve service monitoring.
+---
 
-## Description
-Workflow for implementing comprehensive monitoring and alerting.
+# Skill: Set Up Monitoring
 
 ## Trigger
 When the user needs to set up or improve service monitoring.

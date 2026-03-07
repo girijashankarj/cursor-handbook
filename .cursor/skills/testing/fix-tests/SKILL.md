@@ -1,10 +1,17 @@
-# Skill: Fix Failing Tests
+---
+name: fix-tests
+description: Systematic workflow for diagnosing and fixing failing tests. Use when the user reports failing tests or asks to fix test failures.
+---
 
-## Description
-Systematic workflow for diagnosing and fixing failing tests.
+# Skill: Fix Failing Tests
 
 ## Trigger
 When the user reports failing tests or asks to fix test failures.
+
+## Prerequisites
+- [ ] Test command works: `{{CONFIG.testing.testCommand}}`
+- [ ] Failing test file path or error output available
+- [ ] Type check passes or run first: `{{CONFIG.testing.typeCheckCommand}}`
 
 ## Steps
 
@@ -47,5 +54,17 @@ For each failing test:
 - [ ] Check coverage hasn't dropped below {{CONFIG.testing.coverageMinimum}}%
 - [ ] Run type check: `{{CONFIG.testing.typeCheckCommand}}`
 
-## Completion
-All tests passing, coverage maintained, type check clean.
+## Completion Checklist
+- [ ] All previously failing tests pass
+- [ ] No new test failures introduced
+- [ ] Coverage at or above {{CONFIG.testing.coverageMinimum}}%
+- [ ] Type check passes
+
+## If Step Fails
+- **Step 1 (identify)**: Run `{{CONFIG.testing.testCommand}}` — if it hangs, run single file with `--testPathPattern=path/to/file`
+- **Step 2 (analyze)**: Mock issues often from wrong import path; use `jest.mock('./path')` matching actual import
+- **Step 4 (fix)**: Fix one test, run `--testPathPattern` to verify, then next. Don't fix all at once
+- **Step 5 (verify)**: If coverage dropped, add test for uncovered branch. Use `@coverage-improvement` skill
+
+## Example
+Failure: "Expected 60, received undefined". Cause: mock for `calculateTotal` not returning. Fix: `mockCalculateTotal.mockReturnValue(60)` in test. Run: `npm test -- order.test.ts`.

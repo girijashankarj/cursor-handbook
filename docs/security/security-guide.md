@@ -4,6 +4,19 @@
 
 cursor-handbook includes built-in security guardrails that protect against common vulnerabilities.
 
+```mermaid
+flowchart TB
+    subgraph Guardrails [Security Guardrails]
+        S1[Secret Management]
+        S2[PII Protection]
+        S3[SQL Safety]
+        S4[Input Validation]
+        S5[Authentication]
+    end
+    Guardrails --> Rules[.cursor/rules/security/]
+    Rules --> AI[AI Response]
+```
+
 ## Security Rules
 
 ### 1. Secret Management

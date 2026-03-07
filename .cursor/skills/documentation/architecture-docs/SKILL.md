@@ -1,10 +1,17 @@
-# Skill: Create Architecture Documentation
+---
+name: architecture-docs
+description: Workflow for creating and maintaining architecture documentation. Use when the user needs to document system architecture or make ADRs.
+---
 
-## Description
-Workflow for creating and maintaining architecture documentation.
+# Skill: Create Architecture Documentation
 
 ## Trigger
 When the user needs to document system architecture or make Architecture Decision Records (ADRs).
+
+## Prerequisites
+- [ ] Codebase or design available to analyze
+- [ ] docs/ or docs/architecture/ directory exists (or create it)
+- [ ] Mermaid support in docs (GitHub, MkDocs, etc.)
 
 ## Steps
 
@@ -60,5 +67,16 @@ ADR template:
 - [ ] Disaster recovery plan
 - [ ] Scaling procedures
 
-## Completion
-Architecture is documented with diagrams, ADRs, and operational guides.
+## Completion Checklist
+- [ ] At least one diagram (Mermaid) for system or data flow
+- [ ] ADRs for significant decisions (format, status, context, decision, consequences)
+- [ ] Component list with purpose and tech stack
+- [ ] Operational section (deploy, monitor, scale)
+
+## If Step Fails
+- **Step 1 (overview)**: Start with 3–5 boxes; add detail later. Use `flowchart LR` or `flowchart TB` for simple flows
+- **Step 3 (ADRs)**: Number format `ADR-001`; keep each ADR to one decision
+- **Step 4 (diagrams)**: Mermaid syntax: no spaces in node IDs; use `A[Label]` not `A[Label with spaces]`
+
+## Example
+Step 1: `flowchart LR` with Client -> API -> DB, API -> Cache. Step 3: ADR-001 Use PostgreSQL — Status Accepted, Context: need relational, Decision: PostgreSQL, Consequences: SQL expertise required.

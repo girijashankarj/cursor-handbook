@@ -5,15 +5,54 @@
   <img src="https://img.shields.io/github/issues/girijashankarj/cursor-handbook" alt="GitHub issues" />
   <img src="https://img.shields.io/badge/license-MIT-green" alt="License MIT" />
   <img src="https://img.shields.io/badge/version-1.4.0-blue" alt="Version" />
-  <img src="https://img.shields.io/badge/Components-88-green" alt="88 Components" />
+  <img src="https://img.shields.io/badge/Components-110-green" alt="110 Components" />
   <img src="https://img.shields.io/badge/Token%20Savings-30%25%2B-green?style=for-the-badge" alt="30%+ Savings" />
 </p>
 
 # cursor-handbook
 
-**The open-source Cursor IDE configuration boilerplate that turns your AI assistant into a senior engineer who follows your rules, knows your codebase, and never wastes a token.**
+**The open-source rules engine for Cursor IDE — 110 rules, agents, and skills that turn your AI into a senior engineer who follows your standards, knows your codebase, and never wastes a token.**
 
 > Stop teaching your AI the same things every session. cursor-handbook gives Cursor permanent memory of your standards, security policies, and workflows — across every project, every team member, every prompt.
+
+<p align="center">
+  <strong>If cursor-handbook helps you, consider giving it a ⭐ — it helps others discover it.</strong>
+</p>
+
+<p align="center">
+  <img src="docs/snaps/readme-hero-banner.png" alt="cursor-handbook — Rules engine for Cursor IDE" width="800" />
+</p>
+
+---
+
+## Table of Contents
+
+- [Ways to use](#ways-to-use-cursor-handbook)
+- [The Problem](#the-problem)
+- [Before vs After](#before-vs-after)
+- [Who is this for?](#who-is-this-for)
+- [How It Works](#how-it-works)
+- [Quick Start](#quick-start-5-minutes)
+- [Documentation](#documentation)
+
+---
+
+## Ways to use cursor-handbook
+
+Pick the option that fits your workflow:
+
+| Option | Best for |
+|--------|----------|
+| **1. Clone & copy** | Use the full rules engine in your repo. Clone this repo, copy the `.cursor` folder into your project, then edit `project.json` and tailor rules/agents/skills to your stack. |
+| **2. Add from GitHub (Cursor UI)** | Use rules, skills, or agents without cloning. In Cursor IDE go to **Settings → Rules / Skills / Agents**, click **Add new → Add from GitHub**, and paste this repo’s clone URL. Add only what you need. |
+
+![Add from GitHub in Cursor Settings](docs/snaps/cursor_settings_add_rules_etc.png)
+| **3. Fork & customize** | Maintain your own version. Fork this repo, adapt the `.cursor` files for your team or product, then use that fork across your projects or share it internally. |
+| **4. Pick and choose** | Use individual components. Download only the production-ready, generic rules, skills, agents, commands, or hooks you need from this repo and drop them into your existing `.cursor` setup. |
+
+**Improvements welcome.** If you want to add or improve rules, skills, hooks, agents, or commands, see [CONTRIBUTING.md](CONTRIBUTING.md) and open an issue or PR.
+
+> **Forking?** Replace `girijashankarj` with your GitHub org/username in badges, clone URLs, `scripts/setup-cursor.sh`, `.github/CODEOWNERS`, and docs before pushing.
 
 ---
 
@@ -30,6 +69,36 @@ You end up repeating yourself, burning tokens, and fixing the same mistakes. **c
 
 ---
 
+## Before vs After
+
+| Before cursor-handbook | After cursor-handbook |
+|------------------------|------------------------|
+| AI hardcodes API keys | Security rules block it |
+| AI runs full test suite (~100K tokens) | Uses type-check (~10K) or single-file tests |
+| You repeat conventions every session | Rules remember them — always on |
+| Inconsistent code across team | One rules engine, one standard |
+| No guardrails on expensive ops | Hooks warn or block dangerous commands |
+
+<p align="center">
+  <img src="docs/snaps/before-after-concept.png" alt="Before vs After cursor-handbook" width="700" />
+</p>
+
+---
+
+## Who is this for?
+
+| Audience | Benefit |
+|----------|---------|
+| **Solo developers** | Consistent AI behavior without repeating yourself every session |
+| **Teams** | Shared standards; everyone gets the same guardrails and conventions |
+| **Enterprises** | Security, compliance, and token efficiency built in from day one |
+
+<p align="center">
+  <img src="docs/snaps/who-uses-this.png" alt="Who uses cursor-handbook" width="700" />
+</p>
+
+---
+
 ## How It Works
 
 ```mermaid
@@ -39,18 +108,18 @@ graph TB
     end
 
     subgraph HOOKS_PRE ["Pre-Processing Hooks"]
-        B[context-enrichment.sh<br/>Injects project config]
+        B[context-enrichment.sh<br/>Injects project context]
         C[shell-guard.sh<br/>Blocks dangerous commands]
     end
 
     subgraph ENGINE ["cursor-handbook Engine"]
-        D[27 Rules<br/>Always-applied standards]
+        D[29 Rules<br/>Always-applied standards]
         E[34 Agents<br/>Specialized AI assistants]
-        F[13 Skills<br/>Step-by-step workflows]
-        G[8 Commands<br/>Quick actions]
+        F[21 Skills<br/>Step-by-step workflows]
+        G[14 Commands<br/>Quick actions]
     end
 
-    subgraph CONFIG ["Configuration Layer"]
+    subgraph CONFIG ["Project Settings"]
         H[project.json<br/>Your project settings]
     end
 
@@ -77,22 +146,27 @@ graph TB
     style OUTPUT fill:#1a1a2e,stroke:#00d2ff,color:#fff
 ```
 
+<p align="center">
+  <img src="docs/snaps/architecture-flow.png" alt="cursor-handbook architecture flow" width="700" />
+</p>
+
 ---
 
 ## What's Inside
 
 ```mermaid
 mindmap
-  root((cursor-handbook<br/>88 Components))
-    Rules — 27
+  root((cursor-handbook<br/>110 Components))
+    Rules — 29
       Architecture — 3
-      Backend — 4
+      Backend — 6
       Frontend — 4
       Security — 3
       Database — 3
       Cloud — 3
       Testing — 3
       DevOps — 3
+      Core — 1
     Agents — 34
       Architecture — 3
       Backend — 7
@@ -106,27 +180,29 @@ mindmap
       AI/ML — 1
       Docs — 1
       Platform — 1
-    Skills — 13
-      Backend — 2
+    Skills — 21
+      Backend — 4
       Frontend — 2
       Testing — 2
-      Database — 2
-      Cloud — 1
-      DevOps — 2
-      Docs — 2
-    Commands — 8
-    Hooks — 6
-    Templates — 6
+      Database — 3
+      Cloud — 3
+      DevOps — 4
+      Docs — 3
+    Commands — 14
+    Hooks — 12
+    Templates — 9
 ```
 
 | Layer         | Count | What It Does                                      | How It's Triggered                  |
 | ------------- | ----: | ------------------------------------------------- | ----------------------------------- |
-| **Rules**     |    27 | Enforces coding standards on every AI interaction | Automatically — always on           |
+| **Rules**     |    29 | Enforces coding standards on every AI interaction | Automatically — always on           |
 | **Agents**    |    34 | Specialized assistants for complex tasks          | On demand — `/agent-name`           |
-| **Skills**    |    13 | Step-by-step guided workflows with checklists     | Contextually — when patterns match  |
-| **Commands**  |     8 | Lightweight, token-efficient quick actions        | On demand — `/command`              |
-| **Hooks**     |     6 | Automation scripts in the AI loop                 | Event-driven — before/after actions |
-| **Templates** |     6 | Scaffolding for handlers, components, tests, etc. | Referenced by skills and agents     |
+| **Skills**    |    21 | Step-by-step guided workflows with checklists     | Contextually — when patterns match  |
+| **Commands**  |    14 | Lightweight, token-efficient quick actions        | On demand — `/command`              |
+| **Hooks**     |    12 | Automation scripts in the AI loop                 | Event-driven — before/after actions |
+| **Templates** |     9 | Scaffolding for handlers, components, tests, etc. | Referenced by skills and agents     |
+
+> **Note:** The 110 component count = Rules + Agents + Skills + Commands + Hooks. Templates (9) are supporting assets referenced by skills and agents.
 
 ---
 
@@ -134,13 +210,25 @@ mindmap
 
 ```mermaid
 graph LR
-    A["1. Clone"] --> B["2. Configure"] --> C["3. Restart"] --> D["4. Build"]
+    A["1. Clone"] --> B["2. Setup"] --> C["3. Restart"] --> D["4. Verify"]
 
     style A fill:#22c55e,stroke:#16a34a,color:#fff,stroke-width:2px
     style B fill:#3b82f6,stroke:#2563eb,color:#fff,stroke-width:2px
     style C fill:#f59e0b,stroke:#d97706,color:#fff,stroke-width:2px
     style D fill:#8b5cf6,stroke:#7c3aed,color:#fff,stroke-width:2px
 ```
+
+### One-line install
+
+```bash
+git clone https://github.com/girijashankarj/cursor-handbook.git .cursor && make -f .cursor/Makefile init
+```
+
+Then edit `.cursor/config/project.json` and restart Cursor.
+
+<p align="center">
+  <img src="docs/snaps/one-line-install.png" alt="One-line install" width="600" />
+</p>
 
 ### Step 1 — Clone
 
@@ -152,6 +240,13 @@ git clone https://github.com/girijashankarj/cursor-handbook.git .cursor
 ### Step 2 — Configure
 
 ```bash
+# Option A: One-command setup
+make init
+
+# Option B: Interactive generator
+./scripts/init-project-config.sh
+
+# Option C: Manual copy
 cp .cursor/config/project.json.template .cursor/config/project.json
 ```
 
@@ -177,7 +272,7 @@ Edit `.cursor/config/project.json` — replace placeholders with your project de
 
 ### Step 3 — Restart Cursor IDE
 
-Close and reopen Cursor. All 88 components are now active.
+Close and reopen Cursor. All 110 components are now active.
 
 ### Step 4 — Verify
 
@@ -199,7 +294,8 @@ curl -fsSL https://raw.githubusercontent.com/girijashankarj/cursor-handbook/main
 
 ```bash
 git submodule add https://github.com/girijashankarj/cursor-handbook.git .cursor
-cp .cursor/config/project.json.template .cursor/config/project.json
+make init
+# Or: cp .cursor/config/project.json.template .cursor/config/project.json
 ```
 
 ---
@@ -213,7 +309,7 @@ sequenceDiagram
     actor Dev as Developer
     participant C as Cursor IDE
     participant H as Hooks
-    participant R as Rules (27)
+    participant R as Rules (29)
     participant A as Agents/Skills
     participant Code as Codebase
 
@@ -222,7 +318,7 @@ sequenceDiagram
     H->>H: Enrich with project context
     H->>H: Guard against expensive ops
     H->>R: Pass enriched prompt
-    R->>R: Apply 27 always-on rules
+    R->>R: Apply 29 always-on rules
     Note over R: Token efficiency<br/>Security guardrails<br/>Code standards<br/>Architecture patterns
     R->>A: Route to agent/skill/command
     A->>Code: Generate or modify code
@@ -290,7 +386,7 @@ graph TD
 **Layer 1 — Pre-Processing (Hooks)**
 Before your prompt even reaches the AI, hooks inject your project context, block dangerous shell commands, and validate git operations.
 
-**Layer 2 — Rules Engine (27 Rules, Always Active)**
+**Layer 2 — Rules Engine (29 Rules, Always Active)**
 Every AI response is shaped by your rules. These aren't suggestions — they're hard constraints:
 
 | Rule Category     | What It Enforces                                            |
@@ -334,9 +430,9 @@ pie title Token Usage Comparison (per operation)
 
 ## Customization
 
-cursor-handbook is 100% configuration-driven. Every component adapts to your project through a single file:
+cursor-handbook is 100% project-driven. Every component adapts to your project through a single file:
 
-### Configuration Architecture
+### How It Adapts to Your Project
 
 ```mermaid
 graph TB
@@ -370,7 +466,7 @@ graph TB
 | `packages`    | Internal packages          | `@your-org` scope, registry URL                |
 | `conventions` | Git and workflow           | Branch prefixes, commit format, PR templates   |
 
-### Ready-Made Stack Configs
+### Ready-Made Stack Presets
 
 Don't start from scratch — pick your stack:
 
@@ -387,7 +483,7 @@ Don't start from scratch — pick your stack:
 | Flutter            | [`examples/flutter/`](examples/flutter/)                       | Dart       | Flutter     |
 
 ```bash
-# Use a pre-made config
+# Use a pre-made preset
 cp examples/typescript-express/project.json .cursor/config/project.json
 # Then customize with your project specifics
 ```
@@ -396,7 +492,7 @@ cp examples/typescript-express/project.json .cursor/config/project.json
 
 ## Component Deep Dive
 
-### Rules (27) — Your AI's Permanent Memory
+### Rules (29) — Your AI's Permanent Memory
 
 Rules are the backbone. They load on every interaction, every time, with zero effort.
 
@@ -417,6 +513,8 @@ graph LR
         B2[code-organization]
         B3[error-handling]
         B4[api-design]
+        B5[typescript]
+        B6[nodejs]
     end
 
     subgraph FE ["Frontend"]
@@ -498,7 +596,7 @@ graph LR
 | **Docs**         | Docs Agent           | `/docs-agent`           | Technical documentation           |
 | **Platform**     | DX Agent             | `/dx-agent`             | Developer experience              |
 
-### Commands (8) — Token-Efficient Quick Actions
+### Commands (14) — Token-Efficient Quick Actions
 
 ```mermaid
 graph LR
@@ -516,12 +614,18 @@ graph LR
 | Command             | What It Does               | Why It's Better                   |
 | ------------------- | -------------------------- | --------------------------------- |
 | `/type-check`       | TypeScript type validation | 10K tokens vs 100K for full tests |
-| `/test-single`      | Test one file only         | 5K tokens vs 100K for full suite  |
 | `/lint-check`       | Use `read_lints` tool      | 2K tokens vs 50K for full lint    |
-| `/check-coverage`   | Coverage report            | Targeted coverage analysis        |
+| `/lint-fix`         | Auto-fix lint issues       | One-step lint resolution          |
+| `/format`           | Format code files          | Consistent formatting             |
 | `/generate-handler` | Scaffold API handler       | Full 9-file handler in seconds    |
+| `/test-single`      | Test one file only         | 5K tokens vs 100K for full suite  |
+| `/test-coverage`    | Coverage report            | Targeted coverage analysis        |
+| `/coverage`         | Quick coverage check       | Fast coverage snapshot            |
+| `/build`            | Build the project          | Validated production build        |
+| `/deploy`           | Deploy the application     | Guided deployment flow            |
 | `/docker-build`     | Build Docker image         | Correct multi-stage build         |
 | `/audit-deps`       | Vulnerability scan         | Catch CVEs before shipping        |
+| `/audit`            | Full security audit        | Comprehensive security check      |
 | `/check-secrets`    | Secret detection           | Find leaked keys before commit    |
 
 ---
@@ -586,6 +690,7 @@ git push
 # Every other team member gets it automatically
 git pull
 git submodule update --init
+make init
 
 # Update across the team
 cd .cursor && git pull origin main && cd ..
@@ -598,7 +703,7 @@ git add .cursor && git commit -m "chore: update cursor-handbook"
 # 1. Fork cursor-handbook to your org
 # 2. Add org-specific rules
 # 3. All teams use the org fork as their submodule
-git submodule add https://github.com/YOUR_ORG/cursor-handbook.git .cursor
+git submodule add https://github.com/girijashankarj/cursor-handbook.git .cursor
 ```
 
 ---
@@ -608,14 +713,14 @@ git submodule add https://github.com/YOUR_ORG/cursor-handbook.git .cursor
 ```
 cursor-handbook/
 ├── .cursor/
-│   ├── config/                    # Configuration layer
+│   ├── config/                    # project.json, schema, templates
 │   │   ├── project.json.template  #   Template (start here)
 │   │   ├── project.json.example   #   Complete example
 │   │   └── project-schema.json    #   JSON Schema validation
-│   ├── rules/                     # 27 always-applied rules
+│   ├── rules/                     # 29 always-applied rules
 │   │   ├── main-rules.mdc        #   Master rules
 │   │   ├── architecture/          #   3 architecture rules
-│   │   ├── backend/               #   4 backend rules
+│   │   ├── backend/               #   6 backend rules
 │   │   ├── frontend/              #   4 frontend rules
 │   │   ├── security/              #   3 security rules
 │   │   ├── database/              #   3 database rules
@@ -635,18 +740,18 @@ cursor-handbook/
 │   │   ├── ai-ml/                 #   1 agent
 │   │   ├── documentation/         #   1 agent
 │   │   └── platform/              #   1 agent
-│   ├── skills/                    # 13 guided workflows
-│   ├── commands/                  # 8 quick actions
-│   ├── hooks/                     # 6 automation scripts
-│   ├── templates/                 # 6 code templates
+│   ├── skills/                    # 21 guided workflows
+│   ├── commands/                  # 14 quick actions
+│   ├── hooks/                     # 12 automation scripts
+│   ├── templates/                 # 9 code templates
 │   └── settings/                  # IDE settings
 ├── docs/                          # Full documentation
-│   ├── getting-started/           #   Quick start & config
+│   ├── getting-started/           #   Quick start & setup
 │   ├── components/                #   Component guides
 │   ├── guides/                    #   Best practices
 │   ├── security/                  #   Security guide
-│   └── reference/                 #   Config reference
-├── examples/                      # 9 stack-specific configs
+│   └── reference/                 #   Schema & reference
+├── examples/                      # 9 stack-specific presets
 ├── scripts/                       # Setup scripts
 ├── .cursorignore                  # AI context exclusions
 ├── AGENTS.md                      # Agent instructions
@@ -689,12 +794,12 @@ cursor-handbook/
 
 | Metric                      | Value              |
 | --------------------------- | ------------------ |
-| Components                  | 88                 |
+| Components                  | 110                |
 | Supported tech stacks       | 9                  |
 | Token savings per operation | 67-96%             |
 | Setup time                  | ~5 minutes         |
-| Configuration files to edit | 1 (`project.json`) |
-| Lines of config needed      | ~50                |
+| Files to customize          | 1 (`project.json`) |
+| Lines to edit               | ~50                |
 | Price                       | Free (MIT License) |
 
 ---
@@ -729,15 +834,18 @@ graph LR
 
 | Document                                                      | Description                          |
 | ------------------------------------------------------------- | ------------------------------------ |
+| [Architecture](ARCHITECTURE.md)                               | System design, data flow, extension points |
 | [Quick Start](docs/getting-started/quick-start.md)            | Get running in 5 minutes             |
-| [Configuration Guide](docs/getting-started/configuration.md)  | All configuration options            |
+| [Project Setup](docs/getting-started/configuration.md)        | Customize rules to your stack        |
 | [Component Overview](docs/components/overview.md)             | How components work together         |
+| [Component readiness](docs/component-readiness.md)           | Production-ready, generic components list |
 | [Best Practices](docs/guides/best-practices.md)               | Get the most out of cursor-handbook  |
+| [Cursor usage](docs/guides/cursor-usage.md)                  | Token usage, agent review, BugBot setup |
+| [Claude IDE support](docs/guides/claude-ide-support.md)       | Use with Claude Code and other IDEs  |
 | [Security Guide](docs/security/security-guide.md)             | Security features and policies       |
-| [Config Reference](docs/reference/configuration-reference.md) | Full `project.json` schema reference |
-| [Component Index](COMPONENT_INDEX.md)                         | Complete list of all 88 components   |
+| [Schema Reference](docs/reference/configuration-reference.md)  | Full `project.json` schema           |
+| [Component Index](COMPONENT_INDEX.md)                         | Complete list of all 110 components  |
 | [Contributing](CONTRIBUTING.md)                               | How to contribute                    |
-| [Publishing Checklist](docs/getting-started/publishing-checklist.md) | For maintainers: description, topics, social preview |
 
 ---
 
@@ -749,7 +857,7 @@ graph LR
 
 <p align="center">
   <strong>Stop teaching your AI the same things twice.</strong><br/>
-  Clone cursor-handbook, configure once, and let 88 components work for you — every prompt, every project, every day.
+  Clone cursor-handbook, set your project once, and let 110 rules, agents, and skills work for you — every prompt, every project, every day.
 </p>
 
 <p align="center">

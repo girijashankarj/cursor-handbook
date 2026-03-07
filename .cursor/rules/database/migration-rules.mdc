@@ -1,6 +1,7 @@
 ---
-description: "Database migration patterns and safety rules"
-alwaysApply: true
+description: "Database migration patterns and safety rules. Apply when creating or editing migrations."
+alwaysApply: false
+globs: "**/migrations/**/*,**/*.migration.*,**/*migration*.sql"
 ---
 
 # Database Migration Rules

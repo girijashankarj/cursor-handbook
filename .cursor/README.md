@@ -23,3 +23,4 @@ This directory holds Cursor IDE configuration for the project.
 
 - Component overview: `docs/components/overview.md`
 - Configuration: `docs/reference/configuration-reference.md`
+- Enrichment checklist: `docs/reference/enrichment-checklist.md` (when adding content to components)

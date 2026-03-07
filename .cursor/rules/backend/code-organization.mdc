@@ -1,6 +1,7 @@
 ---
-description: "Backend code organization and structure rules"
-alwaysApply: true
+description: "Backend code organization and structure rules. Apply when organizing backend source."
+alwaysApply: false
+globs: "**/api/**/*,**/services/**/*,**/models/**/*,**/handlers/**/*"
 ---
 
 # Code Organization Rules

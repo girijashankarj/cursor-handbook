@@ -7,6 +7,9 @@ site_url: https://github.com/girijashankarj/cursor-handbook
 
 nav:
   - Home: index.md
+  - Guides:
+    - Cursor usage: docs/guides/cursor-usage.md
+    - Claude IDE support: docs/guides/claude-ide-support.md
   - Getting started:
     - quick-start: docs/getting-started/quick-start.md
     - setup: docs/getting-started/setup.md
@@ -20,6 +23,9 @@ nav:
     - hooks: docs/components/hooks.md
   - Reference:
     - configuration: docs/reference/configuration-reference.md
+    - cursor-recognized-files: docs/reference/cursor-recognized-files.md
+    - cursor-official-features: docs/reference/cursor-official-features.md
+    - enrichment-checklist: docs/reference/enrichment-checklist.md
     - glossary: docs/reference/glossary.md
 
 plugins: []

@@ -1,6 +1,7 @@
 ---
-description: "Error handling patterns for backend services"
-alwaysApply: true
+description: "Error handling patterns for backend services. Apply when handling errors in handlers or services."
+alwaysApply: false
+globs: "**/handlers/**/*.ts,**/api/**/*.ts,**/services/**/*.ts,**/common/errors/**/*"
 ---
 
 # Error Handling Rules

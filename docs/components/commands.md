@@ -9,11 +9,25 @@ Commands are quick-action Markdown files in `.cursor/commands/` that tell the AI
 
 ## Structure
 
+```mermaid
+flowchart LR
+    subgraph CmdDomains [Command Domains]
+        BE[backend]
+        TST[testing]
+        DO[devops]
+        SEC[security]
+    end
+    BE --> |type-check, lint, format| C1[Quick validation]
+    TST --> |test-single, coverage| C2[Targeted tests]
+    DO --> |build, deploy| C3[Build/deploy]
+    SEC --> |audit, check-secrets| C4[Security]
+```
+
 Commands are organized by domain:
 
-- **backend/** — format, lint-fix, type-check, generate-handler
+- **backend/** — type-check, lint-check, lint-fix, format, generate-handler
+- **testing/** — test-single, test-coverage, coverage
 - **devops/** — build, deploy, docker-build
 - **security/** — audit, audit-deps, check-secrets
-- **testing/** — test-single, test-coverage, coverage
 
 Each command file describes the exact steps (e.g. `npm run type-check`) and any scope limits (e.g. backend paths only).

@@ -2,12 +2,27 @@
 
 cursor-handbook provides 5 types of components that work together to enhance your Cursor IDE experience.
 
+```mermaid
+flowchart LR
+    subgraph Components [Component Types]
+        R[Rules]
+        A[Agents]
+        S[Skills]
+        C[Commands]
+        H[Hooks]
+    end
+    R --> A
+    A --> S
+    S --> C
+    C --> H
+```
+
 ## Component Types
 
 ### 1. Rules (.mdc files)
 
 **Location**: `.cursor/rules/`
-**Count**: 27
+**Count**: 29
 **Purpose**: Always-applied coding standards that guide every AI interaction.
 
 Rules are automatically loaded by Cursor IDE and applied to all prompts. They enforce:
@@ -33,7 +48,7 @@ Invoke agents with `/agent-name` in the Cursor chat:
 ### 3. Skills (SKILL.md)
 
 **Location**: `.cursor/skills/`
-**Count**: 13
+**Count**: 21
 **Purpose**: Step-by-step guided workflows with checklists.
 
 Skills are loaded automatically when context matches. They provide:
@@ -45,7 +60,7 @@ Skills are loaded automatically when context matches. They provide:
 ### 4. Commands (.md files)
 
 **Location**: `.cursor/commands/`
-**Count**: 8
+**Count**: 14
 **Purpose**: Quick single actions.
 
 Commands are lightweight operations:
@@ -57,7 +72,7 @@ Commands are lightweight operations:
 ### 5. Hooks (.sh scripts)
 
 **Location**: `.cursor/hooks/`
-**Count**: 6
+**Count**: 12
 **Purpose**: Automate the AI loop.
 
 Hooks run automatically at specific events:
@@ -69,23 +84,13 @@ Hooks run automatically at specific events:
 
 ## How They Work Together
 
-```
-User Prompt
-    │
-    ▼
-[Hooks: beforeSubmitPrompt] ─── Enrich with context
-    │
-    ▼
-[Rules: Always Applied] ─────── Enforce standards
-    │
-    ▼
-[Agent/Skill/Command] ────────── Specialized behavior
-    │
-    ▼
-[Hooks: afterFileEdit] ──────── Post-edit checks
-    │
-    ▼
-Response to User
+```mermaid
+flowchart TB
+    P[User Prompt] --> H1[Hooks: beforeSubmitPrompt]
+    H1 --> |Enrich with context| R[Rules: Always Applied]
+    R --> |Enforce standards| E[Agent / Skill / Command]
+    E --> |Specialized behavior| H2[Hooks: afterFileEdit]
+    H2 --> |Post-edit checks| O[Response to User]
 ```
 
 ## See Also

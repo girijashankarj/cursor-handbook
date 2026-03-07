@@ -1,5 +1,13 @@
 # Setup
 
+```mermaid
+flowchart TB
+    S1[1. Get handbook] --> S2[2. Create project.json]
+    S2 --> S3[3. chmod +x hooks]
+    S3 --> S4[4. Verify in Cursor]
+    S4 --> S5[5. Docs and scripts]
+```
+
 ## 1. Get the handbook
 
 **Option A — Clone into `.cursor` (replace existing)**
@@ -30,7 +38,7 @@ Edit `.cursor/config/project.json`: set project name, source paths, tech stack, 
 chmod +x .cursor/hooks/*.sh
 ```
 
-Edit `.cursor/hooks/hooks.json` to enable or disable hooks (beforeSubmitPrompt, afterFileEdit, beforeShellExecution).
+Edit `.cursor/hooks.json` (project root) to enable or disable hooks. Cursor expects `version: 1` and command arrays per event. See [Cursor-Recognized Files](../reference/cursor-recognized-files.md).
 
 ## 4. Verify
 

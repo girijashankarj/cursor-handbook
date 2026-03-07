@@ -1,14 +1,35 @@
-# Command: Lint fix (backend)
+---
+name: lint-fix
+description: Auto-fix lint issues in backend code. Safe fixes only; list unfixable errors.
+---
 
-Auto-fix lint issues in backend code.
+# Command: Lint Fix
 
-## Instructions
+## Invocation
+`/lint-fix`
 
-1. Run the project lint-fix command (e.g. `npm run lint -- --fix` or `eslint --fix`).
-2. Restrict to backend/source paths; do not fix generated or vendor files.
-3. If the tool reports unfixable errors, list them and suggest manual edits.
+## Description
+Auto-fix lint issues in backend code. Restrict to backend/source paths; prefer safe fixes.
 
-## Scope
+## Action
+```bash
+{{CONFIG.testing.lintCommand}} -- --fix
+# Or: eslint --fix "{{CONFIG.paths.source}}/**/*.{ts,js}"
+```
 
-- Backend/source directories only.
-- Prefer safe fixes (formatting, unused imports); avoid changing behavior.
+## When to Use
+- After lint-check reports fixable issues
+- Before committing
+- Quick cleanup of formatting/unused imports
+
+## Token Cost
+~10K tokens (depends on file count)
+
+## Expected Output
+- **Success**: Fixed files; remaining unfixable errors listed
+- **Failure**: Linter config errors; parse errors
+
+## Troubleshooting
+- **Unfixable errors**: List them and suggest manual edits
+- **Scope**: Backend/source only; exclude generated/vendor files
+- **Behavior**: Prefer safe fixes (formatting, unused imports); avoid changing logic

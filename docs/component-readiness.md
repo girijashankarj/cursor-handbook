@@ -1,14 +1,28 @@
 # Component readiness
 
-Summary of cursor-handbook components and their status.
+Summary of cursor-handbook components and their status. All listed components are **production-ready** and **generic** — they work across projects and tech stacks; customize via `project.json` and optional edits to rules/agents/skills.
+
+```mermaid
+flowchart LR
+    subgraph Ready [Production Ready]
+        R[Rules]
+        A[Agents]
+        S[Skills]
+        C[Commands]
+        H[Hooks]
+        CF[Config]
+        T[Templates]
+    end
+    Ready --> PJ[project.json]
+```
 
 ## Components
 
 | Component | Location | Status |
 |-----------|----------|--------|
-| Rules | `.cursor/rules/` | Ready — 27+ rules |
-| Agents | `.cursor/agents/` | Ready — 34+ agents |
-| Skills | `.cursor/skills/` | Ready — 13+ skills |
+| Rules | `.cursor/rules/` | Ready — 29 rules |
+| Agents | `.cursor/agents/` | Ready — 34 agents |
+| Skills | `.cursor/skills/` | Ready — 21 skills |
 | Commands | `.cursor/commands/` | Ready — format, lint, type-check, build, deploy, audit, coverage |
 | Hooks | `.cursor/hooks/` | Ready — format, lint-check, type-check, scan-secrets, validate-sql, etc. |
 | Config | `.cursor/config/` | Ready — project.json, schema, templates |

@@ -1,7 +1,9 @@
-# Skill: Set Up Cloud Infrastructure
+---
+name: infrastructure
+description: Workflow for provisioning cloud infrastructure using IaC. Use when the user needs to create or modify cloud resources.
+---
 
-## Description
-Workflow for provisioning cloud infrastructure using IaC.
+# Skill: Set Up Cloud Infrastructure
 
 ## Trigger
 When the user needs to create or modify cloud resources.
@@ -49,6 +51,16 @@ When the user needs to create or modify cloud resources.
 - [ ] Configure alert rules
 - [ ] Create dashboards
 - [ ] Set up cost alerts
+
+## If a step fails
+
+| Step | Failure | Recovery |
+|------|---------|----------|
+| Step 5 | Deploy to dev/staging fails | Run `terraform destroy` or equivalent; fix IaC; re-apply; never proceed to prod until dev/staging succeeds |
+| Step 5 | Deploy to production fails | Rollback via IaC (revert and apply previous state); investigate; fix in dev; re-test full pipeline |
+| Step 5 | Partial apply (some resources created) | Document what was created; run destroy/rollback for failed resources; fix and retry |
+
+**Never** apply infrastructure changes to production without explicit user confirmation. Require confirmation before `terraform apply` or equivalent on prod.
 
 ## Completion
 Infrastructure provisioned, secured, monitored, and documented.

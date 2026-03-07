@@ -64,3 +64,26 @@ Before approving any code change, verify:
 - [ ] Authentication checks on protected routes
 - [ ] Authorization checks for resource access
 - [ ] No sensitive data in URL parameters
+
+## Anti-patterns
+- Don't use `eval()` or `new Function()` — use safe alternatives
+
+```ts
+// BAD
+const fn = new Function('x', 'return x * 2');
+
+// GOOD: Use explicit logic or a schema validator
+```
+- Don't log `req.body` or `res` — may contain secrets or PII
+- Don't put secrets in `.env.example` — use placeholders like `YOUR_API_KEY`
+- Don't use `any` for user input — always type and validate
+- Don't expose internal errors — map to generic messages for clients
+
+## Edge Cases
+- **File uploads**: Validate MIME type, size, and scan for malware
+- **JSON payloads**: Limit depth and size; reject malformed early
+- **Rate limit bypass**: Use consistent key (IP + user ID when authenticated)
+
+## Related
+- See `@secrets-rules` for env var patterns
+- See `@BUGBOT` for PR review rules

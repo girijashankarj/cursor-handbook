@@ -1,7 +1,9 @@
-# Skill: OpenSearch
+---
+name: opensearch
+description: Workflow for OpenSearch (or Elasticsearch) usage: indexing, search, mappings, and tuning. Use when the user asks about OpenSearch/Elasticsearch.
+---
 
-## Description
-Workflow for OpenSearch (or Elasticsearch) usage: indexing, search, mappings, and simple tuning.
+# Skill: OpenSearch
 
 ## Trigger
 When the user asks about OpenSearch/Elasticsearch indexing, search queries, or mapping design.

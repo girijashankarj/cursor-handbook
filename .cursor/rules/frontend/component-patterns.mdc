@@ -1,6 +1,7 @@
 ---
-description: "Frontend component architecture and patterns"
-alwaysApply: true
+description: "Frontend component architecture and patterns. Apply when creating or editing UI components."
+alwaysApply: false
+globs: "**/*.tsx,**/*.jsx,**/components/**/*,**/Components/**/*"
 ---
 
 # Frontend Component Patterns
@@ -93,3 +94,37 @@ export const Button: React.FC<ButtonProps> = ({
 - Follow design system tokens for colors, spacing, typography
 - Mobile-first responsive design
 - Support dark mode via CSS variables or theme context
+
+## Anti-patterns
+- Don't use `any` for props — define explicit interface
+
+```tsx
+// BAD
+const Button = (props: any) => ...
+
+// GOOD
+interface ButtonProps { label: string; onClick: () => void; }
+```
+- Don't fetch in useEffect without cleanup — cancel on unmount
+- Don't put server data in global state — use React Query
+- Don't use index as key when list can reorder — use stable id
+- Don't inline object/array in JSX — causes unnecessary re-renders
+
+## Examples
+```tsx
+// BAD: New object every render
+<Child onClick={() => ({})} />
+
+// GOOD: Stable callback
+const noop = useCallback(() => {}, []);
+<Child onClick={noop} />
+```
+
+## Edge Cases
+- **Loading states**: Skeleton > spinner > empty; handle error state
+- **Form validation**: Show errors on blur or submit; don't block typing
+- **List virtualization**: Use when >100 items; set item height for scroll
+
+## Related
+- Use `@component-creation` skill for new components
+- See `@accessibility` for a11y requirements

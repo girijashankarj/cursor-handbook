@@ -1,11 +1,12 @@
 #!/bin/bash
 # Hook: beforeShellExecution (for git commit)
 # Purpose: Run pre-commit checks before git operations
-# Lightweight validation before commits
+# Set CURSOR_HOOK_SECRETS_WARN_ONLY=1 to warn but not block (exit 0)
 
 set -e
 
 COMMAND="${1:-}"
+WARN_ONLY="${CURSOR_HOOK_SECRETS_WARN_ONLY:-0}"
 
 # Only run for git commit commands
 if ! echo "$COMMAND" | grep -q "git commit"; then
@@ -32,16 +33,19 @@ while IFS= read -r file; do
   fi
 done <<< "$STAGED_FILES"
 
-if [ "$SECRETS_FOUND" = true ]; then
-  echo ""
-  echo "⚠️  Potential secrets detected in staged files."
-  echo "Please review before committing."
-fi
-
 # Check for .env files being committed
 if echo "$STAGED_FILES" | grep -q "\.env"; then
   echo "🛑 WARNING: .env file is staged for commit!"
   echo "Remove it with: git reset HEAD .env"
+  SECRETS_FOUND=true
+fi
+
+if [ "$SECRETS_FOUND" = true ]; then
+  echo ""
+  echo "⚠️  Potential secrets detected in staged files."
+  echo "Please review before committing."
+  echo "Pre-commit checks complete."
+  [ "$WARN_ONLY" = "1" ] && exit 0 || exit 1
 fi
 
 echo "Pre-commit checks complete."

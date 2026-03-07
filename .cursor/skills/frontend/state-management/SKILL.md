@@ -1,7 +1,9 @@
-# Skill: Set Up State Management
+---
+name: state-management
+description: Workflow for choosing and implementing the right state management approach. Use when the user needs to manage state for a new feature or refactor.
+---
 
-## Description
-Workflow for choosing and implementing the right state management approach.
+# Skill: Set Up State Management
 
 ## Trigger
 When the user needs to manage state for a new feature or refactor existing state.

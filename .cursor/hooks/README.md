@@ -1,32 +1,34 @@
-# Cursor hooks
+# Cursor Hooks
 
-Scripts that run at specific points in the Cursor workflow (e.g. before submit, after edit, before shell).
+Hooks run automatically at key points in the Cursor AI loop.
 
-## Hook configuration
+## Canonical configuration
 
-Hooks are registered in `hooks.json` in this directory. Each hook can run one or more scripts.
+**The active hook config is `.cursor/hooks.json`** (project root). Cursor reads that file only.
 
-## Scripts
+| File | Purpose |
+|------|---------|
+| `.cursor/hooks.json` | **Canonical** — Cursor uses this |
+| `.cursor/hooks/hooks.json` | Reference schema (different format); not used by Cursor |
 
-| Script | Purpose |
-|--------|--------|
-| `context-enrichment.sh` / `inject-context.sh` | Add project context before submitting a prompt |
-| `auto-format.sh` / `format-on-edit.sh` | Format code after file edit |
-| `post-edit-check.sh` | Run light checks after edit |
-| `shell-guard.sh` | Guard against dangerous shell commands |
-| `pre-commit-check.sh` | Run before git commit (secrets, etc.) |
-| `coverage-check.sh` | Check coverage after test run |
-| `lint-check.sh` | Run lint on target files |
-| `type-check.sh` | Run type check (e.g. tsc) |
-| `scan-secrets.sh` | Scan for hardcoded secrets |
-| `validate-sql.sh` | Validate SQL/migration files |
+## Active vs available
 
-## Making scripts executable
+| Status | Count | Scripts |
+|--------|-------|---------|
+| **Active** (wired in `.cursor/hooks.json` by default) | 4 | `context-enrichment.sh`, `post-edit-check.sh`, `auto-format.sh`, `shell-guard.sh` |
+| **Available** (ready to enable) | 8 | `inject-context.sh`, `format-on-edit.sh`, `lint-check.sh`, `type-check.sh`, `pre-commit-check.sh`, `scan-secrets.sh`, `validate-sql.sh`, `coverage-check.sh` |
 
-```bash
-chmod +x .cursor/hooks/*.sh
-```
+To enable an available hook, add it to `.cursor/hooks.json` under the appropriate event. See each script's header for its intended trigger.
 
-## Disabling hooks
+## Active hooks (default)
 
-Edit `hooks.json` and set `"enabled": false` for the hook you want to disable.
+| Script | Trigger | Description |
+|--------|---------|-------------|
+| `context-enrichment.sh` | beforeSubmitPrompt | Injects project config into prompts (requires `jq`) |
+| `post-edit-check.sh` | afterFileEdit | Validates changes, checks for secrets |
+| `auto-format.sh` | afterFileEdit | Formats edited files |
+| `shell-guard.sh` | beforeShellExecution | Blocks dangerous commands, warns on expensive ops |
+
+## Adding hooks
+
+Edit `.cursor/hooks.json` and add your script path under the appropriate trigger.

@@ -6,6 +6,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Added
+- Rules engine branding (replaced "configuration boilerplate")
+- Star CTA, Table of Contents, Before vs After, Who is this for sections
+- One-line install command
+- Marketing images (hero, before-after, who-uses, architecture, one-line-install)
+- docs/snaps/README.md with image index
+
+### Changed
+- Cursor official best practices documented (500-line rule, etc.)
+- CONTRIBUTING agent location, troubleshooting hooks section
+- Active vs available hooks documented
+
 ## [1.4.0] - 2026-03-06
 
 ### Added
@@ -42,15 +54,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Added
 
-- Cursor Hooks documentation (6 hooks)
+- Cursor Hooks documentation (12 hooks)
 - Future Roadmap
 
 ## [1.0.0] - 2025-02-07
 
 ### Added
 
-- Initial release with 88 components
-- 27 rules, 34 agents, 13 skills, 8 commands, 6 hooks
+- Initial release with 110 components
+- 29 rules, 34 agents, 21 skills, 14 commands, 12 hooks
 - 9 stack-specific example configurations
 - Central `project.json` configuration system
 - Security guardrails and token efficiency rules

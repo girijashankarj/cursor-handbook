@@ -1,10 +1,18 @@
-# Skill: Create UI Component
+---
+name: component-creation
+description: Step-by-step workflow for creating accessible, tested UI components. Use when the user asks to create a new UI component.
+---
 
-## Description
-Step-by-step workflow for creating accessible, tested UI components.
+# Skill: Create UI Component
 
 ## Trigger
 When the user asks to create a new UI component.
+
+## Prerequisites
+- [ ] Project uses React (or Vue; adjust steps)
+- [ ] `src/components/` or equivalent exists
+- [ ] Testing framework configured (Jest, Vitest, etc.)
+- [ ] Styling approach known (Tailwind, CSS Modules, etc.)
 
 ## Steps
 
@@ -62,5 +70,17 @@ src/components/{category}/{ComponentName}/
 - [ ] Export component from index.ts
 - [ ] Export props interface
 
-## Completion
-Component is created, accessible, styled, tested, and exported.
+## Completion Checklist
+- [ ] Component renders with default props
+- [ ] Props interface exported
+- [ ] Tests pass
+- [ ] Accessibility: keyboard nav, ARIA, contrast
+- [ ] No lint/type errors
+
+## If Step Fails
+- **Step 2 (directory)**: Match existing structure in `src/components/` (ui/, features/, layout/)
+- **Step 5 (a11y)**: Use `aria-label` on icon buttons; `role` only when semantic HTML insufficient
+- **Step 7 (tests)**: Run single file: `npm test -- ComponentName.test.tsx`. Fix type errors first with `{{CONFIG.testing.typeCheckCommand}}`
+
+## Example
+Step 1: `OrderSummary` — displays order total and item count. Props: `items`, `taxRate`. Step 4: Functional component, `useMemo` for total calculation, loading/empty states.

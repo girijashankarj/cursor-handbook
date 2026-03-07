@@ -73,7 +73,8 @@ Examples:
 
 ### Agents (.md files)
 
-- Location: `.cursor/agents/{domain}/{name}.md`
+- Location: `.cursor/agents/<name>.md` (at root only — Cursor does not discover agents in subdirectories)
+- Naming: `{domain}-{purpose}-agent.md` (e.g. `backend-code-reviewer.md`)
 - Must include: Invocation, Scope, Expertise, When to Use, Output Format
 - Maximum 150 lines
 - Clear, actionable output format
@@ -88,14 +89,15 @@ Examples:
 ### Commands (.md files)
 
 - Location: `.cursor/commands/{domain}/{name}.md`
-- Must include: Invocation, Description, Action, When to Use
+- Follow the format in `.cursor/commands/COMMAND_TEMPLATE.md`: Invocation, Description, Action, When to Use, Token Cost, Expected Output
 - Keep commands simple and focused
 - Document token cost savings when applicable
 
 ### Hooks (.sh scripts)
 
 - Location: `.cursor/hooks/{name}.sh`
-- Must be registered in `hooks.json`
+- Must be registered in `.cursor/hooks.json` under the appropriate event
+
 - Include shebang: `#!/bin/bash`
 - Use `set -e` for safety
 - Handle missing dependencies gracefully

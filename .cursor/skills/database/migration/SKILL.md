@@ -1,7 +1,9 @@
-# Skill: Create Database Migration
+---
+name: migration
+description: Safe workflow for creating and applying database schema changes. Use when the user needs to modify the database schema.
+---
 
-## Description
-Safe workflow for creating and applying database schema changes.
+# Skill: Create Database Migration
 
 ## Trigger
 When the user needs to modify the database schema.
@@ -46,6 +48,17 @@ If needed:
 - [ ] Update affected queries
 - [ ] Run type check: `{{CONFIG.testing.typeCheckCommand}}`
 - [ ] Run affected tests
+
+## If a step fails
+
+| Step | Failure | Recovery |
+|------|---------|----------|
+| Step 2 | Syntax error in migration | Fix SQL; re-run |
+| Step 4 | Data migration fails mid-run | Script should be idempotent; fix and re-run; if partial data, document manual cleanup |
+| Step 5 | Test migration fails | Run DOWN migration to revert; fix UP migration; retest |
+| Step 5 | Rollback test fails | Fix DOWN migration; ensure DOWN fully reverts UP before retrying |
+
+Never apply migrations to production without testing UP and DOWN in a non-prod environment first.
 
 ## Completion
 Migration created, tested, and code updated. Ready for review.

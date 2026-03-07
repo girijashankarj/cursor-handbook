@@ -13,6 +13,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Validate structure
+        run: |
+          chmod +x scripts/validate.sh
+          ./scripts/validate.sh
+
       - name: Validate JSON files
         run: |
           echo "Validating JSON files..."
@@ -22,16 +27,12 @@ jobs:
 
       - name: Count components
         run: |
-          RULES=$(find .cursor/rules -name "*.mdc" | wc -l | tr -d ' ')
-          AGENTS=$(find .cursor/agents -name "*.md" | wc -l | tr -d ' ')
+          RULES=$(find .cursor/rules \( -name "*.mdc" -o -name "*.md" \) | wc -l | tr -d ' ')
+          AGENTS=$(find .cursor/agents -maxdepth 1 -name "*.md" | wc -l | tr -d ' ')
           SKILLS=$(find .cursor/skills -name "SKILL.md" | wc -l | tr -d ' ')
-          COMMANDS=$(find .cursor/commands -name "*.md" | wc -l | tr -d ' ')
+          COMMANDS=$(find .cursor/commands -name "*.md" ! -name "COMMAND_TEMPLATE.md" | wc -l | tr -d ' ')
           HOOKS=$(find .cursor/hooks -name "*.sh" | wc -l | tr -d ' ')
-          echo "Rules: $RULES"
-          echo "Agents: $AGENTS"
-          echo "Skills: $SKILLS"
-          echo "Commands: $COMMANDS"
-          echo "Hooks: $HOOKS"
+          echo "Rules: $RULES | Agents: $AGENTS | Skills: $SKILLS | Commands: $COMMANDS | Hooks: $HOOKS"
           echo "Total: $((RULES + AGENTS + SKILLS + COMMANDS + HOOKS))"
 
       - name: Check for secrets
@@ -50,3 +51,8 @@ jobs:
           for f in .cursor/hooks/*.sh; do
             bash -n "$f" || echo "Syntax error in: $f"
           done
+
+      - name: Verify COMPONENT_INDEX matches filesystem
+        run: |
+          chmod +x scripts/generate-component-index.sh
+          ./scripts/generate-component-index.sh

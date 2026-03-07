@@ -1,9 +1,11 @@
 #!/bin/bash
 # Hook: beforeShellExecution (e.g. before git push) or on-demand
 # Purpose: Scan staged or working files for likely secrets
+# Set CURSOR_HOOK_SECRETS_WARN_ONLY=1 to warn but not block (exit 0)
 
 set -e
 
+WARN_ONLY="${CURSOR_HOOK_SECRETS_WARN_ONLY:-0}"
 FILES="${1:-}"
 
 if [ -z "$FILES" ]; then
@@ -21,5 +23,8 @@ for f in $FILES; do
   fi
 done
 
-[ $FOUND -eq 1 ] && echo "Review and remove secrets before committing."
+if [ $FOUND -eq 1 ]; then
+  echo "Review and remove secrets before committing."
+  [ "$WARN_ONLY" = "1" ] && exit 0 || exit 1
+fi
 exit 0

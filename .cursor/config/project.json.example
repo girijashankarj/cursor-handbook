@@ -55,7 +55,7 @@
     ]
   },
   "patterns": {
-    "handlerFlowSteps": 8,
+    "handlerFlowSteps": 7,
     "handlerFlow": [
       "Validate Request",
       "Validate Business",

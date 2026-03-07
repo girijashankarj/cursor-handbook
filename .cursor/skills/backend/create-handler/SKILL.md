@@ -1,7 +1,17 @@
+---
+name: create-handler
+description: Create a new API handler following the handler pattern. Use when the user asks to create an endpoint, handler, or route.
+---
+
 # Skill: Create API Handler
 
-## Description
 Step-by-step workflow for creating a new API handler following the {{CONFIG.patterns.handlerFlowSteps}}-step handler pattern.
+
+## Scripts (Cursor skills scripts/ support)
+
+This skill includes a `scripts/` folder. The agent can run these scripts as part of the workflow:
+
+- **scripts/scaffold-handler-dirs.sh** — Creates the handler directory structure. Usage: `./scripts/scaffold-handler-dirs.sh <entity> <operation>` (e.g. `order create`).
 
 ## Trigger
 When the user asks to create a new API endpoint, handler, or route.
@@ -87,3 +97,11 @@ For each file in `logic/`:
 
 ## Completion
 Handler is created, tested, and type-checked. Ready for code review.
+
+## If a step fails
+
+- **Step 2 (directory):** Ensure `{{CONFIG.paths.handlerBasePath}}` exists. Run `mkdir -p` from project root.
+- **Step 3–4 (schemas):** If schema validation fails, check JSON Schema syntax. Use a minimal schema first.
+- **Step 5 (logic):** If imports fail, verify paths match `{{CONFIG.paths.commonPath}}` and handler structure.
+- **Step 8 (tests):** If tests fail, run `{{CONFIG.testing.typeCheckCommand}}` first. Fix type errors before test logic.
+- **Step 9 (validate):** If type-check fails, fix reported errors before proceeding. Do not skip validation.

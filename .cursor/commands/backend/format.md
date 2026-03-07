@@ -1,14 +1,37 @@
-# Command: Format backend code
+---
+name: format
+description: Format backend code using project formatter (e.g. Prettier). Backend paths only.
+---
 
-Format backend source files using the project's formatter (e.g. Prettier).
+# Command: Format
 
-## Instructions
+## Invocation
+`/format`
 
-1. Run the project format command (e.g. `npm run format` or `npx prettier --write .`).
-2. Limit scope to backend paths only (e.g. `src/`, `api/`) if the repo has both frontend and backend.
-3. Do not change logic or add/remove imports beyond formatting.
+## Description
+Format backend source files using the project's formatter (e.g. Prettier). Limit scope to backend paths.
+
+## Action
+```bash
+# Prettier
+npx prettier --write "{{CONFIG.paths.source}}/**/*.{ts,js,json}"
+
+# Or project command
+{{CONFIG.techStack.packageManager}} run format
+```
+
+## When to Use
+- After making code changes
+- Before committing
+- After bulk edits
+
+## Token Cost
+—
+
+## Expected Output
+- **Success**: Formatted files; no logic changes
+- **Failure**: Parser errors; unsupported syntax
 
 ## Scope
-
-- Backend directories only (see `{{CONFIG.paths.source}}` or project config).
-- File types: `.ts`, `.js`, `.json` (as configured).
+- Backend directories only ({{CONFIG.paths.source}})
+- File types: .ts, .js, .json — do not change logic or add/remove imports

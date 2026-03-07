@@ -1,6 +1,7 @@
 ---
-description: "REST API design conventions and standards"
-alwaysApply: true
+description: "REST API design conventions and standards. Apply when designing or editing API endpoints."
+alwaysApply: false
+globs: "**/api/**/*.ts,**/*.route*.ts,**/*.routes.ts,**/routes/**/*.ts"
 ---
 
 # API Design Rules
@@ -61,3 +62,28 @@ alwaysApply: true
   - `X-RateLimit-Remaining`: Remaining requests
   - `X-RateLimit-Reset`: Window reset timestamp
 - Return 429 when limit exceeded with `Retry-After` header
+
+## Anti-patterns
+- Don't use 200 for errors — use 4xx/5xx with error body
+- Don't nest resources > 2 levels — `/api/v1/orders/123/items` OK; deeper = split
+- Don't return array without pagination — always paginate list endpoints
+- Don't use query params for sensitive data — use headers or body
+- Don't version in headers only — use URL path for cacheability
+
+## Examples
+```json
+// BAD: No envelope, no meta
+["item1", "item2"]
+
+// GOOD: Envelope with pagination
+{ "data": [...], "meta": { "pagination": { "page": 1, "total": 100 } } }
+```
+
+## Edge Cases
+- **Bulk operations**: Use POST with array; return 207 for partial success
+- **Filtering empty**: `?filter[status]=` — treat as "no filter" not "empty string"
+- **Sort invalid column**: Return 400 with allowed sort fields in error
+
+## Related
+- Use `@handler-patterns` for handler flow
+- Use `@create-handler` skill for new endpoints

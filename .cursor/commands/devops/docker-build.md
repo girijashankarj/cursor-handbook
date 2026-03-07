@@ -1,3 +1,8 @@
+---
+name: docker-build
+description: Build and tag Docker image for the current project.
+---
+
 # Command: Docker Build
 
 ## Invocation
@@ -17,7 +22,14 @@ docker build -t {{CONFIG.project.name}}:$(git rev-parse --short HEAD) .
 - Before pushing to container registry
 - After Dockerfile changes
 
+## Token Cost
+—
+
 ## Expected Output
 - Successfully built image
 - Image size report
 - Layer analysis
+
+## Troubleshooting
+- **No Dockerfile**: Create from `.cursor/templates/` or project rules
+- **Build context**: Run from project root; check `.dockerignore`

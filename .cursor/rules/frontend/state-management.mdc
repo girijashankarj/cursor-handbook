@@ -1,6 +1,7 @@
 ---
-description: "Frontend state management patterns and best practices"
-alwaysApply: true
+description: "Frontend state management patterns and best practices. Apply when managing client state."
+alwaysApply: false
+globs: "**/*.tsx,**/*.jsx,**/store/**/*,**/state/**/*"
 ---
 
 # State Management Rules

@@ -1,7 +1,9 @@
-# Skill: Improve Test Coverage
+---
+name: coverage-improvement
+description: Systematic workflow for identifying coverage gaps and writing missing tests. Use when coverage is below target or the user asks to improve coverage.
+---
 
-## Description
-Systematic workflow for identifying coverage gaps and writing missing tests.
+# Skill: Improve Test Coverage
 
 ## Trigger
 When coverage is below {{CONFIG.testing.coverageMinimum}}% or user asks to improve coverage.

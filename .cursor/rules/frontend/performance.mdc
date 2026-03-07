@@ -1,6 +1,7 @@
 ---
-description: "Frontend performance optimization rules"
-alwaysApply: true
+description: "Frontend performance optimization rules. Apply when optimizing UI or bundle."
+alwaysApply: false
+globs: "**/*.tsx,**/*.jsx,**/*.vue,**/components/**/*"
 ---
 
 # Frontend Performance Rules

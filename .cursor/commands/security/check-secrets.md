@@ -1,3 +1,8 @@
+---
+name: check-secrets
+description: Scan codebase for accidentally committed secrets or credentials.
+---
+
 # Command: Check for Secrets
 
 ## Invocation
@@ -28,7 +33,14 @@ rg "BEGIN (RSA |EC |DSA )?PRIVATE KEY" -g '!node_modules' -g '!.git'
 - During security audits
 - After onboarding new developers
 
+## Token Cost
+~10K tokens (depends on codebase size)
+
 ## Expected Output
 - Any matches found are potential secrets
 - Each match should be reviewed and remediated
 - False positives should be added to allowlist
+
+## Troubleshooting
+- **False positives**: Add patterns to allowlist; exclude test fixtures
+- **ripgrep**: Use `rg` if available; fallback to `grep -r`

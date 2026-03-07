@@ -1,6 +1,7 @@
 ---
-description: "Database schema design conventions and standards"
-alwaysApply: true
+description: "Database schema design conventions and standards. Apply when designing schema or migrations."
+alwaysApply: false
+globs: "**/*.sql,**/migrations/**/*,**/*.model.ts,**/schema/**/*"
 ---
 
 # Database Schema Design

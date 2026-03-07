@@ -1,7 +1,9 @@
-# Skill: Task master
+---
+name: task-master
+description: Break a high-level request into ordered, actionable tasks. Use when the user asks to break down into tasks, create a plan, or list steps.
+---
 
-## Description
-Break a high-level request into ordered, actionable tasks and optionally track completion.
+# Skill: Task master
 
 ## Trigger
 When the user asks to "break this down into tasks," "create a plan," or "what are the steps."

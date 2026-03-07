@@ -1,0 +1,77 @@
+{
+  "$schema": "./project-schema.json",
+  "project": {
+    "name": "cursor-handbook",
+    "description": "Open-source rules engine for Cursor IDE: 110 rules, agents, skills, commands, hooks",
+    "version": "1.4.0",
+    "repository": "https://github.com/YOUR_ORG/cursor-handbook"
+  },
+  "cursor": {
+    "include": {
+      "patterns": ["docs/**", ".cursor/**", "scripts/**", "examples/**"],
+      "priorityFiles": ["README.md", "CLAUDE.md", "AGENTS.md", ".cursor/config/project-schema.json"]
+    },
+    "exclude": {
+      "patterns": ["node_modules/**", "dist/**", ".git/**", "coverage/**"],
+      "largeFiles": ["*.lock", "*.map", "*.min.js", "*.min.css"],
+      "secrets": [".env", ".env.*", "*.pem", "*.key", "credentials.*"]
+    },
+    "tokenOptimization": {
+      "maxRuleLines": 300,
+      "maxSkillLines": 200,
+      "maxAgentLines": 150,
+      "contextLayers": {
+        "immediate": 2000,
+        "relevant": 5000,
+        "extended": 10000,
+        "reference": 20000
+      }
+    }
+  },
+  "paths": {
+    "source": "docs",
+    "apiPath": "docs",
+    "handlerBasePath": "docs",
+    "commonPath": ".cursor",
+    "eventsPath": "docs",
+    "configPath": ".cursor/config"
+  },
+  "domain": {
+    "entities": ["Rule", "Agent", "Skill", "Command", "Hook", "Template"],
+    "businessRules": [
+      "All components use {{CONFIG}} placeholders",
+      "Rules are always-applied; agents/skills are on-demand",
+      "Token efficiency is critical"
+    ]
+  },
+  "techStack": {
+    "language": "Markdown",
+    "runtime": "Node.js",
+    "framework": "Cursor IDE",
+    "cloud": "GitHub",
+    "database": "N/A",
+    "packageManager": "npm",
+    "testing": "Shell scripts",
+    "linter": "markdownlint",
+    "cicd": "GitHub Actions"
+  },
+  "testing": {
+    "coverageMinimum": 0,
+    "testCommand": "scripts/validate.sh",
+    "typeCheckCommand": "echo 'N/A for handbook'",
+    "lintCommand": "npx markdownlint docs",
+    "coverageCommand": "echo 'N/A'"
+  },
+  "folderNames": {
+    "logic": "logic",
+    "schemas": "schemas",
+    "common": "common",
+    "services": "services",
+    "types": "types",
+    "utils": "utils",
+    "middleware": "middleware",
+    "models": "models",
+    "controllers": "controllers",
+    "routes": "routes"
+  }
+}

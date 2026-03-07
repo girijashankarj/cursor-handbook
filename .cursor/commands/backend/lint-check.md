@@ -1,3 +1,8 @@
+---
+name: lint-check
+description: Check lint errors using read_lints tool instead of full lint. Saves ~50K tokens.
+---
+
 # Command: Lint Check
 
 ## Invocation
@@ -17,5 +22,9 @@ Use the `read_lints` tool on recently changed files. Do NOT run the full lint co
 ## Token Cost
 ~2K tokens (vs ~50K for full lint run)
 
-## Important
-**NEVER** run `{{CONFIG.testing.lintCommand}}` directly — always use `read_lints` tool.
+## Expected Output
+- **Success**: No lint errors; or list of errors with file/line
+- **Failure**: Use `read_lints` tool output
+
+## Troubleshooting
+- **NEVER** run `{{CONFIG.testing.lintCommand}}` directly — always use `read_lints` tool

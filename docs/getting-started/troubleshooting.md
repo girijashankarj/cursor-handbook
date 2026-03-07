@@ -9,8 +9,9 @@
 ## Hooks not running
 
 - Make scripts executable: `chmod +x .cursor/hooks/*.sh`
-- Check `hooks/hooks.json` — the hook must be `"enabled": true` and script names must match the files in the same directory.
-- Run a script manually: `./.cursor/hooks/format-on-edit.sh path/to/file` to see errors.
+- Check `.cursor/hooks.json` (project root) — Cursor reads this file only. Format: `{ "version": 1, "hooks": { "beforeSubmitPrompt": [{ "command": ".cursor/hooks/context-enrichment.sh" }], ... } }`
+- Add your script under the event you want (e.g. `afterFileEdit`, `beforeShellExecution`).
+- Run a script manually to debug: `./.cursor/hooks/context-enrichment.sh` or `./.cursor/hooks/post-edit-check.sh path/to/file`
 
 ## Placeholders not replaced
 

@@ -1,3 +1,8 @@
+---
+name: test-single
+description: Run tests for a single file instead of full suite. Saves ~95K tokens.
+---
+
 # Command: Test Single File
 
 ## Invocation
@@ -25,3 +30,7 @@ Run tests for a single file instead of the entire test suite. Saves ~95K tokens.
 ## Expected Output
 - Test results for the specified file only
 - Coverage for tested file
+
+## Troubleshooting
+- **testPathPattern**: Jest uses `--testPathPattern`; Vitest uses `--run {file}`
+- **Pass file path**: User must specify or agent infers from current file

@@ -1,3 +1,8 @@
+---
+name: generate-handler
+description: Scaffold a new API handler with complete directory structure and boilerplate.
+---
+
 # Command: Generate Handler
 
 ## Invocation
@@ -27,3 +32,14 @@ Scaffold a new API handler with the complete directory structure and boilerplate
 ## When to Use
 - Creating a new API endpoint
 - Starting a new handler from scratch
+
+## Token Cost
+~5K tokens
+
+## Expected Output
+- New directory structure: `{entity}/{operation}/logic/`, `schemas/`
+- Boilerplate files with {{CONFIG}} placeholders
+
+## Troubleshooting
+- **Missing project.json**: Ensure paths and fileNames are configured
+- **Entity naming**: Use camelCase for entity; kebab-case for directory

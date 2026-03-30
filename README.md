@@ -5,13 +5,13 @@
   <img src="https://img.shields.io/github/issues/girijashankarj/cursor-handbook" alt="GitHub issues" />
   <img src="https://img.shields.io/badge/license-MIT-green" alt="License MIT" />
   <img src="https://img.shields.io/badge/version-1.4.0-blue" alt="Version" />
-  <img src="https://img.shields.io/badge/Components-112-green" alt="112 Components" />
+  <img src="https://img.shields.io/badge/Components-117-green" alt="117 Components" />
   <img src="https://img.shields.io/badge/Token%20Savings-30%25%2B-green?style=for-the-badge" alt="30%+ Savings" />
 </p>
 
 # cursor-handbook
 
-**The open-source rules engine for Cursor IDE — 112 rules, agents, and skills that turn your AI into a senior engineer who follows your standards, knows your codebase, and never wastes a token.**
+**The open-source rules engine for Cursor IDE — 117 components (rules, agents, skills, commands, hooks) that turn your AI into a senior engineer who follows your standards, knows your codebase, and never wastes a token.**
 
 > Stop teaching your AI the same things every session. cursor-handbook gives Cursor permanent memory of your standards, security policies, and workflows — across every project, every team member, every prompt.
 
@@ -49,6 +49,7 @@ Pick the option that fits your workflow:
 ![Add from GitHub in Cursor Settings](docs/snaps/cursor_settings_add_rules_etc.png)
 | **3. Fork & customize** | Maintain your own version. Fork this repo, adapt the `.cursor` files for your team or product, then use that fork across your projects or share it internally. |
 | **4. Pick and choose** | Use individual components. Download only the production-ready, generic rules, skills, agents, commands, or hooks you need from this repo and drop them into your existing `.cursor` setup. |
+| **5. Handbook website** | **Browse** components or read **Guidelines** (Cursor IDE topics) in the browser — **[GitHub Pages](https://girijashankarj.github.io/cursor-handbook/)** (optional; clone, ZIP, and command line still work). |
 
 **Improvements welcome.** If you want to add or improve rules, skills, hooks, agents, or commands, see [CONTRIBUTING.md](CONTRIBUTING.md) and open an issue or PR.
 
@@ -153,7 +154,7 @@ graph TB
 ```mermaid
 %%{init: {'theme': 'neutral'}}%%
 mindmap
-  root((cursor-handbook<br/>112 Components))
+  root((cursor-handbook<br/>117 Components))
     Rules — 30
       Architecture — 3
       Backend — 6
@@ -199,7 +200,7 @@ mindmap
 | **Hooks**     |    12 | Automation scripts in the AI loop                 | Event-driven — before/after actions |
 | **Templates** |     9 | Scaffolding for handlers, components, tests, etc. | Referenced by skills and agents     |
 
-> **Note:** The 112 component count = Rules + Agents + Skills + Commands + Hooks. Templates (9) are supporting assets referenced by skills and agents.
+> **Note:** The 117 component count = Rules + Agents + Skills + Commands + Hooks. Templates (9) are supporting assets referenced by skills and agents.
 
 ---
 
@@ -265,7 +266,7 @@ Edit `.cursor/config/project.json` — replace placeholders with your project de
 
 ### Step 3 — Restart Cursor IDE
 
-Close and reopen Cursor. All 112 components are now active.
+Close and reopen Cursor. All 117 components are now active.
 
 ### Step 4 — Verify
 
@@ -589,7 +590,7 @@ graph LR
 | **Docs**         | Docs Agent           | `/docs-agent`           | Technical documentation           |
 | **Platform**     | DX Agent             | `/dx-agent`             | Developer experience              |
 
-### Commands (14) — Token-Efficient Quick Actions
+### Commands (17) — Token-Efficient Quick Actions
 
 ```mermaid
 graph LR
@@ -787,7 +788,7 @@ cursor-handbook/
 
 | Metric                      | Value              |
 | --------------------------- | ------------------ |
-| Components                  | 112                |
+| Components                  | 117                |
 | Supported tech stacks       | 9                  |
 | Token savings per operation | 67-96%             |
 | Setup time                  | ~5 minutes         |
@@ -837,9 +838,15 @@ graph LR
 | [Claude IDE support](docs/guides/claude-ide-support.md)       | Use with Claude Code and other IDEs  |
 | [Security Guide](docs/security/security-guide.md)             | Security features and policies       |
 | [Schema Reference](docs/reference/configuration-reference.md)  | Full `project.json` schema           |
-| [Component Index](COMPONENT_INDEX.md)                         | Complete list of all 112 components  |
+| [Component Index](COMPONENT_INDEX.md)                         | Complete list of all 117 components  |
+| [Handbook website](https://girijashankarj.github.io/cursor-handbook/) | **Browse** (components) and **Guidelines** (Cursor IDE topics); search; copy paths (GitHub Pages) |
+| [Cursor guidelines](docs/cursor-guidelines/README.md) | Settings, rules, skills, agents, hooks, token efficiency, security, MCP, comparisons, workflow examples |
+| [Non-technical guide](docs/getting-started/non-technical.md) | Using cursor-handbook without writing code |
+| [SDLC role map](docs/reference/sdlc-role-map.md)              | Components by role (PM, QA, DevOps, …) |
 | [Contributing](CONTRIBUTING.md)                               | How to contribute                    |
 | [Contribution Examples](docs/guides/contribution-examples.md) | Concrete examples of adding components |
+
+**Handbook website (GitHub Pages):** [girijashankarj.github.io/cursor-handbook](https://girijashankarj.github.io/cursor-handbook/) is built from `main` by [`.github/workflows/pages.yml`](.github/workflows/pages.yml). In the repository **Settings → Pages**, set **Source** to **GitHub Actions** once so deployments appear.
 
 ---
 
@@ -851,7 +858,7 @@ graph LR
 
 <p align="center">
   <strong>Stop teaching your AI the same things twice.</strong><br/>
-  Clone cursor-handbook, set your project once, and let 112 rules, agents, and skills work for you — every prompt, every project, every day.
+  Clone cursor-handbook, set your project once, and let 117 components work for you — every prompt, every project, every day.
 </p>
 
 <p align="center">

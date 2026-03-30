@@ -18,8 +18,8 @@ if [ ! -f ".cursor/config/project.json" ] && [ ! -f ".cursor/config/project.json
   echo "WARN: No project.json or project.json.template in .cursor/config/"
 fi
 
-# Check hooks.json (Cursor reads from .cursor/hooks.json at project root)
-if [ ! -f ".cursor/hooks.json" ] && [ ! -f ".cursor/hooks/hooks.json" ]; then
+# Check hooks.json (Cursor reads .cursor/hooks.json at project root only)
+if [ ! -f ".cursor/hooks.json" ]; then
   echo "WARN: No .cursor/hooks.json found (Cursor expects project-level hooks there)"
 fi
 

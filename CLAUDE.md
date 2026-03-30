@@ -4,7 +4,7 @@
 
 ## Project
 
-**cursor-handbook** — A Cursor IDE configuration boilerplate with 110 components (rules, agents, skills, commands, hooks).
+**cursor-handbook** — A Cursor IDE configuration boilerplate with 117 components (rules, agents, skills, commands, hooks).
 
 ## Critical Rules
 

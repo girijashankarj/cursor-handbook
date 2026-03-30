@@ -7,6 +7,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 ## [Unreleased]
 
 ### Added
+- Rule `response-summary.mdc`: optional assistive footer (files, tools; honest note on token metrics)
+- Commands: `/commit-message`, `/pr-description`, `/fix-vulnerable-deps`; skill `dependency-remediation`
+- Docs: `docs/reference/sdlc-role-map.md`, `docs/getting-started/non-technical.md`; AGENTS.md pointer for non-developers
+- Handbook website (`website/`): Vite static UI, `scripts/generate-components-json.py`, GitHub Pages workflow
+- **Cursor guidelines:** `docs/cursor-guidelines/` chapters, `scripts/generate-guide-json.py`, **Guidelines** view on the handbook site (markdown + TOC + search; third-party / trademark disclaimer)
+- **Cursor guidelines (depth):** vocabulary (`globs`, `alwaysApply`, skill/agent keywords), Settings discovery, hooks event table, Agent terminal + sandbox links, VS Code & IntelliJ migration checklists, mermaid diagrams; UI disclaimer reinforces Cursor IP
 - Rules engine branding (replaced "configuration boilerplate")
 - Star CTA, Table of Contents, Before vs After, Who is this for sections
 - One-line install command

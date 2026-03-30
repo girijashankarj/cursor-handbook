@@ -28,5 +28,5 @@ How to add new rules, agents, commands, skills, and hooks to cursor-handbook.
 ## Hooks (`.sh`)
 
 - Add a script in `.cursor/hooks/` and make it executable (`chmod +x`).
-- Register it in `hooks/hooks.json` under the right hook type (beforeSubmitPrompt, afterFileEdit, beforeShellExecution).
+- Register it in **`.cursor/hooks.json`** under the right event key, as an array of `{ "command": ".cursor/hooks/your-script.sh" }` entries (see [Hooks](https://cursor.com/docs/agent/hooks)).
 - Keep scripts minimal and fast; avoid heavy work in the hot path.

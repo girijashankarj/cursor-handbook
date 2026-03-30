@@ -39,4 +39,4 @@ See `.cursor/rules/` for the full list and `docs/reference/configuration-referen
 
 ## Cursor Official Best Practices
 
-Cursor recommends keeping rules **under 500 lines**, referencing files instead of copying content, and splitting large rules into composable ones. cursor-handbook uses a stricter **300-line** default for token efficiency. All 29 rules are under 130 lines. See [Cursor Official Best Practices](../reference/cursor-official-features.md#cursor-official-best-practices) for the full list.
+Cursor recommends keeping rules **under 500 lines**, referencing files instead of copying content, and splitting large rules into composable ones. cursor-handbook uses a stricter **300-line** default for token efficiency. All 31 rules are under 130 lines. See [Cursor Official Best Practices](../reference/cursor-official-features.md#cursor-official-best-practices) for the full list.

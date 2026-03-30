@@ -49,6 +49,10 @@ This is **cursor-handbook**, a Cursor IDE configuration boilerplate providing ru
 
 Project settings are in `.cursor/config/project.json`. Components reference settings via `{{CONFIG.section.key}}` placeholders.
 
+## Not a developer?
+
+You can still use this repo with Cursor: copy only what you need, or use **Settings → Add from GitHub** with this repository URL. Nothing here is mandatory. Short guide: [docs/getting-started/non-technical.md](docs/getting-started/non-technical.md). Role-based pointers: [docs/reference/sdlc-role-map.md](docs/reference/sdlc-role-map.md).
+
 ## Component Map
 
 - **Rules**: `.cursor/rules/*.mdc` — Always-applied standards

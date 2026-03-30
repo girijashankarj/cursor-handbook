@@ -1,0 +1,33 @@
+---
+description: "Test naming conventions for readability and discoverability"
+alwaysApply: true
+---
+
+# Test Naming Standards
+
+## Pattern
+- Use `should {expected behavior} when {condition}` for test descriptions
+- Be specific — the name should explain what is being tested without reading the body
+- Use present tense, third person
+
+## Good Examples
+```{{CONFIG.techStack.language}}
+it('should return 404 when resource does not exist', () => { ... });
+it('should hash password before storing', () => { ... });
+it('should throw ValidationError when email is invalid', () => { ... });
+```
+
+## Bad Examples
+- `test1`, `test2` — No meaning
+- `works` — Vague
+- `test calculateTotal` — Not a sentence; use "should" pattern
+- `it calculates total` — Missing condition when relevant
+
+## describe Blocks
+- Group by function, class, or behavior
+- Use noun or verb phrase: `describe('OrderService', ...)` or `describe('calculateTotal', ...)`
+- Nest for sub-behaviors: `describe('calculateTotal', () => { describe('when discount applies', ...) })`
+
+## Edge Cases
+- Name edge cases explicitly: `should return empty array when input is null`
+- Include boundary in name when relevant: `should reject when quantity exceeds MAX_INT`

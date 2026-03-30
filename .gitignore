@@ -26,6 +26,7 @@ credentials.json
 
 # IDE
 .idea/
+.vscode/
 *.swp
 *.swo
 *~
@@ -47,6 +48,7 @@ yarn-debug.log*
 # Cache
 .cache/
 .turbo/
+website/.vite/
 tmp/
 temp/
 

@@ -18,4 +18,4 @@ Pre-configured `project.json` files for different tech stacks. Copy the one that
 
 1. Copy the relevant `project.json` to `.cursor/config/project.json` in your project.
 2. Customize values (project name, paths, domain entities).
-3. The 110 components (rules, agents, skills, commands, hooks) will automatically adapt to your configuration via `{{CONFIG}}` placeholders.
+3. The 117 components (rules, agents, skills, commands, hooks) will automatically adapt to your configuration via `{{CONFIG}}` placeholders.

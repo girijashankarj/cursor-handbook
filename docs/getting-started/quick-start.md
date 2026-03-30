@@ -93,10 +93,10 @@ Try one of these commands in Cursor:
 
 After setup, you'll have:
 
-- **29 rules** automatically applied to all AI interactions
+- **31 rules** (several always-on; others apply by file pattern or context)
 - **34 agents** available via `/agent-name` commands
-- **21 skills** for guided workflows
-- **14 commands** for quick actions
+- **23 skills** for guided workflows
+- **17 commands** for quick actions
 - **12 hooks** automating the AI loop
 
 ## Other ways to use cursor-handbook
@@ -114,3 +114,4 @@ Want to add or improve components? See [CONTRIBUTING.md](../../CONTRIBUTING.md).
 - [Project Setup Guide](./configuration.md)
 - [Component Overview](../components/overview.md)
 - [Best Practices](../guides/best-practices.md)
+- [Cursor guidelines](../cursor-guidelines/README.md) — Cursor IDE concepts (rules, skills, hooks, security) and the handbook site **Guidelines** view

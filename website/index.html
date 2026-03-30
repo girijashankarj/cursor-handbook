@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Browse cursor-handbook rules, agents, skills, commands, and hooks. Optional Cursor IDE configuration — use the UI, CLI, or Add from GitHub."
+    />
+    <meta name="author" content="cursor-handbook" />
+    <meta name="theme-color" content="#0f1419" id="meta-theme-color" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="cursor-handbook — Cursor IDE handbook" />
+    <meta
+      property="og:description"
+      content="Browse rules, agents, skills, commands, and hooks. Community handbook — not affiliated with Cursor."
+    />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="cursor-handbook — Cursor IDE handbook" />
+    <meta
+      name="twitter:description"
+      content="Browse rules, agents, skills, commands, and hooks for Cursor IDE."
+    />
+    <title>cursor-handbook — Cursor IDE handbook</title>
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <link rel="apple-touch-icon" href="./favicon.svg" />
+    <link rel="manifest" href="./site.webmanifest" />
+    <link rel="stylesheet" href="/src/style.css" />
+    <script>
+      (function () {
+        try {
+          var KEY = "cursor-handbook-theme";
+          var p = localStorage.getItem(KEY);
+          var lightQ = window.matchMedia("(prefers-color-scheme: light)");
+          var resolved =
+            p === "light"
+              ? "light"
+              : p === "dark"
+                ? "dark"
+                : lightQ.matches
+                  ? "light"
+                  : "dark";
+          document.documentElement.dataset.colorScheme = resolved;
+          var meta = document.getElementById("meta-theme-color");
+          if (meta)
+            meta.setAttribute(
+              "content",
+              resolved === "light" ? "#f8fafc" : "#0f1419",
+            );
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

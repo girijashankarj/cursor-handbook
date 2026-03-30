@@ -18,7 +18,7 @@ function hoistMermaidBlocks(root: HTMLElement): void {
     const pre = el.parentElement;
     if (!pre?.parentNode) return;
     const div = document.createElement("div");
-    div.className = "mermaid";
+    div.className = "mermaid my-6 overflow-x-auto rounded-xl border border-slate-200 bg-slate-50 p-3 dark:border-slate-700 dark:bg-slate-900";
     div.textContent = el.textContent ?? "";
     pre.replaceWith(div);
   });
@@ -35,10 +35,7 @@ async function runMermaidInGuide(): Promise<void> {
       const mod = await import("mermaid");
       mermaidApi = mod.default;
     }
-    const mmTheme =
-      document.documentElement.dataset.colorScheme === "light"
-        ? "default"
-        : "dark";
+    const mmTheme = document.documentElement.classList.contains("dark") ? "dark" : "default";
     mermaidApi.initialize({
       startOnLoad: false,
       theme: mmTheme,
@@ -81,6 +78,75 @@ function treeUrl(relativePath: string): string {
   return `https://github.com/${siteRepo}/tree/${siteBranch}/${p}`;
 }
 
+let cachedRepoStats: RepoStats | null = null;
+let cachedRepoStatsFor = "";
+
+function formatCount(n: number): string {
+  return new Intl.NumberFormat("en", { notation: "compact" }).format(n);
+}
+
+function formatDate(iso: string): string {
+  const d = new Date(iso);
+  if (Number.isNaN(d.getTime())) return "n/a";
+  return new Intl.DateTimeFormat("en", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  }).format(d);
+}
+
+function repoStatsHtml(stats: RepoStats | null, loading = false): string {
+  if (loading) {
+    return `<section class="mt-4 rounded-2xl border border-slate-200 bg-white p-4 text-sm text-slate-600 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-300" aria-live="polite">Loading repository stats…</section>`;
+  }
+  if (!stats) return "";
+  return `<section class="mt-4 rounded-2xl border border-slate-200 bg-white p-4 dark:border-slate-800 dark:bg-slate-900" aria-label="Repository stats">
+    <p class="mb-2 text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">Repository stats</p>
+    <div class="flex flex-wrap gap-2">
+      <span class="rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-700 dark:bg-slate-800 dark:text-slate-200">Stars ${formatCount(stats.stars)}</span>
+      <span class="rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-700 dark:bg-slate-800 dark:text-slate-200">Forks ${formatCount(stats.forks)}</span>
+      <span class="rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-700 dark:bg-slate-800 dark:text-slate-200">Open issues ${formatCount(stats.openIssues)}</span>
+      <span class="rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-700 dark:bg-slate-800 dark:text-slate-200">Watchers ${formatCount(stats.watchers)}</span>
+    </div>
+    <p class="mt-2 text-xs text-slate-500 dark:text-slate-400">Updated ${formatDate(stats.updatedAt)}</p>
+  </section>`;
+}
+
+async function loadRepoStats(): Promise<RepoStats | null> {
+  if (cachedRepoStats && cachedRepoStatsFor === siteRepo) return cachedRepoStats;
+  try {
+    const res = await fetch(`https://api.github.com/repos/${siteRepo}`, {
+      headers: { Accept: "application/vnd.github+json" },
+    });
+    if (!res.ok) return null;
+    const data = await res.json();
+    const stats: RepoStats = {
+      stars: Number(data.stargazers_count ?? 0),
+      forks: Number(data.forks_count ?? 0),
+      openIssues: Number(data.open_issues_count ?? 0),
+      watchers: Number(data.subscribers_count ?? data.watchers_count ?? 0),
+      updatedAt: String(data.updated_at ?? ""),
+    };
+    cachedRepoStats = stats;
+    cachedRepoStatsFor = siteRepo;
+    return stats;
+  } catch {
+    return null;
+  }
+}
+
+async function hydrateRepoStats(containerId: string): Promise<void> {
+  const host = document.getElementById(containerId);
+  if (!host) return;
+  host.innerHTML = repoStatsHtml(
+    cachedRepoStatsFor === siteRepo ? cachedRepoStats : null,
+    true,
+  );
+  const stats = await loadRepoStats();
+  if (!host.isConnected) return;
+  host.innerHTML = repoStatsHtml(stats);
+}
+
 interface Component {
   id: string;
   type: string;
@@ -113,6 +179,14 @@ interface GuidePayload {
   branch?: string;
   sectionCount: number;
   sections: GuideSection[];
+}
+
+interface RepoStats {
+  stars: number;
+  forks: number;
+  openIssues: number;
+  watchers: number;
+  updatedAt: string;
 }
 
 let guideFilter = "";
@@ -151,7 +225,7 @@ function resolveColorScheme(p: ThemePreference): "light" | "dark" {
 function applyColorScheme(): void {
   const pref = getThemePreference();
   const resolved = resolveColorScheme(pref);
-  document.documentElement.dataset.colorScheme = resolved;
+  document.documentElement.classList.toggle("dark", resolved === "dark");
   const meta = document.getElementById(
     "meta-theme-color",
   ) as HTMLMetaElement | null;
@@ -170,16 +244,18 @@ function themePreferenceLabel(p: ThemePreference): string {
 }
 
 function syncThemeControlUi(): void {
-  const btn = document.querySelector(".theme-cycle");
+  const btn = document.querySelector(".theme-cycle") as HTMLButtonElement | null;
   if (!btn) return;
   const p = getThemePreference();
   const resolved = resolveColorScheme(p);
-  btn.setAttribute("data-preference", p);
+  const label = `Theme: ${themePreferenceLabel(p)}`;
   btn.setAttribute(
     "aria-label",
-    `Color theme: ${themePreferenceLabel(p)} (${resolved === "light" ? "light" : "dark"} active). Click to change.`,
+    `Color theme: ${themePreferenceLabel(p)} (${resolved} active). Click to change.`,
   );
-  btn.setAttribute("title", `Theme: ${themePreferenceLabel(p)}`);
+  btn.setAttribute("title", label);
+  const text = btn.querySelector(".theme-cycle__text");
+  if (text) text.textContent = label;
 }
 
 function escapeHtml(s: string): string {
@@ -392,41 +468,43 @@ function disclaimerStrip(compact: boolean): string {
     ? `<strong>cursor-handbook</strong> — independent of Cursor. <em>Cursor</em>, <em>Cursor IDE</em>, and official Cursor docs are <strong>Cursor / Anysphere rights</strong>. Not affiliated or endorsed. <a href="${CURSOR_DOCS}" target="_blank" rel="noopener">cursor.com/docs</a> · <a href="${CURSOR_RULES}" target="_blank" rel="noopener">Rules</a>.`
     : `<p><strong>Cursor product rights.</strong> <em>Cursor</em>, <em>Cursor IDE</em>, logos, user interface, and official documentation are <strong>intellectual property of Cursor and its licensors</strong> (e.g. Anysphere, Inc.). All such rights remain with their owners. This <strong>cursor-handbook</strong> site and repository are <strong>community-maintained</strong> and <strong>not affiliated, endorsed, or sponsored</strong> by Cursor.</p>
        <p>For authoritative behavior (<code>globs</code>, <code>alwaysApply</code>, hooks, sandbox, models), use <a href="${CURSOR_DOCS}" target="_blank" rel="noopener">cursor.com/docs</a> — especially <a href="${CURSOR_RULES}" target="_blank" rel="noopener">cursor.com/docs/rules</a>.</p>`;
-  return `<aside class="disclaimer ${compact ? "disclaimer--compact" : ""}" role="note">${body}</aside>`;
+  return `<aside class="rounded-xl border border-slate-300 bg-slate-50 px-4 dark:border-slate-700 dark:bg-slate-900/60 ${compact ? "py-2 text-xs" : "py-3 text-sm"} text-slate-700 dark:text-slate-300" role="note">${body}</aside>`;
 }
 
 function siteNav(active: "browse" | "guide"): string {
+  const base =
+    "inline-flex items-center rounded-full px-4 py-2 text-sm font-medium transition-colors";
+  const activeCls =
+    "bg-slate-900 text-white dark:bg-slate-100 dark:text-slate-900";
+  const idleCls =
+    "text-slate-700 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800";
   const b =
     active === "browse"
-      ? '<span class="nav-link nav-link--active">Browse</span>'
-      : '<a class="nav-link" href="#browse">Browse</a>';
+      ? `<span class="${base} ${activeCls}">Browse</span>`
+      : `<a class="${base} ${idleCls}" href="#browse">Browse</a>`;
   const g =
     active === "guide"
-      ? '<span class="nav-link nav-link--active">Guidelines</span>'
-      : '<a class="nav-link" href="#guide">Guidelines</a>';
-  return `<nav class="site-nav" aria-label="Main">${b} ${g}</nav>`;
+      ? `<span class="${base} ${activeCls}">Guidelines</span>`
+      : `<a class="${base} ${idleCls}" href="#guide">Guidelines</a>`;
+  return `<nav class="flex items-center gap-2" aria-label="Main">${b} ${g}</nav>`;
 }
 
 function themeControlHtml(): string {
-  return `<button type="button" class="theme-cycle btn btn--icon" aria-label="Color theme" title="Theme">
-  <span class="theme-cycle__icons" aria-hidden="true">
-    <svg class="theme-cycle__svg theme-cycle__svg--system" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
-    <svg class="theme-cycle__svg theme-cycle__svg--sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
-    <svg class="theme-cycle__svg theme-cycle__svg--moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-  </span>
-</button>`;
+  return `<button type="button" class="theme-cycle inline-flex items-center rounded-full border border-slate-300 bg-white px-3 py-2 text-sm font-medium text-slate-700 shadow-sm transition hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-800" aria-label="Color theme" title="Theme">
+    <span class="theme-cycle__text">Theme</span>
+  </button>`;
 }
 
 function topChrome(active: "browse" | "guide"): string {
-  return `<div class="top-bar">
-  <div class="top-bar__start">
-    <a class="brand" href="#browse" aria-label="Home — cursor-handbook">
-      <img class="brand__mark" src="${ASSET_BASE}favicon.svg" width="32" height="32" alt="" decoding="async" />
-      <span class="brand__text">cursor-handbook</span>
+  return `<div class="sticky top-0 z-40 mb-4 rounded-2xl border border-slate-200 bg-white px-3 py-3 shadow-sm dark:border-slate-800 dark:bg-slate-900 sm:px-5">
+  <div class="flex flex-wrap items-center gap-3 sm:gap-4">
+    <a class="inline-flex items-center gap-2 rounded-xl px-2 py-1 text-base font-bold text-slate-900 hover:bg-slate-100 dark:text-slate-100 dark:hover:bg-slate-800" href="#browse" aria-label="Home — cursor-handbook">
+      <img class="h-8 w-8 rounded-lg" src="${ASSET_BASE}favicon.svg" width="32" height="32" alt="" decoding="async" />
+      <span class="text-slate-900 dark:text-white">cursor-handbook</span>
     </a>
+    <div class="order-3 w-full sm:order-2 sm:w-auto">${siteNav(active)}</div>
+    <div class="ml-auto order-2 sm:order-3">${themeControlHtml()}</div>
   </div>
-  ${siteNav(active)}
-  <div class="top-bar__end">${themeControlHtml()}</div>
 </div>`;
 }
 
@@ -450,37 +528,37 @@ function normalizeBrowseFilters(
 }
 
 function adoptionStripHtml(): string {
-  return `<section class="adoption-strip" aria-labelledby="adopt-heading">
-  <h2 id="adopt-heading" class="adoption-strip__title">Start here (open source)</h2>
-  <ol class="adoption-strip__steps">
+  return `<section class="rounded-2xl border border-slate-200 bg-white p-4 text-sm text-slate-700 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-200" aria-labelledby="adopt-heading">
+  <h2 id="adopt-heading" class="mb-2 text-base font-semibold text-slate-900 dark:text-slate-100">Start here (open source)</h2>
+  <ol class="list-decimal space-y-1 pl-5">
     <li><strong>Fork or clone</strong> this repository, or use Cursor <strong>Settings → Add from GitHub</strong> for remote rules.</li>
     <li><strong>Pick what you need</strong> — copy only part of <code>.cursor/</code> (for example <code>.cursor/rules/</code>, one skill folder, or selected agents) into your project.</li>
     <li><strong>Align configuration</strong> — merge <code>.cursor/config/project.json</code> and resolve <code>{{CONFIG}}</code> placeholders for your stack (see README).</li>
   </ol>
-  <p class="adoption-strip__paths">
-    <a href="${blobUrl("README.md")}">README</a> ·
-    <a href="${blobUrl("docs/getting-started/quick-start.md")}">Quick start</a> ·
-    <a href="${blobUrl("docs/getting-started/configuration.md")}">Configuration</a>
+  <p class="mt-3 text-xs">
+    <a class="font-medium text-sky-700 hover:underline dark:text-sky-300" href="${blobUrl("README.md")}">README</a> ·
+    <a class="font-medium text-sky-700 hover:underline dark:text-sky-300" href="${blobUrl("docs/getting-started/quick-start.md")}">Quick start</a> ·
+    <a class="font-medium text-sky-700 hover:underline dark:text-sky-300" href="${blobUrl("docs/getting-started/configuration.md")}">Configuration</a>
   </p>
 </section>`;
 }
 
 function guideReadFirstHtml(): string {
-  return `<aside class="guide-read-first" role="region" aria-label="Read first">
-  <h2 class="guide-read-first__title">Read first</h2>
-  <ul class="guide-read-first__list">
-    <li><a href="${blobUrl("docs/getting-started/non-technical.md")}" target="_blank" rel="noopener">Non-technical getting started</a> (GitHub)</li>
-    <li><a href="#guide?id=02-rules">Rules — vocabulary and UI</a> (this guide)</li>
-    <li><a href="${blobUrl("docs/reference/cursor-recognized-files.md")}" target="_blank" rel="noopener">Cursor-recognized files</a> (GitHub)</li>
+  return `<aside class="rounded-2xl border border-slate-200 bg-white p-4 text-sm text-slate-700 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-300" role="region" aria-label="Read first">
+  <h2 class="mb-2 text-sm font-semibold uppercase tracking-wide text-slate-700 dark:text-slate-200">Read first</h2>
+  <ul class="list-disc space-y-1 pl-5">
+    <li><a class="font-medium text-sky-700 hover:underline dark:text-sky-300" href="${blobUrl("docs/getting-started/non-technical.md")}" target="_blank" rel="noopener">Non-technical getting started</a> (GitHub)</li>
+    <li><a class="font-medium text-sky-700 hover:underline dark:text-sky-300" href="#guide?id=02-rules">Rules — vocabulary and UI</a> (this guide)</li>
+    <li><a class="font-medium text-sky-700 hover:underline dark:text-sky-300" href="${blobUrl("docs/reference/cursor-recognized-files.md")}" target="_blank" rel="noopener">Cursor-recognized files</a> (GitHub)</li>
   </ul>
 </aside>`;
 }
 
 function communityFooterHtml(): string {
-  return `<p class="footer-community">
-  <a href="${blobUrl("LICENSE")}" target="_blank" rel="noopener">License</a>
-  · <a href="${blobUrl("CONTRIBUTING.md")}" target="_blank" rel="noopener">Contributing</a>
-  · <a href="${issuesUrl()}" target="_blank" rel="noopener">Issues</a>
+  return `<p class="text-sm text-slate-600 dark:text-slate-300">
+  <a class="text-sky-700 hover:underline dark:text-sky-300" href="${blobUrl("LICENSE")}" target="_blank" rel="noopener">License</a>
+  · <a class="text-sky-700 hover:underline dark:text-sky-300" href="${blobUrl("CONTRIBUTING.md")}" target="_blank" rel="noopener">Contributing</a>
+  · <a class="text-sky-700 hover:underline dark:text-sky-300" href="${issuesUrl()}" target="_blank" rel="noopener">Issues</a>
 </p>`;
 }
 
@@ -529,14 +607,14 @@ function renderBrowse(
   const sectionsHtml = grouped
     .map(
       (sec) => `
-      <section class="browse-section" aria-labelledby="browse-h-${escapeHtml(sec.typeKey)}">
-        <h2 class="browse-section__title" id="browse-h-${escapeHtml(sec.typeKey)}">${escapeHtml(sec.typeLabel)}</h2>
+      <section class="browse-section mt-8" aria-labelledby="browse-h-${escapeHtml(sec.typeKey)}">
+        <h2 class="browse-section__title mb-4 text-xl font-bold text-slate-900 dark:text-slate-100" id="browse-h-${escapeHtml(sec.typeKey)}">${escapeHtml(sec.typeLabel)}</h2>
         ${Array.from(sec.byCategory.entries())
           .map(
             ([cat, items]) => `
-          <div class="browse-subsection">
-            <h3 class="browse-subsection__title">${escapeHtml(cat)} <span class="browse-subsection__count">${items.length}</span></h3>
-            <div class="grid">
+          <div class="browse-subsection mb-6">
+            <h3 class="browse-subsection__title mb-3 text-sm font-semibold uppercase tracking-wide text-slate-600 dark:text-slate-300">${escapeHtml(cat)} <span class="browse-subsection__count ml-1 rounded-full bg-slate-200 px-2 py-0.5 text-xs dark:bg-slate-700">${items.length}</span></h3>
+            <div class="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
               ${items.map((c) => cardHtml(c)).join("")}
             </div>
           </div>`,
@@ -548,43 +626,44 @@ function renderBrowse(
 
   const ru = repoUrl();
   app.innerHTML = `
-    <div class="layout">
-      <a class="skip-link" href="#main-content">Skip to content</a>
+    <div class="layout mx-auto max-w-7xl bg-slate-100 px-4 py-5 dark:bg-slate-950 sm:px-6 lg:px-8">
+      <a class="skip-link sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-violet-600 focus:px-3 focus:py-2 focus:text-white" href="#main-content">Skip to content</a>
       ${topChrome("browse")}
       ${disclaimerStrip(true)}
       <main id="main-content" class="main-flow" tabindex="-1">
-      <header class="header">
-        <h1>cursor-handbook</h1>
-        <p>
+      <header class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+        <h1 class="text-2xl font-extrabold text-slate-900 dark:text-slate-100 sm:text-3xl">cursor-handbook</h1>
+        <p class="mt-2 text-slate-700 dark:text-slate-300">
           Browse rules, agents, skills, commands, and hooks for
           <strong>Cursor IDE</strong>. Using this handbook is <strong>optional</strong> — use
           Cursor Settings → Add from GitHub, clone the repo, or the command line.
         </p>
-        <div class="header-actions">
-          <a class="btn btn-primary" href="${ru}" target="_blank" rel="noopener">View repository</a>
-          <a class="btn" href="#guide">Cursor guidelines</a>
-          <a class="btn" href="${blobUrl("docs/getting-started/non-technical.md")}" target="_blank" rel="noopener">Non-technical guide</a>
+        <div class="header-actions mt-4 flex flex-wrap gap-2">
+          <a class="btn btn-primary inline-flex items-center rounded-lg bg-slate-900 px-3 py-2 text-sm font-semibold text-white hover:bg-slate-800 dark:bg-slate-100 dark:text-slate-900 dark:hover:bg-slate-200" href="${ru}" target="_blank" rel="noopener">View repository</a>
+          <a class="btn inline-flex items-center rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-800" href="#guide">Cursor guidelines</a>
+          <a class="btn inline-flex items-center rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-800" href="${blobUrl("docs/getting-started/non-technical.md")}" target="_blank" rel="noopener">Non-technical guide</a>
         </div>
-        <p class="header-hint">Copy one file at a time: use <strong>Download file</strong> on a card (same as Raw), or open <strong>View on GitHub</strong> and use GitHub’s download / raw view.</p>
+        <p class="header-hint mt-3 text-sm text-slate-600 dark:text-slate-300">Copy one file at a time: use <strong>Download file</strong> on a card (same as Raw), or open <strong>View on GitHub</strong> and use GitHub’s download / raw view.</p>
       </header>
+      <div id="repo-stats-browse"></div>
 
       ${adoptionStripHtml()}
 
-      <div class="notice">
+      <div class="notice mt-4 rounded-2xl border border-emerald-300/40 bg-slate-50 p-4 text-sm text-slate-700 dark:border-slate-700 dark:bg-slate-900/60 dark:text-slate-200">
         <strong>Not a mandatory step.</strong>
         You can enable Cursor for your project without copying any files from this repo.
         The <a href="${blobUrl("README.md")}" target="_blank" rel="noopener">README</a>
         describes clone, copy, and &quot;Add from GitHub&quot; workflows.
       </div>
 
-      <div class="filters">
+      <div class="filters mt-4 grid grid-cols-1 gap-3 rounded-2xl border border-slate-200 bg-white p-4 dark:border-slate-800 dark:bg-slate-900 md:grid-cols-3">
         <div class="field">
-          <label for="search">Search</label>
-          <input type="search" id="search" placeholder="Name, path, description, role…" />
+          <label class="mb-1 block text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400" for="search">Search</label>
+          <input class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 shadow-sm focus:border-violet-400 focus:outline-none focus:ring-2 focus:ring-violet-300 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100" type="search" id="search" placeholder="Name, path, description, role…" />
         </div>
         <div class="field">
-          <label for="type">Component type</label>
-          <select id="type">
+          <label class="mb-1 block text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400" for="type">Component type</label>
+          <select class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 shadow-sm focus:border-violet-400 focus:outline-none focus:ring-2 focus:ring-violet-300 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100" id="type">
             ${TYPE_SELECT_OPTIONS.map(
               (o) =>
                 `<option value="${o.value}" ${filters.type === o.value ? "selected" : ""}>${escapeHtml(o.label)}</option>`,
@@ -592,21 +671,21 @@ function renderBrowse(
           </select>
         </div>
         <div class="field">
-          <label for="category">Role / folder</label>
-          <select id="category">
+          <label class="mb-1 block text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400" for="category">Role / folder</label>
+          <select class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 shadow-sm focus:border-violet-400 focus:outline-none focus:ring-2 focus:ring-violet-300 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100" id="category">
             <option value="all">all</option>
             ${cats.map((c) => `<option value="${escapeHtml(c)}" ${filters.category === c ? "selected" : ""}>${escapeHtml(c)}</option>`).join("")}
           </select>
         </div>
       </div>
 
-      <p class="stats">Showing <strong>${list.length}</strong> of ${payload.componentCount} components.</p>
+      <p class="stats mt-3 text-sm text-slate-600 dark:text-slate-300">Showing <strong>${list.length}</strong> of ${payload.componentCount} components.</p>
 
       <div class="browse-groups" id="cards">
-        ${list.length ? sectionsHtml : `<p class="browse-empty">No components match. Clear filters or search.</p>`}
+        ${list.length ? sectionsHtml : `<p class="browse-empty rounded-xl border border-slate-200 bg-white p-5 text-sm text-slate-600 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-300">No components match. Clear filters or search.</p>`}
       </div>
 
-      <footer class="footer">
+      <footer class="footer mt-8 rounded-2xl border border-slate-200 bg-white p-5 text-sm text-slate-600 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-300">
         <p>Repository: <a href="${ru}" target="_blank" rel="noopener">${ru}</a> (${escapeHtml(siteBranch)})</p>
         ${communityFooterHtml()}
         <p>More documentation:</p>
@@ -616,13 +695,14 @@ function renderBrowse(
           <li><a href="${blobUrl("docs/reference/cursor-recognized-files.md")}" target="_blank" rel="noopener">Cursor-recognized files</a></li>
           <li><a href="${blobUrl("COMPONENT_INDEX.md")}" target="_blank" rel="noopener">Component index</a></li>
         </ul>
-        <p class="footer-share">Share filtered browse: copy the URL from the address bar (for example <code>#browse?type=skill</code>).</p>
+        <p class="footer-share mt-2 text-xs text-slate-500 dark:text-slate-400">Share filtered browse: copy the URL from the address bar (for example <code>#browse?type=skill</code>).</p>
       </footer>
       </main>
     </div>
   `;
 
   syncThemeControlUi();
+  void hydrateRepoStats("repo-stats-browse");
   const search = document.getElementById("search") as HTMLInputElement | null;
   const typeSel = document.getElementById("type") as HTMLSelectElement | null;
   const catSel = document.getElementById("category") as HTMLSelectElement | null;
@@ -650,24 +730,27 @@ function cardHtml(c: Component): string {
       : c.description);
   const tags = (c.tags?.length ? c.tags : [c.type, c.category]).slice(0, 6);
   const tagsHtml = tags
-    .map((t) => `<span class="tag">${escapeHtml(t)}</span>`)
+    .map(
+      (t) =>
+        `<span class="inline-flex items-center rounded-full bg-slate-100 px-2 py-0.5 text-xs font-medium text-slate-700 dark:bg-slate-800 dark:text-slate-200">${escapeHtml(t)}</span>`,
+    )
     .join("");
   const inv = c.invocation
-    ? `<p class="card-invocation" title="Invocation"><code>${escapeHtml(c.invocation)}</code></p>`
+    ? `<p class="rounded-md bg-slate-100 px-2 py-1 text-xs text-slate-600 dark:bg-slate-800 dark:text-slate-300" title="Invocation"><code>${escapeHtml(c.invocation)}</code></p>`
     : "";
   return `
-    <article class="card" data-id="${escapeHtml(c.id)}">
-      <div class="card-header">
-        <h2 class="card-title">${escapeHtml(c.name)}</h2>
+    <article class="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md dark:border-slate-800 dark:bg-slate-900" data-id="${escapeHtml(c.id)}">
+      <div class="mb-2 flex items-start justify-between gap-3">
+        <h2 class="text-base font-semibold text-slate-900 dark:text-slate-100">${escapeHtml(c.name)}</h2>
       </div>
-      <div class="card-tags" aria-label="Tags">${tagsHtml}</div>
+      <div class="mb-2 flex flex-wrap gap-1.5" aria-label="Tags">${tagsHtml}</div>
       ${inv}
-      <p class="card-desc">${escapeHtml(short) || "—"}</p>
-      <p class="card-path">${escapeHtml(c.path)}</p>
-      <div class="card-actions">
-        <a class="btn" href="${escapeHtml(c.githubUrl)}" target="_blank" rel="noopener">View on GitHub</a>
-        <a class="btn btn-primary" href="${escapeHtml(c.rawUrl)}" target="_blank" rel="noopener">Download file</a>
-        <button type="button" class="btn copy-path" data-path="${escapeHtml(c.path)}">Copy path</button>
+      <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">${escapeHtml(short) || "—"}</p>
+      <p class="mt-2 break-all rounded bg-slate-50 px-2 py-1 font-mono text-xs text-slate-500 dark:bg-slate-800/70 dark:text-slate-400">${escapeHtml(c.path)}</p>
+      <div class="mt-3 flex flex-wrap gap-2">
+        <a class="inline-flex items-center rounded-lg border border-slate-300 px-3 py-1.5 text-xs font-medium text-slate-700 hover:bg-slate-50 dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-800" href="${escapeHtml(c.githubUrl)}" target="_blank" rel="noopener">View on GitHub</a>
+        <a class="inline-flex items-center rounded-lg bg-slate-900 px-3 py-1.5 text-xs font-medium text-white hover:bg-slate-800 dark:bg-slate-100 dark:text-slate-900 dark:hover:bg-slate-200" href="${escapeHtml(c.rawUrl)}" target="_blank" rel="noopener">Download file</a>
+        <button type="button" class="copy-path inline-flex items-center rounded-lg border border-slate-300 px-3 py-1.5 text-xs font-medium text-slate-700 hover:bg-slate-50 dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-800" data-path="${escapeHtml(c.path)}">Copy path</button>
       </div>
     </article>
   `;
@@ -693,52 +776,53 @@ function renderGuide(
 
   const tocItems = filtered
     .map((s) => {
-      const cur = active?.id === s.id ? "toc__link--active" : "";
+      const cur = active?.id === s.id ? "!bg-slate-900 !text-white dark:!bg-slate-100 dark:!text-slate-900" : "";
       const href = `#guide?id=${encodeURIComponent(s.id)}`;
-      return `<li><a class="toc__link ${cur}" href="${href}">${escapeHtml(s.title)}</a></li>`;
+      return `<li><a class="toc__link block rounded-md px-2 py-1 text-slate-600 hover:bg-slate-100 hover:text-violet-700 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-violet-300 ${cur}" href="${href}">${escapeHtml(s.title)}</a></li>`;
     })
     .join("");
 
   app.innerHTML = `
-    <div class="layout layout--wide">
-      <a class="skip-link" href="#main-content">Skip to content</a>
+    <div class="layout layout--wide mx-auto max-w-7xl bg-slate-100 px-4 py-5 dark:bg-slate-950 sm:px-6 lg:px-8">
+      <a class="skip-link sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-violet-600 focus:px-3 focus:py-2 focus:text-white" href="#main-content">Skip to content</a>
       ${topChrome("guide")}
       ${disclaimerStrip(false)}
       <main id="main-content" class="main-flow" tabindex="-1">
-      <header class="header header--guide">
-        <h1>Cursor guidelines</h1>
-        <p class="header-eyebrow">cursor-handbook · deep orientation + vocabulary</p>
-        <p>
+      <header class="header header--guide rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+        <h1 class="text-2xl font-extrabold text-slate-900 dark:text-slate-100 sm:text-3xl">Cursor guidelines</h1>
+        <p class="header-eyebrow mb-2 text-xs font-semibold uppercase tracking-[0.12em] text-slate-500 dark:text-slate-400">cursor-handbook · deep orientation + vocabulary</p>
+        <p class="mt-2 text-slate-700 dark:text-slate-300">
           Rules (<code>globs</code>, <code>alwaysApply</code>), skills, agents, commands, hooks, models, sandbox, and migration from VS Code / IntelliJ — with links to official Cursor docs.
           Always verify behavior in <a href="${CURSOR_DOCS}" target="_blank" rel="noopener">official Cursor documentation</a>
           (e.g. <a href="${CURSOR_RULES}" target="_blank" rel="noopener">Rules</a>).
         </p>
-        <div class="header-actions">
-          <a class="btn btn-primary" href="${blobUrl("docs/cursor-guidelines/README.md")}" target="_blank" rel="noopener">Source on GitHub</a>
-          <a class="btn" href="#browse">Browse components</a>
+        <div class="header-actions mt-4 flex flex-wrap gap-2">
+          <a class="btn btn-primary inline-flex items-center rounded-lg bg-slate-900 px-3 py-2 text-sm font-semibold text-white hover:bg-slate-800 dark:bg-slate-100 dark:text-slate-900 dark:hover:bg-slate-200" href="${blobUrl("docs/cursor-guidelines/README.md")}" target="_blank" rel="noopener">Source on GitHub</a>
+          <a class="btn inline-flex items-center rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-800" href="#browse">Browse components</a>
         </div>
       </header>
+      <div id="repo-stats-guide"></div>
 
       ${guideReadFirstHtml()}
 
-      <div class="guide-toolbar">
+      <div class="guide-toolbar mt-4 rounded-2xl border border-slate-200 bg-white p-4 dark:border-slate-800 dark:bg-slate-900">
         <div class="field field--grow">
-          <label for="guide-filter">Search guidelines</label>
-          <input type="search" id="guide-filter" placeholder="Filter by title or keyword…" />
+          <label class="mb-1 block text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400" for="guide-filter">Search guidelines</label>
+          <input class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 shadow-sm focus:border-cyan-400 focus:outline-none focus:ring-2 focus:ring-cyan-300 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100" type="search" id="guide-filter" placeholder="Filter by title or keyword…" />
         </div>
       </div>
 
-      <div class="guide-layout">
-        <aside class="guide-sidebar">
-          <h2 class="guide-sidebar__title">Chapters</h2>
-          <ol class="toc">${tocItems}</ol>
+      <div class="guide-layout mt-4 grid grid-cols-1 gap-4 xl:grid-cols-[260px_minmax(0,1fr)]">
+        <aside class="guide-sidebar rounded-2xl border border-slate-200 bg-white p-4 dark:border-slate-800 dark:bg-slate-900">
+          <h2 class="guide-sidebar__title mb-2 text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">Chapters</h2>
+          <ol class="toc space-y-1 text-sm">${tocItems}</ol>
         </aside>
-        <article class="guide-content prose" id="guide-body">
+        <article class="guide-content prose prose-slate max-w-none rounded-2xl border border-slate-200 bg-white p-5 dark:prose-invert dark:border-slate-800 dark:bg-slate-900" id="guide-body">
           ${bodyHtml}
         </article>
       </div>
 
-      <footer class="footer">
+      <footer class="footer mt-8 rounded-2xl border border-slate-200 bg-white p-5 text-sm text-slate-600 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-300">
         ${communityFooterHtml()}
         <p>Markdown source: <a href="${treeUrl("docs/cursor-guidelines")}" target="_blank" rel="noopener">docs/cursor-guidelines/</a> · branch <code>${escapeHtml(siteBranch)}</code></p>
       </footer>
@@ -747,6 +831,7 @@ function renderGuide(
   `;
 
   syncThemeControlUi();
+  void hydrateRepoStats("repo-stats-guide");
   const input = document.getElementById("guide-filter") as HTMLInputElement | null;
   if (input) input.value = filter;
 
@@ -831,11 +916,11 @@ async function route(): Promise<void> {
     const app = document.getElementById("app");
     const { view } = parseHash();
     if (app) {
-      app.innerHTML = `<div class="layout">
-        <a class="skip-link" href="#main-content">Skip to content</a>
+      app.innerHTML = `<div class="layout mx-auto max-w-7xl px-4 py-5 sm:px-6 lg:px-8">
+        <a class="skip-link sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-violet-600 focus:px-3 focus:py-2 focus:text-white" href="#main-content">Skip to content</a>
         ${topChrome(view === "guide" ? "guide" : "browse")}
         <main id="main-content" class="main-flow" tabindex="-1">
-          <p class="error">${escapeHtml(String(err))}</p>
+          <p class="error rounded-xl border border-rose-300/40 bg-rose-50 p-4 text-rose-700 dark:border-rose-700/40 dark:bg-rose-900/20 dark:text-rose-300">${escapeHtml(String(err))}</p>
         </main>
       </div>`;
       syncThemeControlUi();

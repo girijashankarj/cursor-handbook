@@ -40,7 +40,8 @@
                 : lightQ.matches
                   ? "light"
                   : "dark";
-          document.documentElement.dataset.colorScheme = resolved;
+          if (resolved === "dark") document.documentElement.classList.add("dark");
+          else document.documentElement.classList.remove("dark");
           var meta = document.getElementById("meta-theme-color");
           if (meta)
             meta.setAttribute(

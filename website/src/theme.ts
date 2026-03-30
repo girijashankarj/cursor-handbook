@@ -39,14 +39,15 @@ export function syncThemeControlUi(): void {
   if (!btn) return;
   const p = getThemePreference();
   const resolved = resolveColorScheme(p);
-  const label = `Theme: ${themePreferenceLabel(p)}`;
+  const label = `${themePreferenceLabel(p)} (${resolved} active)`;
   btn.setAttribute(
     "aria-label",
-    `Color theme: ${themePreferenceLabel(p)} (${resolved} active). Click to change.`,
+    `Color theme: ${themePreferenceLabel(p)} (${resolved} active). Click to cycle.`,
   );
-  btn.setAttribute("title", label);
-  const text = btn.querySelector(".theme-cycle__text");
-  if (text) text.textContent = label;
+  btn.setAttribute("title", `Theme: ${label}`);
+  btn.dataset.themePref = p;
+  btn.classList.remove("theme-cycle--system", "theme-cycle--light", "theme-cycle--dark");
+  btn.classList.add(`theme-cycle--${p}`);
 }
 
 export function applyColorScheme(): void {
@@ -57,7 +58,7 @@ export function applyColorScheme(): void {
     "meta-theme-color",
   ) as HTMLMetaElement | null;
   if (meta)
-    meta.setAttribute("content", resolved === "light" ? "#f8fafc" : "#0f1419");
+    meta.setAttribute("content", resolved === "light" ? "#f4f4f5" : "#09090b");
   syncThemeControlUi();
 }
 

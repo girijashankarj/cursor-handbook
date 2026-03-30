@@ -74,3 +74,26 @@ export function sanitizeHtmlFragment(input: string): string {
   }
   return doc.body.innerHTML;
 }
+
+/**
+ * Adds target="_blank" and rel="noopener noreferrer" to links that leave this site.
+ * Hash-only and same-origin links stay in the same tab.
+ */
+export function ensureExternalLinksOpenInNewTab(html: string): string {
+  if (typeof window === "undefined") return html;
+  const doc = new DOMParser().parseFromString(html, "text/html");
+  for (const a of Array.from(doc.body.querySelectorAll("a[href]"))) {
+    const href = a.getAttribute("href")?.trim();
+    if (!href || href.startsWith("#") || href.toLowerCase().startsWith("javascript:")) continue;
+    try {
+      const url = new URL(href, window.location.href);
+      if (url.protocol !== "http:" && url.protocol !== "https:") continue;
+      if (url.origin === window.location.origin) continue;
+      a.setAttribute("target", "_blank");
+      a.setAttribute("rel", "noopener noreferrer");
+    } catch {
+      // ignore invalid URLs
+    }
+  }
+  return doc.body.innerHTML;
+}

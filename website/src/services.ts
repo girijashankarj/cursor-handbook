@@ -1,3 +1,4 @@
+import { escapeHtml } from "./ui";
 import type { GuidePayload, Payload, RepoStats } from "./types";
 
 let siteRepo = "girijashankarj/cursor-handbook";
@@ -46,27 +47,42 @@ function formatDate(iso: string): string {
   }).format(d);
 }
 
+const REPO_STATS_ICON = `<svg class="header-repo-stats__icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-4"/></svg>`;
+
+function repoStatsPanelInner(stats: RepoStats): string {
+  const iso = escapeHtml(stats.updatedAt);
+  return `<div class="header-repo-stats-panel" role="region" aria-label="Repository stats">
+    <p class="header-repo-stats-panel__title">Repository stats</p>
+    <div class="header-repo-stats__chips">
+      <span class="header-repo-stats__chip">Stars ${formatCount(stats.stars)}</span>
+      <span class="header-repo-stats__chip">Forks ${formatCount(stats.forks)}</span>
+      <span class="header-repo-stats__chip">Open issues ${formatCount(stats.openIssues)}</span>
+      <span class="header-repo-stats__chip">Watchers ${formatCount(stats.watchers)}</span>
+    </div>
+    <time class="header-repo-stats__updated" datetime="${iso}">Updated ${formatDate(stats.updatedAt)}</time>
+  </div>`;
+}
+
+/** Icon in header; full stats in dropdown panel (`#repo-stats-header`). */
 export function repoStatsHtml(
   stats: RepoStats | null,
   opts: { loading?: boolean; unavailable?: boolean } = {},
 ): string {
   if (opts.loading) {
-    return `<section class="mt-4 rounded-2xl border border-slate-200 bg-white p-4 text-sm text-slate-600 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-300" aria-live="polite">Loading repository stats…</section>`;
+    return `<div class="header-repo-stats-dropdown" aria-live="polite">
+      <span class="header-repo-stats-icon-btn header-repo-stats-icon-btn--loading" title="Loading repository stats" aria-busy="true">${REPO_STATS_ICON}</span>
+    </div>`;
   }
   if (opts.unavailable) {
-    return `<section class="mt-4 rounded-2xl border border-slate-200 bg-white p-4 text-sm text-slate-600 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-300" aria-live="polite">Repository stats are temporarily unavailable (GitHub API limit or network issue).</section>`;
+    return `<div class="header-repo-stats-dropdown" aria-live="polite">
+      <span class="header-repo-stats-icon-btn header-repo-stats-icon-btn--muted" title="Repository stats unavailable (API limit or network)">${REPO_STATS_ICON}</span>
+    </div>`;
   }
   if (!stats) return "";
-  return `<section class="mt-4 rounded-2xl border border-slate-200 bg-white p-4 dark:border-slate-800 dark:bg-slate-900" aria-label="Repository stats">
-    <p class="mb-2 text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">Repository stats</p>
-    <div class="flex flex-wrap gap-2">
-      <span class="rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-700 dark:bg-slate-800 dark:text-slate-200">Stars ${formatCount(stats.stars)}</span>
-      <span class="rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-700 dark:bg-slate-800 dark:text-slate-200">Forks ${formatCount(stats.forks)}</span>
-      <span class="rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-700 dark:bg-slate-800 dark:text-slate-200">Open issues ${formatCount(stats.openIssues)}</span>
-      <span class="rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-700 dark:bg-slate-800 dark:text-slate-200">Watchers ${formatCount(stats.watchers)}</span>
-    </div>
-    <p class="mt-2 text-xs text-slate-500 dark:text-slate-400">Updated ${formatDate(stats.updatedAt)}</p>
-  </section>`;
+  return `<details class="header-repo-stats-dropdown">
+    <summary class="header-repo-stats-icon-btn" title="Repository stats" aria-label="Show repository stats">${REPO_STATS_ICON}</summary>
+    ${repoStatsPanelInner(stats)}
+  </details>`;
 }
 
 async function loadRepoStats(): Promise<RepoStats | null> {

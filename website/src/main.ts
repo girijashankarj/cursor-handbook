@@ -626,7 +626,7 @@ function renderBrowse(
 
   const ru = repoUrl();
   app.innerHTML = `
-    <div class="layout mx-auto max-w-7xl bg-slate-100 px-4 py-5 dark:bg-slate-950 sm:px-6 lg:px-8">
+    <div class="layout w-full bg-slate-100 px-0 py-5 dark:bg-slate-950">
       <a class="skip-link sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-violet-600 focus:px-3 focus:py-2 focus:text-white" href="#main-content">Skip to content</a>
       ${topChrome("browse")}
       ${disclaimerStrip(true)}
@@ -783,7 +783,7 @@ function renderGuide(
     .join("");
 
   app.innerHTML = `
-    <div class="layout layout--wide mx-auto max-w-7xl bg-slate-100 px-4 py-5 dark:bg-slate-950 sm:px-6 lg:px-8">
+    <div class="layout layout--wide w-full bg-slate-100 px-0 py-5 dark:bg-slate-950">
       <a class="skip-link sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-violet-600 focus:px-3 focus:py-2 focus:text-white" href="#main-content">Skip to content</a>
       ${topChrome("guide")}
       ${disclaimerStrip(false)}
@@ -916,7 +916,7 @@ async function route(): Promise<void> {
     const app = document.getElementById("app");
     const { view } = parseHash();
     if (app) {
-      app.innerHTML = `<div class="layout mx-auto max-w-7xl px-4 py-5 sm:px-6 lg:px-8">
+      app.innerHTML = `<div class="layout w-full px-0 py-5">
         <a class="skip-link sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-violet-600 focus:px-3 focus:py-2 focus:text-white" href="#main-content">Skip to content</a>
         ${topChrome(view === "guide" ? "guide" : "browse")}
         <main id="main-content" class="main-flow" tabindex="-1">

@@ -11,6 +11,8 @@
 
 # cursor-handbook
 
+🌐 **Live handbook:** [https://girijashankarj.github.io/cursor-handbook/](https://girijashankarj.github.io/cursor-handbook/)
+
 **The open-source rules engine for Cursor IDE — 117 components (rules, agents, skills, commands, hooks) that turn your AI into a senior engineer who follows your standards, knows your codebase, and never wastes a token.**
 
 > Stop teaching your AI the same things every session. cursor-handbook gives Cursor permanent memory of your standards, security policies, and workflows — across every project, every team member, every prompt.

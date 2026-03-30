@@ -56,21 +56,3 @@ jobs:
         run: |
           chmod +x scripts/generate-component-index.sh
           ./scripts/generate-component-index.sh
-
-  handbook-site:
-    name: Build handbook site
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version: "22"
-          cache: npm
-          cache-dependency-path: website/package-lock.json
-
-      - name: Install and build website
-        run: |
-          cd website
-          npm ci
-          npm run build

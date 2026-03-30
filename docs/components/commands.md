@@ -27,7 +27,7 @@ Commands are organized by domain:
 
 - **backend/** — type-check, lint-check, lint-fix, format, generate-handler
 - **testing/** — test-single, test-coverage, coverage
-- **devops/** — build, deploy, docker-build, commit-message, pr-description
-- **security/** — audit, audit-deps, check-secrets, fix-vulnerable-deps
+- **devops/** — build, deploy, docker-build
+- **security/** — audit, audit-deps, check-secrets
 
 Each command file describes the exact steps (e.g. `npm run type-check`) and any scope limits (e.g. backend paths only).

@@ -9,13 +9,13 @@ We're using Discussions as a place to connect with the cursor-handbook community
 
 ## What is cursor-handbook?
 
-cursor-handbook is the open-source rules engine for Cursor IDE — 117 rules, agents, skills, commands, and hooks that turn your AI into a senior engineer who follows your standards, knows your codebase, and never wastes a token.
+cursor-handbook is the open-source rules engine for Cursor IDE — 110 rules, agents, skills, commands, and hooks that turn your AI into a senior engineer who follows your standards, knows your codebase, and never wastes a token.
 
 ## Quick links
 
 - [README](https://github.com/girijashankarj/cursor-handbook#readme) — Overview and quick start
 - [CONTRIBUTING](https://github.com/girijashankarj/cursor-handbook/blob/main/CONTRIBUTING.md) — How to contribute
-- [Component Index](https://github.com/girijashankarj/cursor-handbook/blob/main/COMPONENT_INDEX.md) — Full list of 117 components
+- [Component Index](https://github.com/girijashankarj/cursor-handbook/blob/main/COMPONENT_INDEX.md) — Full list of 110 components
 
 ## Get started
 

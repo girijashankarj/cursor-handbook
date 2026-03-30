@@ -2,7 +2,7 @@
 
 > Complete reference of all cursor-handbook components.
 
-## Rules (31)
+## Rules (30)
 
 | #   | File                                           | Category     | Description                       |
 | --- | ---------------------------------------------- | ------------ | --------------------------------- |
@@ -36,7 +36,6 @@
 | 28  | `rules/devops/ci-cd.mdc`                       | DevOps       | CI/CD pipelines                   |
 | 29  | `rules/devops/monitoring.mdc`                  | DevOps       | Monitoring and alerting           |
 | 30  | `rules/devops/documentation-standards.mdc`     | DevOps       | Documentation standards           |
-| 31  | `rules/devops/response-summary.mdc`            | DevOps       | Assistive response summary footer |
 
 ## Agents (34)
 
@@ -79,7 +78,7 @@ Agents are at **root level** (`.cursor/agents/*.md`) — Cursor does not discove
 | 33  | `agents/documentation-docs-agent.md`    | Documentation | `/docs-agent`           |
 | 34  | `agents/platform-dx-agent.md`            | Platform      | `/dx-agent`             |
 
-## Skills (23)
+## Skills (22)
 
 | #   | Directory                                 | Domain        | Description                |
 | --- | ----------------------------------------- | ------------- | -------------------------- |
@@ -105,9 +104,8 @@ Agents are at **root level** (`.cursor/agents/*.md`) — Cursor does not discove
 | 20  | `skills/documentation/api-docs/`          | Documentation | API documentation          |
 | 21  | `skills/documentation/architecture-docs/` | Documentation | Architecture docs          |
 | 22  | `skills/documentation/websearch/`         | Documentation | Web research workflow      |
-| 23  | `skills/devops/dependency-remediation/`    | DevOps        | Vulnerability & Dependabot remediation |
 
-## Commands (17)
+## Commands (14)
 
 | #   | File                                   | Domain   | Invocation          | Token Savings |
 | --- | -------------------------------------- | -------- | ------------------- | ------------- |
@@ -125,9 +123,6 @@ Agents are at **root level** (`.cursor/agents/*.md`) — Cursor does not discove
 | 12  | `commands/security/audit-deps.md`      | Security | `/audit-deps`       | —             |
 | 13  | `commands/security/audit.md`           | Security | `/audit`            | —             |
 | 14  | `commands/security/check-secrets.md`   | Security | `/check-secrets`    | —             |
-| 15  | `commands/devops/commit-message.md`    | DevOps   | `/commit-message`   | —             |
-| 16  | `commands/devops/pr-description.md`      | DevOps   | `/pr-description`   | —             |
-| 17  | `commands/security/fix-vulnerable-deps.md` | Security | `/fix-vulnerable-deps` | —          |
 
 ## Hooks (12)
 

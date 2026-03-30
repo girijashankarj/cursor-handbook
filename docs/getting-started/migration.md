@@ -8,7 +8,7 @@ Guide for adopting cursor-handbook in an existing project.
 2. **Add handbook** — Clone or copy cursor-handbook into `.cursor` (or merge its contents into your existing `.cursor`).
 3. **Configure** — Copy `config/project.json.template` to `config/project.json` and set project name, paths, tech stack, and domain entities.
 4. **Adjust rules** — Enable or disable rules that don’t fit your stack (e.g. disable backend rules if you’re frontend-only).
-5. **Hooks** — Make hook scripts executable (`chmod +x .cursor/hooks/*.sh`) and wire only the hooks you want in **`.cursor/hooks.json`** (`version: 1` and `command` paths from the repo root).
+5. **Hooks** — Make hook scripts executable (`chmod +x .cursor/hooks/*.sh`) and enable only the hooks you want in `hooks/hooks.json`.
 6. **Validate** — Run type-check and a single test; confirm agents and skills are available in Cursor.
 
 ## From another Cursor config

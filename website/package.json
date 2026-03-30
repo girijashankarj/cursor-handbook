@@ -7,6 +7,7 @@
     "prebuild": "cd .. && python3 scripts/generate-components-json.py website/public/components.json && python3 scripts/generate-guide-json.py website/public/guide.json",
     "predev": "cd .. && python3 scripts/generate-components-json.py website/public/components.json && python3 scripts/generate-guide-json.py website/public/guide.json",
     "build": "vite build",
+    "typecheck": "tsc --noEmit",
     "dev": "vite",
     "preview": "vite preview"
   },

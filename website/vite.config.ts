@@ -3,9 +3,18 @@ import { defineConfig } from "vite";
 // GitHub Pages project site: https://<user>.github.io/<repo>/
 // Set VITE_SITE_URL in CI for correct og:url / canonical (fork-friendly).
 const siteUrl = (process.env.VITE_SITE_URL || "").replace(/\/$/, "");
+const defaultBuildBase = "/cursor-handbook/";
+
+function normalizeBasePath(raw: string | undefined): string {
+  const trimmed = (raw || "").trim();
+  if (!trimmed) return defaultBuildBase;
+  const withLeading = trimmed.startsWith("/") ? trimmed : `/${trimmed}`;
+  return withLeading.endsWith("/") ? withLeading : `${withLeading}/`;
+}
 
 export default defineConfig(({ command }) => ({
-  base: command === "build" ? "/cursor-handbook/" : "/",
+  base:
+    command === "build" ? normalizeBasePath(process.env.VITE_BASE_PATH) : "/",
   plugins: [
     {
       name: "inject-og",

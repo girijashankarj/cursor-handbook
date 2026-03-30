@@ -18,4 +18,9 @@ npm run dev
 cd website && npm run build
 ```
 
+Optional env vars for deploy-safe builds:
+
+- `VITE_BASE_PATH` (example: `/cursor-handbook/`, `/my-fork-name/`)
+- `VITE_SITE_URL` (example: `https://user.github.io/repo`)
+
 Output: `website/dist/`. Deployed by [`.github/workflows/pages.yml`](../.github/workflows/pages.yml) to `https://girijashankarj.github.io/cursor-handbook/` when GitHub Pages uses the **GitHub Actions** source.

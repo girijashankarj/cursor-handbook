@@ -33,6 +33,8 @@ jobs:
           # So GitHub links in the built site match this fork (avoids 404 on wrong owner/repo).
           CURSOR_HANDBOOK_GITHUB_REPO: ${{ github.repository }}
           CURSOR_HANDBOOK_GITHUB_BRANCH: ${{ github.ref_name }}
+          # Build base path for project pages (fork/repo-name safe).
+          VITE_BASE_PATH: /${{ github.event.repository.name }}/
           # Canonical + Open Graph base URL for this Pages deployment.
           VITE_SITE_URL: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}
         run: |

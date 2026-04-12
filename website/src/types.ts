@@ -32,6 +32,28 @@ export interface GuidePayload {
   sections: GuideSection[];
 }
 
+export interface DocsEntry {
+  id: string;
+  title: string;
+  path: string;
+  markdown: string;
+}
+
+export interface DocsSection {
+  id: string;
+  title: string;
+  docCount: number;
+  docs: DocsEntry[];
+}
+
+export interface DocsPayload {
+  repo?: string;
+  branch?: string;
+  sectionCount: number;
+  docCount: number;
+  sections: DocsSection[];
+}
+
 export interface RepoStats {
   stars: number;
   forks: number;
@@ -47,7 +69,9 @@ export interface BrowseFilters {
 }
 
 export interface ParsedHash {
-  view: "home" | "setup" | "browse" | "guide";
+  view: "home" | "setup" | "browse" | "guide" | "docs";
   sectionId?: string;
+  docsSectionId?: string;
+  docsDocId?: string;
   browse?: BrowseFilters;
 }

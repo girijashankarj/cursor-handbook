@@ -1,15 +1,19 @@
-import type { GuidePayload, Payload } from "./types";
+import type { DocsPayload, GuidePayload, Payload } from "./types";
 
 interface AppState {
   guideFilter: string;
+  docsFilter: string;
   cachedComponents: Payload | null;
   cachedGuide: GuidePayload | null;
+  cachedDocs: DocsPayload | null;
 }
 
 const state: AppState = {
   guideFilter: "",
+  docsFilter: "",
   cachedComponents: null,
   cachedGuide: null,
+  cachedDocs: null,
 };
 
 export function getGuideFilter(): string {
@@ -34,4 +38,20 @@ export function getCachedGuide(): GuidePayload | null {
 
 export function setCachedGuide(next: GuidePayload): void {
   state.cachedGuide = next;
+}
+
+export function getDocsFilter(): string {
+  return state.docsFilter;
+}
+
+export function setDocsFilter(next: string): void {
+  state.docsFilter = next;
+}
+
+export function getCachedDocs(): DocsPayload | null {
+  return state.cachedDocs;
+}
+
+export function setCachedDocs(next: DocsPayload): void {
+  state.cachedDocs = next;
 }

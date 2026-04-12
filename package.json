@@ -1,6 +1,6 @@
 {
   "name": "cursor-handbook",
-  "version": "1.0.0",
+  "version": "1.5.0",
   "private": false,
   "description": "Cursor IDE configuration boilerplate -- rules, agents, skills, commands, and hooks",
   "license": "MIT",
@@ -9,7 +9,7 @@
     "type": "git",
     "url": "https://github.com/girijashankarj/cursor-handbook.git"
   },
-  "homepage": "https://github.com/girijashankarj/cursor-handbook",
+  "homepage": "https://www.npmjs.com/package/cursor-handbook",
   "keywords": [
     "cursor",
     "cursor-ide",

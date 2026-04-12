@@ -6,8 +6,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+## [1.5.0] - 2026-04-13
+
 ### Added
 
+- **Docs page** on handbook website (`#docs`): surfaces 71 markdown docs from `docs/` across 8 sections (Getting Started, Components, Guides, AI Adoption, Reference, Security, Sample Prompts, General) with sidebar navigation, search, Mermaid rendering, and prev/next navigation
+- Script `scripts/generate-docs-json.py` to build `website/public/docs.json` from `docs/` markdown files
+- npm publish URL and badges: linked [npmjs.com/package/cursor-handbook](https://www.npmjs.com/package/cursor-handbook) across README, Quick Start, SETUP-GUIDE, package.json, and handbook website header/footer
 - Rule `response-summary.mdc`: optional assistive footer (files, tools; honest note on token metrics)
 - Commands: `/commit-message`, `/pr-description`, `/fix-vulnerable-deps`; skill `dependency-remediation`
 - Docs: `docs/reference/sdlc-role-map.md`, `docs/getting-started/non-technical.md`; AGENTS.md pointer for non-developers
@@ -22,6 +27,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Changed
 
+- README overhaul: simplified install table (6 options), replaced flow-chart diagram with sequence diagram, added "What's Inside" and "Component Deep Dive" sections, removed verbose sub-category Mermaid breakdowns
+- Website component metadata: corrected agent names/descriptions, removed stale `test-coverage` command, component count 210 → 209
+- Website navigation: added Docs tab and `D` keyboard shortcut
 - Cursor official best practices documented (500-line rule, etc.)
 - CONTRIBUTING agent location, troubleshooting hooks section
 - Active vs available hooks documented

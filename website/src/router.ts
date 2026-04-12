@@ -32,6 +32,14 @@ export function parseHash(): ParsedHash {
     };
   }
 
+  if (path === "docs") {
+    return {
+      view: "docs",
+      docsSectionId: params.get("section") || undefined,
+      docsDocId: params.get("id") || undefined,
+    };
+  }
+
   if (path === "browse") {
     const type = params.get("type") || "all";
     const category = params.get("category") || "all";
@@ -67,4 +75,8 @@ export function replaceBrowseHash(filters: BrowseFilters): void {
 
 export function setGuideHash(sectionId: string): void {
   window.location.hash = `guide?id=${encodeURIComponent(sectionId)}`;
+}
+
+export function setDocsHash(sectionId: string, docId: string): void {
+  window.location.hash = `docs?section=${encodeURIComponent(sectionId)}&id=${encodeURIComponent(docId)}`;
 }

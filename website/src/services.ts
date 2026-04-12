@@ -1,5 +1,5 @@
 import { escapeHtml } from "./ui";
-import type { GuidePayload, Payload, RepoStats } from "./types";
+import type { DocsPayload, GuidePayload, Payload, RepoStats } from "./types";
 
 let siteRepo = "girijashankarj/cursor-handbook";
 let siteBranch = "main";
@@ -139,6 +139,13 @@ export async function loadComponents(): Promise<Payload> {
 
 export async function loadGuide(): Promise<GuidePayload> {
   const url = `${import.meta.env.BASE_URL}guide.json`;
+  const res = await fetch(url);
+  if (!res.ok) throw new Error(`Failed to load ${url}: ${res.status}`);
+  return res.json();
+}
+
+export async function loadDocs(): Promise<DocsPayload> {
+  const url = `${import.meta.env.BASE_URL}docs.json`;
   const res = await fetch(url);
   if (!res.ok) throw new Error(`Failed to load ${url}: ${res.status}`);
   return res.json();

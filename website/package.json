@@ -4,8 +4,8 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "prebuild": "cd .. && python3 scripts/generate-components-json.py website/public/components.json && python3 scripts/generate-guide-json.py website/public/guide.json",
-    "predev": "cd .. && python3 scripts/generate-components-json.py website/public/components.json && python3 scripts/generate-guide-json.py website/public/guide.json",
+    "prebuild": "cd .. && python3 scripts/generate-components-json.py website/public/components.json && python3 scripts/generate-guide-json.py website/public/guide.json && python3 scripts/generate-docs-json.py website/public/docs.json",
+    "predev": "cd .. && python3 scripts/generate-components-json.py website/public/components.json && python3 scripts/generate-guide-json.py website/public/guide.json && python3 scripts/generate-docs-json.py website/public/docs.json",
     "build": "vite build",
     "typecheck": "tsc --noEmit",
     "dev": "vite",

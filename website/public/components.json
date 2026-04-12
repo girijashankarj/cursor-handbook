@@ -2,7 +2,7 @@
   "generated": true,
   "repo": "girijashankarj/cursor-handbook",
   "branch": "main",
-  "componentCount": 210,
+  "componentCount": 209,
   "components": [
     {
       "id": "rule:.cursor/rules/architecture/core-principles.mdc",
@@ -896,9 +896,9 @@
       "id": "agent:.cursor/agents/backend-api-agent.md",
       "type": "agent",
       "path": ".cursor/agents/backend-api-agent.md",
-      "name": "api-agent",
-      "description": "Designs and implements RESTful APIs following best practices and project conventions.",
-      "shortDescription": "Designs and implements RESTful APIs following best practices and project conventions.",
+      "name": "backend-api-agent",
+      "description": "API Design Agent",
+      "shortDescription": "API Design Agent",
       "category": "backend",
       "tags": [
         "agent",
@@ -913,9 +913,9 @@
       "id": "agent:.cursor/agents/backend-code-reviewer.md",
       "type": "agent",
       "path": ".cursor/agents/backend-code-reviewer.md",
-      "name": "code-reviewer",
-      "description": "Performs thorough code reviews focused on correctness, security, performance, and maintainability.",
-      "shortDescription": "Performs thorough code reviews focused on correctness, security, performance, and maintainability.",
+      "name": "backend-code-reviewer",
+      "description": "Code Review Agent",
+      "shortDescription": "Code Review Agent",
       "category": "backend",
       "tags": [
         "agent",
@@ -1202,9 +1202,9 @@
       "id": "agent:.cursor/agents/database-schema-agent.md",
       "type": "agent",
       "path": ".cursor/agents/database-schema-agent.md",
-      "name": "schema-agent",
-      "description": "Designs and evolves database schemas following project conventions.",
-      "shortDescription": "Designs and evolves database schemas following project conventions.",
+      "name": "database-schema-agent",
+      "description": "Database Schema Agent",
+      "shortDescription": "Database Schema Agent",
       "category": "database",
       "tags": [
         "agent",
@@ -1764,8 +1764,8 @@
       "type": "agent",
       "path": ".cursor/agents/testing-agent.md",
       "name": "testing-agent",
-      "description": "Writes comprehensive tests and improves test coverage using project testing framework.",
-      "shortDescription": "Writes comprehensive tests and improves test coverage using project testing framework.",
+      "description": "Testing Agent",
+      "shortDescription": "Testing Agent",
       "category": "testing",
       "tags": [
         "agent",
@@ -3238,23 +3238,6 @@
       "invocation": "/mock-data",
       "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/commands/testing/mock-data.md",
       "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/commands/testing/mock-data.md"
-    },
-    {
-      "id": "command:.cursor/commands/testing/test-coverage.md",
-      "type": "command",
-      "path": ".cursor/commands/testing/test-coverage.md",
-      "name": "test-coverage",
-      "description": "Run test coverage report and check against minimum threshold.",
-      "shortDescription": "Run test coverage report and check against minimum threshold.",
-      "category": "testing",
-      "tags": [
-        "command",
-        "testing",
-        "test-coverage"
-      ],
-      "invocation": "/test-coverage",
-      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/commands/testing/test-coverage.md",
-      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/commands/testing/test-coverage.md"
     },
     {
       "id": "command:.cursor/commands/testing/test-single.md",

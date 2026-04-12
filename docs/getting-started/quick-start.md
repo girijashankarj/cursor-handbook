@@ -10,6 +10,8 @@ You can use cursor-handbook in several ways: **npm install**, **clone & copy**, 
 
 ## Setup (2 minutes) — Option 1: npm (Recommended)
 
+> **npm package:** [npmjs.com/package/cursor-handbook](https://www.npmjs.com/package/cursor-handbook)
+
 ```bash
 npx cursor-handbook init
 ```
@@ -135,7 +137,7 @@ After setup, you'll have:
 
 ## Other ways to use cursor-handbook
 
-- **npm:** `npx cursor-handbook init` — fastest one-command setup (see above).
+- **npm:** [`npx cursor-handbook init`](https://www.npmjs.com/package/cursor-handbook) — fastest one-command setup (see above).
 - **Add from GitHub:** Cursor IDE → Settings → Rules / Skills / Agents → Add new → Add from GitHub → paste repo URL.
 
   ![Add from GitHub in Cursor Settings](../snaps/cursor_settings_add_rules_etc.png)

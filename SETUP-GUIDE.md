@@ -19,6 +19,8 @@ cursor-handbook provides **218+ components** for Cursor IDE:
 
 ### 1. Initialize
 
+> **npm package:** [npmjs.com/package/cursor-handbook](https://www.npmjs.com/package/cursor-handbook)
+
 If you haven't already:
 
 ```bash
@@ -121,4 +123,5 @@ cp .cursor/config/../../examples/typescript-express/project.json .cursor/config/
 
 For detailed guides, component reference, and advanced usage:
 
-https://github.com/girijashankarj/cursor-handbook
+- **GitHub:** https://github.com/girijashankarj/cursor-handbook
+- **npm:** https://www.npmjs.com/package/cursor-handbook

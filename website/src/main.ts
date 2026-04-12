@@ -1,16 +1,20 @@
-import { parseHash, setGuideHash } from "./router";
-import { applySiteMeta, loadComponents, loadGuide } from "./services";
+import { parseHash, setDocsHash, setGuideHash } from "./router";
+import { applySiteMeta, loadComponents, loadDocs, loadGuide } from "./services";
 import {
   getCachedComponents,
+  getCachedDocs,
   getCachedGuide,
+  getDocsFilter,
   getGuideFilter,
   setCachedComponents,
+  setCachedDocs,
   setCachedGuide,
+  setDocsFilter,
   setGuideFilter,
 } from "./state";
 import { applyColorScheme, bindSystemThemeChange, cycleThemePreference } from "./theme";
 import { copyWithFeedback, escapeHtml } from "./ui";
-import { normalizeBrowseFilters, pickSectionId, renderBrowse, renderGuide, renderHome, renderSetup } from "./views";
+import { normalizeBrowseFilters, pickDocsDocId, pickSectionId, renderBrowse, renderDocs, renderGuide, renderHome, renderSetup } from "./views";
 
 function refreshViewAfterThemeChange(): void {
   const { view, sectionId } = parseHash();
@@ -27,6 +31,15 @@ function refreshViewAfterThemeChange(): void {
     const activeId = pickSectionId(cachedGuide, sectionId, getGuideFilter());
     renderGuide(cachedGuide, activeId, getGuideFilter(), (next) => {
       setGuideFilter(next);
+    });
+    return;
+  }
+  const cachedDocs = getCachedDocs();
+  if (view === "docs" && cachedDocs) {
+    const { docsSectionId, docsDocId } = parseHash();
+    const activeDocId = pickDocsDocId(cachedDocs, docsSectionId, docsDocId, getDocsFilter());
+    renderDocs(cachedDocs, docsSectionId, activeDocId, getDocsFilter(), (next) => {
+      setDocsFilter(next);
     });
     return;
   }
@@ -57,6 +70,25 @@ async function route(): Promise<void> {
 
     if (parsed.view === "setup") {
       renderSetup();
+      return;
+    }
+
+    if (parsed.view === "docs") {
+      let cachedDocsData = getCachedDocs();
+      if (!cachedDocsData) cachedDocsData = await loadDocs();
+      if (!getCachedDocs()) setCachedDocs(cachedDocsData);
+      applySiteMeta(cachedDocsData);
+      const activeDocId = pickDocsDocId(cachedDocsData, parsed.docsSectionId, parsed.docsDocId, getDocsFilter());
+      if (activeDocId && activeDocId !== parsed.docsDocId) {
+        const sec = cachedDocsData.sections.find((s) => s.docs.some((d) => d.id === activeDocId));
+        if (sec) {
+          setDocsHash(sec.id, activeDocId);
+          return;
+        }
+      }
+      renderDocs(cachedDocsData, parsed.docsSectionId, activeDocId, getDocsFilter(), (next) => {
+        setDocsFilter(next);
+      });
       return;
     }
 
@@ -135,7 +167,8 @@ document.addEventListener("keydown", (e) => {
     e.preventDefault();
     const input = document.getElementById("search") as HTMLInputElement | null;
     const guideInput = document.getElementById("guide-filter") as HTMLInputElement | null;
-    (guideInput ?? input)?.focus();
+    const docsInput = document.getElementById("docs-filter") as HTMLInputElement | null;
+    (docsInput ?? guideInput ?? input)?.focus();
     return;
   }
 
@@ -148,6 +181,12 @@ document.addEventListener("keydown", (e) => {
   if (e.key.toLowerCase() === "g") {
     e.preventDefault();
     window.location.hash = "guide";
+    return;
+  }
+
+  if (e.key.toLowerCase() === "d") {
+    e.preventDefault();
+    window.location.hash = "docs";
     return;
   }
 

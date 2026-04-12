@@ -1,8 +1,8 @@
 import { marked } from "marked";
 import { currentSiteMeta, fetchRawContent, hydrateRepoStats, repoUrl } from "./services";
-import { parseHash, replaceBrowseHash, setGuideHash } from "./router";
+import { parseHash, replaceBrowseHash, setDocsHash, setGuideHash } from "./router";
 import { syncThemeControlUi } from "./theme";
-import type { BrowseFilters, Component, GuidePayload, GuideSection, Payload } from "./types";
+import type { BrowseFilters, Component, DocsEntry, DocsPayload, DocsSection, GuidePayload, GuideSection, Payload } from "./types";
 import { announce, copyWithFeedback, debounce, ensureExternalLinksOpenInNewTab, escapeHtml, sanitizeHtmlFragment } from "./ui";
 
 marked.setOptions({ gfm: true });
@@ -162,7 +162,7 @@ function groupForBrowse(
   return out;
 }
 
-function appShell(active: "home" | "setup" | "browse" | "guide", content: string): string {
+function appShell(active: "home" | "setup" | "browse" | "docs" | "guide", content: string): string {
   const repo = repoUrl();
   const branch = currentSiteMeta().branch;
   return `<div class="app-shell">
@@ -175,8 +175,12 @@ function appShell(active: "home" | "setup" | "browse" | "guide", content: string
         <a href="#home" class="${active === "home" ? "is-active" : ""}">Home</a>
         <a href="#setup" class="${active === "setup" ? "is-active" : ""}">Get Started</a>
         <a href="#browse" class="${active === "browse" ? "is-active" : ""}">Browse</a>
+        <a href="#docs" class="${active === "docs" ? "is-active" : ""}">Docs</a>
         <a href="#guide" class="${active === "guide" ? "is-active" : ""}">Guidelines</a>
         <a href="${repo}" target="_blank" rel="noopener">Repo</a>
+        <a href="https://www.npmjs.com/package/cursor-handbook" target="_blank" rel="noopener" class="app-nav__icon-link" aria-label="npm package" title="npm package">
+          <svg class="app-nav__icon" viewBox="0 0 576 512" aria-hidden="true"><path fill="currentColor" d="M288 288h-32v-64h32v64zm288-128v192H288v32H160v-32H0V160h576zm-416 32H32v128h64v-96h32v96h32V192zm160 0H192v160h64v-32h64V192zm224 0H352v128h64v-96h32v96h32v-96h32v96h32V192z"/></svg>
+        </a>
       </nav>
       <div id="repo-stats-header" class="header-repo-stats-host"></div>
       <button type="button" class="theme-cycle app-theme-btn">
@@ -191,7 +195,7 @@ function appShell(active: "home" | "setup" | "browse" | "guide", content: string
       ${content}
     </main>
     <footer class="app-footer">
-      <p>Repository: <a href="${repo}" target="_blank" rel="noopener">${repo}</a> (${escapeHtml(branch)})</p>
+      <p>Repository: <a href="${repo}" target="_blank" rel="noopener">${repo}</a> (${escapeHtml(branch)}) · <a href="https://www.npmjs.com/package/cursor-handbook" target="_blank" rel="noopener">npm</a></p>
       <p>For authoritative behavior, verify on <a href="${CURSOR_DOCS}" target="_blank" rel="noopener">cursor.com/docs</a>.</p>
       <p class="footer-thanks">Built for <a href="https://cursor.com" target="_blank" rel="noopener">Cursor IDE</a> — thanks to the Cursor team for building the AI-first code editor that makes this possible.</p>
     </footer>
@@ -701,6 +705,10 @@ export function renderHome(payload: Payload | null): void {
           <h3>Browse Components</h3>
           <p>Search, filter, preview, and copy any component.</p>
         </a>
+        <a href="#docs" class="quick-link-card">
+          <h3>Documentation</h3>
+          <p>Guides, references, security, AI adoption, and sample prompts.</p>
+        </a>
         <a href="#guide" class="quick-link-card">
           <h3>Guidelines</h3>
           <p>Learn Cursor IDE patterns and best practices.</p>
@@ -896,6 +904,10 @@ export function renderSetup(): void {
           <h3>Browse Components</h3>
           <p>Search, filter, and copy any of the ${escapeHtml(String(117))} components.</p>
         </a>
+        <a href="#docs" class="quick-link-card">
+          <h3>Read Documentation</h3>
+          <p>Guides, references, security, AI adoption, and sample prompts.</p>
+        </a>
         <a href="#guide" class="quick-link-card">
           <h3>Read Guidelines</h3>
           <p>Learn Cursor IDE patterns and best practices.</p>
@@ -924,6 +936,209 @@ function bindCopyCommands(): void {
       setTimeout(() => { btn.textContent = "Copy"; }, 1500);
     });
   });
+}
+
+/* ------------------------------------------------------------------ */
+/*  Documentation                                                      */
+/* ------------------------------------------------------------------ */
+
+function matchesDocsEntry(entry: DocsEntry, q: string): boolean {
+  if (!q.trim()) return true;
+  const n = normalize(q);
+  return normalize(entry.title).includes(n) || normalize(entry.markdown).includes(n);
+}
+
+function allDocsFlat(payload: DocsPayload, filter: string): DocsEntry[] {
+  const out: DocsEntry[] = [];
+  for (const sec of payload.sections) {
+    for (const doc of sec.docs) {
+      if (matchesDocsEntry(doc, filter)) out.push(doc);
+    }
+  }
+  return out;
+}
+
+function sectionForDoc(payload: DocsPayload, docId: string): DocsSection | undefined {
+  return payload.sections.find((s) => s.docs.some((d) => d.id === docId));
+}
+
+export function pickDocsDocId(
+  payload: DocsPayload,
+  sectionId: string | undefined,
+  docId: string | undefined,
+  filter: string,
+): string | undefined {
+  const flat = allDocsFlat(payload, filter);
+  if (!flat.length) return undefined;
+  if (docId && flat.some((d) => d.id === docId)) return docId;
+  if (sectionId) {
+    const sec = payload.sections.find((s) => s.id === sectionId);
+    if (sec) {
+      const first = sec.docs.find((d) => matchesDocsEntry(d, filter));
+      if (first) return first.id;
+    }
+  }
+  return flat[0].id;
+}
+
+function buildDocsHeadingToc(): void {
+  const article = document.getElementById("docs-body");
+  const nav = document.getElementById("docs-headings");
+  if (!article || !nav) return;
+  const headings = Array.from(article.querySelectorAll<HTMLElement>("h2, h3"));
+  if (!headings.length) {
+    nav.innerHTML = "";
+    return;
+  }
+  const usedIds = new Set<string>();
+  headings.forEach((h, idx) => {
+    const raw = h.id || slugifyHeading(h.textContent || `section-${idx + 1}`);
+    let id = raw || `section-${idx + 1}`;
+    let n = 2;
+    while (usedIds.has(id)) {
+      id = `${raw}-${n++}`;
+    }
+    usedIds.add(id);
+    h.id = id;
+  });
+  nav.innerHTML = `<p class="guide-inline-toc-title">On this page</p><ol class="guide-inline-toc-list">${headings
+    .map((h) => {
+      const levelClass = h.tagName.toLowerCase() === "h3" ? "is-h3" : "is-h2";
+      return `<li><button type="button" class="guide-inline-toc-link ${levelClass}" data-heading-link="${h.id}">${escapeHtml(h.textContent || h.id)}</button></li>`;
+    })
+    .join("")}</ol>`;
+
+  nav.querySelectorAll<HTMLElement>("[data-heading-link]").forEach((a) => {
+    const id = a.getAttribute("data-heading-link");
+    if (!id) return;
+    a.addEventListener("click", () => {
+      const heading = document.getElementById(id);
+      heading?.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+  });
+}
+
+async function runMermaidInDocs(): Promise<void> {
+  const article = document.getElementById("docs-body");
+  if (!article) return;
+  hoistMermaidBlocks(article);
+  const nodes = [...article.querySelectorAll<HTMLElement>(".mermaid")];
+  if (!nodes.length) return;
+  try {
+    if (!mermaidApi) {
+      const mod = await import("mermaid");
+      mermaidApi = mod.default;
+    }
+    const mmTheme = document.documentElement.classList.contains("dark") ? "dark" : "default";
+    mermaidApi.initialize({
+      startOnLoad: false,
+      theme: mmTheme,
+      securityLevel: "strict",
+      fontFamily: "system-ui, -apple-system, sans-serif",
+    });
+    await mermaidApi.run({ nodes });
+  } catch {
+    // invalid diagram or load failure
+  }
+}
+
+export function renderDocs(
+  payload: DocsPayload,
+  activeSectionId: string | undefined,
+  activeDocId: string | undefined,
+  filter: string,
+  onFilterChange: (nextFilter: string) => void,
+): void {
+  const app = document.getElementById("app");
+  if (!app) return;
+
+  const flat = allDocsFlat(payload, filter);
+  const active = (activeDocId && flat.find((d) => d.id === activeDocId)) || flat[0];
+  const readMinutes = active ? estimateReadMinutes(active.markdown) : 0;
+  const activeIdx = active ? flat.findIndex((d) => d.id === active.id) : -1;
+  const prev = activeIdx > 0 ? flat[activeIdx - 1] : undefined;
+  const nextDoc = activeIdx >= 0 && activeIdx < flat.length - 1 ? flat[activeIdx + 1] : undefined;
+
+  const bodyHtml = active
+    ? ensureExternalLinksOpenInNewTab(
+        sanitizeHtmlFragment(marked.parse(active.markdown) as string),
+      )
+    : "<p>No matching docs. Clear the search filter.</p>";
+
+  const sidebarHtml = payload.sections
+    .map((sec) => {
+      const filteredDocs = sec.docs.filter((d) => matchesDocsEntry(d, filter));
+      if (!filteredDocs.length) return "";
+      const items = filteredDocs
+        .map((d) => {
+          const cur = active?.id === d.id ? "is-current" : "";
+          const secId = sec.id;
+          const href = `#docs?section=${encodeURIComponent(secId)}&id=${encodeURIComponent(d.id)}`;
+          return `<li><a class="toc__link ${cur}" href="${href}">${escapeHtml(d.title)}</a></li>`;
+        })
+        .join("");
+      return `<li class="docs-sidebar-group">
+        <p class="docs-sidebar-group__title">${escapeHtml(sec.title)}</p>
+        <ol class="docs-sidebar-group__list">${items}</ol>
+      </li>`;
+    })
+    .filter(Boolean)
+    .join("");
+
+  const content = `
+    <section class="top-flow">
+      <section class="hero">
+        <h1>Documentation</h1>
+        <p>${flat.length} docs visible across ${payload.sectionCount} sections${active ? ` · ${readMinutes} min read` : ""}</p>
+      </section>
+      <section class="guide-toolbar">
+        <label for="docs-filter">${icon("search")} Search docs</label>
+        <input type="search" id="docs-filter" placeholder="Filter by title or content..." />
+      </section>
+    </section>
+    <section class="guide-layout docs-layout">
+      <aside class="guide-sidebar docs-sidebar">
+        <h2 class="guide-sidebar__title">Sections</h2>
+        <ol class="toc docs-toc">${sidebarHtml}</ol>
+      </aside>
+      <article class="guide-content docs-content prose prose-slate dark:prose-invert" id="docs-body">${bodyHtml}
+        <nav id="docs-headings" class="guide-inline-toc"></nav>
+        <div class="guide-bottom-nav">
+          ${prev ? `<a href="#docs?section=${encodeURIComponent(sectionForDoc(payload, prev.id)?.id ?? "")}&id=${encodeURIComponent(prev.id)}">Previous</a>` : `<span></span>`}
+          <a href="#main-content">Back to top</a>
+          ${nextDoc ? `<a href="#docs?section=${encodeURIComponent(sectionForDoc(payload, nextDoc.id)?.id ?? "")}&id=${encodeURIComponent(nextDoc.id)}">Next</a>` : `<span></span>`}
+        </div>
+      </article>
+    </section>
+  `;
+  app.innerHTML = appShell("docs", content);
+
+  syncThemeControlUi();
+  void hydrateRepoStats("repo-stats-header");
+
+  const input = document.getElementById("docs-filter") as HTMLInputElement | null;
+  if (input) input.value = filter;
+  input?.addEventListener(
+    "input",
+    debounce(() => {
+      onFilterChange(input.value);
+      const { docsSectionId, docsDocId } = parseHash();
+      const next = pickDocsDocId(payload, docsSectionId, docsDocId, input.value);
+      const filteredNext = allDocsFlat(payload, input.value);
+      const keepCurrent = !!docsDocId && filteredNext.some((d) => d.id === docsDocId);
+      if (!keepCurrent && next && next !== docsDocId) {
+        const sec = sectionForDoc(payload, next);
+        if (sec) {
+          setDocsHash(sec.id, next);
+          return;
+        }
+      }
+      renderDocs(payload, docsSectionId, keepCurrent ? docsDocId : next, input.value, onFilterChange);
+    }, 200),
+  );
+
+  void runMermaidInDocs();
+  buildDocsHeadingToc();
 }
 
 /* ------------------------------------------------------------------ */

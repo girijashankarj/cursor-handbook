@@ -1,6 +1,6 @@
 {
   "name": "cursor-handbook",
-  "version": "1.5.0",
+  "version": "1.5.1",
   "private": false,
   "description": "Cursor IDE configuration boilerplate -- rules, agents, skills, commands, and hooks",
   "license": "MIT",
@@ -19,6 +19,10 @@
     "developer-tools",
     "boilerplate"
   ],
+  "scripts": {
+    "prepublishOnly": "mv README.md README.github.md && cp README.npm.md README.md",
+    "postpublish": "mv README.github.md README.md"
+  },
   "bin": {
     "cursor-handbook": "./cli/cursor-handbook.js"
   },

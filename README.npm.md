@@ -13,11 +13,13 @@
 
 # cursor-handbook
 
+> **Full README with interactive diagrams:** [View on GitHub](https://github.com/girijashankarj/cursor-handbook)
+
 🌐 **Live handbook:** [https://girijashankarj.github.io/cursor-handbook/](https://girijashankarj.github.io/cursor-handbook/)
 
 <p align="center">
   <a href="https://girijashankarj.github.io/cursor-handbook/">
-    <img src="docs/snaps/handbook-website-preview.png" alt="cursor-handbook website — browse components, read guidelines, search and copy paths" width="800" />
+    <img src="https://raw.githubusercontent.com/girijashankarj/cursor-handbook/main/docs/snaps/handbook-website-preview.png" alt="cursor-handbook website — browse components, read guidelines, search and copy paths" width="800" />
   </a>
 </p>
 
@@ -57,11 +59,11 @@ Pick the option that fits your workflow:
 | **1. [npm](https://www.npmjs.com/package/cursor-handbook)** ⭐ | **Fastest approach.** Run `npx cursor-handbook init`, use `@cursor-setup-agent` to keep only what you need, then `npm uninstall cursor-handbook`. See [Quick Start](#quick-start-5-minutes). |
 | **2. Cursor Setup Agent**       | **Smartest approach.** Clone this repo, open your project in Cursor, then run `@cursor-setup-agent`. The agent scans your codebase, detects your language/framework/database/CI stack, selects only relevant components, generates `project.json`, and copies everything into `.cursor/` — in one step. See [how it works](#using-the-cursor-setup-agent). |
 | **3. Clone & copy**                | Use the full rules engine in your repo. Clone this repo, copy the `.cursor` folder into your project, then edit `project.json` and tailor rules/agents/skills to your stack.                                                                                                                                                                               |
-| **4. Add from GitHub (Cursor UI)** | Use rules, skills, or agents without cloning. In Cursor IDE go to **Settings → Rules / Skills / Agents**, click **Add new → Add from GitHub**, and paste this repo’s clone URL. Add only what you need.                                                                                                                                                    |
+| **4. Add from GitHub (Cursor UI)** | Use rules, skills, or agents without cloning. In Cursor IDE go to **Settings → Rules / Skills / Agents**, click **Add new → Add from GitHub**, and paste this repo's clone URL. Add only what you need.                                                                                                                                                    |
 | **5. Fork or pick & choose** | Fork this repo for your team, or download only the individual components you need and drop them into your existing `.cursor` setup. |
 | **6. Handbook website**       | **Browse** components or read **Guidelines** (Cursor IDE topics) in the browser — **[GitHub Pages](https://girijashankarj.github.io/cursor-handbook/)**. |
 
-**Improvements welcome.** See [CONTRIBUTING.md](CONTRIBUTING.md) to add or improve rules, skills, hooks, agents, or commands.
+**Improvements welcome.** See [CONTRIBUTING.md](https://github.com/girijashankarj/cursor-handbook/blob/main/CONTRIBUTING.md) to add or improve rules, skills, hooks, agents, or commands.
 
 ---
 
@@ -102,37 +104,14 @@ You end up repeating yourself, burning tokens, and fixing the same mistakes. **c
 
 ## How It Works
 
-```mermaid
-sequenceDiagram
-    actor Dev as Developer
-    participant C as Cursor IDE
-    participant H as Hooks
-    participant R as Rules (47)
-    participant A as Agents/Skills
-    participant Code as Codebase
+**Developer** → **Cursor IDE** → **Hooks** → **Rules (47)** → **Agents/Skills** → **Codebase**
 
-    Dev->>C: Types prompt or command
-    C->>H: beforeSubmitPrompt
-    H->>H: Enrich with project context
-    H->>H: Guard against expensive ops
-    H->>R: Pass enriched prompt
-    R->>R: Apply 47 always-on rules
-    Note over R: Token efficiency<br/>Security guardrails<br/>Code standards<br/>Architecture patterns
-    R->>A: Route to agent/skill/command
-    A->>Code: Generate or modify code
-    Code->>H: afterFileEdit
-    H->>H: Post-edit checks
-    H->>H: Auto-format
-    H->>H: Secret scan
-    H-->>Dev: Clean, standards-compliant code
+1. **Pre-Processing (Hooks):** `beforeSubmitPrompt` enriches your prompt with project context and guards against expensive operations.
+2. **Rules Engine (47 rules):** Always-on rules enforce token efficiency, security guardrails, code standards, and architecture patterns.
+3. **Specialized Processing:** The right component activates — an agent, skill, or command — based on your prompt, then generates or modifies code.
+4. **Post-Processing (Hooks):** `afterFileEdit` runs post-edit checks, auto-format, and secret scanning, then delivers clean, standards-compliant code.
 
-    Note over Dev,Code: Every interaction is governed by your rules.<br/>No exceptions. No token waste.
-```
-
-**Layer 1 — Pre-Processing:** Hooks inject project context and block dangerous commands before your prompt reaches the AI.
-**Layer 2 — Rules Engine:** 47 always-on rules enforce token efficiency, security, architecture, code standards, database conventions, and testing thresholds.
-**Layer 3 — Specialized Processing:** The right component activates — an agent, skill, or command — based on your prompt.
-**Layer 4 — Post-Processing:** Hooks validate output, auto-format, scan for secrets, and verify coverage.
+> Every interaction is governed by your rules. No exceptions. No token waste.
 
 ### Typical Workflows
 
@@ -149,25 +128,7 @@ sequenceDiagram
 
 ## What's Inside
 
-```mermaid
-graph TD
-    ROOT["cursor-handbook<br/>208 Components"]
-
-    ROOT --- RULES["📏 Rules — 47"]
-    ROOT --- AGENTS["🤖 Agents — 62"]
-    ROOT --- SKILLS["🛠️ Skills — 50"]
-    ROOT --- COMMANDS["⚡ Commands — 37"]
-    ROOT --- HOOKS["🔗 Hooks — 12"]
-    ROOT --- TEMPLATES["📄 Templates — 9"]
-
-    style ROOT fill:#1a1a2e,stroke:#e94560,color:#fff,stroke-width:3px
-    style RULES fill:#3b82f6,stroke:#2563eb,color:#fff
-    style AGENTS fill:#8b5cf6,stroke:#7c3aed,color:#fff
-    style SKILLS fill:#22c55e,stroke:#16a34a,color:#fff
-    style COMMANDS fill:#ef4444,stroke:#dc2626,color:#fff
-    style HOOKS fill:#06b6d4,stroke:#0891b2,color:#fff
-    style TEMPLATES fill:#f59e0b,stroke:#d97706,color:#000
-```
+**cursor-handbook — 208 Components:** Rules (47) · Agents (62) · Skills (50) · Commands (37) · Hooks (12) · Templates (9)
 
 | Layer         | Count | What It Does                                      | How It's Triggered                  |
 | ------------- | ----- | ------------------------------------------------- | ----------------------------------- |
@@ -182,15 +143,7 @@ graph TD
 
 ## Quick Start (5 minutes)
 
-```mermaid
-graph LR
-    A["1. Clone"] --> B["2. Setup"] --> C["3. Restart"] --> D["4. Verify"]
-
-    style A fill:#22c55e,stroke:#16a34a,color:#fff,stroke-width:2px
-    style B fill:#3b82f6,stroke:#2563eb,color:#fff,stroke-width:2px
-    style C fill:#f59e0b,stroke:#d97706,color:#fff,stroke-width:2px
-    style D fill:#8b5cf6,stroke:#7c3aed,color:#fff,stroke-width:2px
-```
+**1. Clone** → **2. Setup** → **3. Restart** → **4. Verify**
 
 ### npm (Recommended)
 
@@ -230,7 +183,7 @@ git clone https://github.com/girijashankarj/cursor-handbook.git .cursor && make 
 
 Then edit `.cursor/config/project.json` and restart Cursor.
 
-> For additional setup methods (curl one-liner, Git submodule for teams), see [Quick Start docs](docs/getting-started/quick-start.md).
+> For additional setup methods (curl one-liner, Git submodule for teams), see [Quick Start docs](https://github.com/girijashankarj/cursor-handbook/blob/main/docs/getting-started/quick-start.md).
 
 ---
 
@@ -240,15 +193,7 @@ The **Cursor Setup Agent** is the recommended way to adopt cursor-handbook. Inst
 
 ### How it works
 
-```mermaid
-graph LR
-    A["1. Clone handbook"] --> B["2. Run @cursor-setup-agent"] --> C["3. Agent scans project"] --> D["4. Copies relevant components"]
-
-    style A fill:#22c55e,stroke:#16a34a,color:#fff,stroke-width:2px
-    style B fill:#3b82f6,stroke:#2563eb,color:#fff,stroke-width:2px
-    style C fill:#f59e0b,stroke:#d97706,color:#fff,stroke-width:2px
-    style D fill:#8b5cf6,stroke:#7c3aed,color:#fff,stroke-width:2px
-```
+**1. Clone handbook** → **2. Run @cursor-setup-agent** → **3. Agent scans project** → **4. Copies relevant components**
 
 1. **Clone** cursor-handbook alongside your project (or into a temp directory)
 2. **Open your project** in Cursor IDE
@@ -276,19 +221,13 @@ graph LR
 
 For a **TypeScript + Express + PostgreSQL + Jest + Docker** project, the agent would install ~120 targeted components (out of 209) and skip irrelevant ones like `react.mdc`, `angular.mdc`, `python.mdc`, and `go.mdc`.
 
-> **Full agent spec:** [.cursor/agents/cursor-setup-agent.md](.cursor/agents/cursor-setup-agent.md)
+> **Full agent spec:** [.cursor/agents/cursor-setup-agent.md](https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/agents/cursor-setup-agent.md)
 
 ---
 
 ## Token Savings
 
 cursor-handbook is engineered to cut your AI token costs by 30% or more:
-
-```mermaid
-pie title Token Usage Comparison (per operation)
-    "Type Check (cursor-handbook)" : 10
-    "Saved vs Full Tests" : 90
-```
 
 | Without cursor-handbook         | With cursor-handbook                   | Tokens Saved   |
 | ------------------------------- | -------------------------------------- | -------------- |
@@ -308,23 +247,7 @@ cursor-handbook is 100% project-driven. Every component adapts to your project t
 
 ### How It Adapts to Your Project
 
-```mermaid
-graph TB
-    PJ["project.json<br/>Your Configuration"]
-
-    PJ --> R["Rules<br/>{{CONFIG.techStack.language}}<br/>{{CONFIG.testing.coverageMinimum}}"]
-    PJ --> A["Agents<br/>{{CONFIG.techStack.framework}}<br/>{{CONFIG.paths.handlerBasePath}}"]
-    PJ --> S["Skills<br/>{{CONFIG.patterns.handlerFlow}}<br/>{{CONFIG.fileNames.handlerEntry}}"]
-    PJ --> CMD["Commands<br/>{{CONFIG.testing.testCommand}}<br/>{{CONFIG.testing.typeCheckCommand}}"]
-    PJ --> H["Hooks<br/>{{CONFIG.project.name}}<br/>{{CONFIG.database.softDeleteField}}"]
-
-    style PJ fill:#f59e0b,stroke:#d97706,color:#000,stroke-width:3px
-    style R fill:#3b82f6,stroke:#2563eb,color:#fff
-    style A fill:#8b5cf6,stroke:#7c3aed,color:#fff
-    style S fill:#22c55e,stroke:#16a34a,color:#fff
-    style CMD fill:#ef4444,stroke:#dc2626,color:#fff
-    style H fill:#06b6d4,stroke:#0891b2,color:#fff
-```
+All components read from `project.json` — your single source of configuration. Each component type resolves `{{CONFIG.*}}` placeholders at runtime: Rules use `techStack` and `testing` settings, Agents use `framework` and `paths`, Skills use `patterns` and `fileNames`, Commands use `testCommand` and `typeCheckCommand`, and Hooks use `project.name` and `database` settings.
 
 ### What You Can Customize
 
@@ -366,17 +289,7 @@ Copy a preset and customize: `cp examples/typescript-express/project.json .curso
 
 Rules are the backbone. They load on every interaction, every time, with zero effort.
 
-```mermaid
-graph LR
-    M[main-rules] --> ARCH["Architecture (3)"]
-    M --> BE["Backend (12)"]
-    M --> FE["Frontend (8)"]
-    M --> SEC["Security (3)"]
-    M --> DB["Database (4)"]
-    M --> CLD["Cloud (5)"]
-    M --> TST["Testing (5)"]
-    M --> OPS["DevOps (6)"]
-```
+**main-rules** branches into: Architecture (3) · Backend (12) · Frontend (8) · Security (3) · Database (4) · Cloud (5) · Testing (5) · DevOps (6)
 
 ### Agents (62) — Your On-Demand Specialists
 
@@ -395,22 +308,9 @@ graph LR
 | **Docs**         | Docs Agent           | `/docs-agent`           | Technical documentation           |
 | **Platform**     | DX Agent             | `/dx-agent`             | Developer experience              |
 
-> See [COMPONENT_INDEX.md](COMPONENT_INDEX.md) for all 62 agents.
+> See [COMPONENT_INDEX.md](https://github.com/girijashankarj/cursor-handbook/blob/main/COMPONENT_INDEX.md) for all 62 agents.
 
 ### Commands (37) — Token-Efficient Quick Actions
-
-```mermaid
-graph LR
-    TC["/type-check<br/>~10K tokens"] ---|saves 90K vs| FT["Full Tests<br/>~100K tokens"]
-    TS["/test-single<br/>~5K tokens"] ---|saves 95K vs| FT
-    LC["/lint-check<br/>~2K tokens"] ---|saves 48K vs| FL["Full Lint<br/>~50K tokens"]
-
-    style TC fill:#22c55e,stroke:#16a34a,color:#fff
-    style TS fill:#22c55e,stroke:#16a34a,color:#fff
-    style LC fill:#22c55e,stroke:#16a34a,color:#fff
-    style FT fill:#ef4444,stroke:#dc2626,color:#fff
-    style FL fill:#ef4444,stroke:#dc2626,color:#fff
-```
 
 | Command             | What It Does               | Why It's Better                   |
 | ------------------- | -------------------------- | --------------------------------- |
@@ -421,49 +321,13 @@ graph LR
 | `/audit-deps`       | Vulnerability scan         | Catch CVEs before shipping        |
 | `/check-secrets`    | Secret detection           | Find leaked keys before commit    |
 
-> See [COMPONENT_INDEX.md](COMPONENT_INDEX.md) for all 37 commands.
+> See [COMPONENT_INDEX.md](https://github.com/girijashankarj/cursor-handbook/blob/main/COMPONENT_INDEX.md) for all 37 commands.
 
 ---
 
 ## Sharing & Team Adoption
 
 cursor-handbook is designed to scale from solo developer to enterprise teams:
-
-```mermaid
-graph TD
-    subgraph SOLO ["Solo Developer"]
-        S1[Clone cursor-handbook<br/>into .cursor/]
-        S2[Customize project.json]
-        S3[Commit to your project]
-    end
-
-    subgraph TEAM ["Team Sharing"]
-        T1[Fork cursor-handbook]
-        T2[Add team-specific rules]
-        T3[Share as Git submodule<br/>in all team repos]
-    end
-
-    subgraph ORG ["Organization-Wide"]
-        O1[Maintain internal fork]
-        O2[Add org standards<br/>& compliance rules]
-        O3[Distribute via<br/>internal package registry]
-    end
-
-    subgraph OSS ["Open Source"]
-        OS1[Contribute rules & agents<br/>back to cursor-handbook]
-        OS2[Share stack-specific<br/>examples]
-        OS3[Build community<br/>components]
-    end
-
-    SOLO --> TEAM --> ORG
-    SOLO --> OSS
-    TEAM --> OSS
-
-    style SOLO fill:#22c55e,stroke:#16a34a,color:#fff
-    style TEAM fill:#3b82f6,stroke:#2563eb,color:#fff
-    style ORG fill:#8b5cf6,stroke:#7c3aed,color:#fff
-    style OSS fill:#f59e0b,stroke:#d97706,color:#000
-```
 
 ### Adoption Hierarchy
 
@@ -536,18 +400,9 @@ cursor-handbook/
 
 ## Contributing
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+See [CONTRIBUTING.md](https://github.com/girijashankarj/cursor-handbook/blob/main/CONTRIBUTING.md) for guidelines.
 
-```mermaid
-graph LR
-    A[Fork] --> B[Branch] --> C[Build] --> D[Test in Cursor] --> E[PR]
-
-    style A fill:#22c55e,stroke:#16a34a,color:#fff
-    style B fill:#3b82f6,stroke:#2563eb,color:#fff
-    style C fill:#8b5cf6,stroke:#7c3aed,color:#fff
-    style D fill:#f59e0b,stroke:#d97706,color:#000
-    style E fill:#ef4444,stroke:#dc2626,color:#fff
-```
+**Fork** → **Branch** → **Build** → **Test in Cursor** → **PR**
 
 **High-impact areas for contribution:**
 
@@ -562,21 +417,21 @@ graph LR
 
 | Document                                                              | Description                                                                                       |
 | --------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- |
-| [Architecture](ARCHITECTURE.md)                                       | System design, data flow, extension points                                                        |
-| [Quick Start](docs/getting-started/quick-start.md)                    | Get running in 5 minutes                                                                          |
-| [Project Setup](docs/getting-started/configuration.md)                | Customize rules to your stack                                                                     |
-| [Component Overview](docs/components/overview.md)                     | How components work together                                                                      |
-| [Best Practices](docs/guides/best-practices.md)                       | Get the most out of cursor-handbook                                                               |
-| [Security Guide](docs/security/security-guide.md)                     | Security features and policies                                                                    |
-| [Schema Reference](docs/reference/configuration-reference.md)         | Full `project.json` schema                                                                        |
-| [Component Picker](docs/guides/component-picker.md)                   | Find the right components for your project type                                                   |
-| [Component Index](COMPONENT_INDEX.md)                                 | Complete list of all 208 components                                                               |
+| [Architecture](https://github.com/girijashankarj/cursor-handbook/blob/main/ARCHITECTURE.md)                                       | System design, data flow, extension points                                                        |
+| [Quick Start](https://github.com/girijashankarj/cursor-handbook/blob/main/docs/getting-started/quick-start.md)                    | Get running in 5 minutes                                                                          |
+| [Project Setup](https://github.com/girijashankarj/cursor-handbook/blob/main/docs/getting-started/configuration.md)                | Customize rules to your stack                                                                     |
+| [Component Overview](https://github.com/girijashankarj/cursor-handbook/blob/main/docs/components/overview.md)                     | How components work together                                                                      |
+| [Best Practices](https://github.com/girijashankarj/cursor-handbook/blob/main/docs/guides/best-practices.md)                       | Get the most out of cursor-handbook                                                               |
+| [Security Guide](https://github.com/girijashankarj/cursor-handbook/blob/main/docs/security/security-guide.md)                     | Security features and policies                                                                    |
+| [Schema Reference](https://github.com/girijashankarj/cursor-handbook/blob/main/docs/reference/configuration-reference.md)         | Full `project.json` schema                                                                        |
+| [Component Picker](https://github.com/girijashankarj/cursor-handbook/blob/main/docs/guides/component-picker.md)                   | Find the right components for your project type                                                   |
+| [Component Index](https://github.com/girijashankarj/cursor-handbook/blob/main/COMPONENT_INDEX.md)                                 | Complete list of all 208 components                                                               |
 | [Handbook website](https://girijashankarj.github.io/cursor-handbook/) | Browse components, read guidelines, search and copy paths                                         |
-| [Cursor guidelines](docs/cursor-guidelines/README.md)                 | Settings, rules, skills, agents, hooks, token efficiency, security, MCP, comparisons, workflows   |
-| [Non-technical guide](docs/getting-started/non-technical.md)          | Using cursor-handbook without writing code                                                        |
-| [Contributing](CONTRIBUTING.md)                                       | How to contribute                                                                                 |
+| [Cursor guidelines](https://github.com/girijashankarj/cursor-handbook/blob/main/docs/cursor-guidelines/README.md)                 | Settings, rules, skills, agents, hooks, token efficiency, security, MCP, comparisons, workflows   |
+| [Non-technical guide](https://github.com/girijashankarj/cursor-handbook/blob/main/docs/getting-started/non-technical.md)          | Using cursor-handbook without writing code                                                        |
+| [Contributing](https://github.com/girijashankarj/cursor-handbook/blob/main/CONTRIBUTING.md)                                       | How to contribute                                                                                 |
 
-**Handbook website (GitHub Pages):** [girijashankarj.github.io/cursor-handbook](https://girijashankarj.github.io/cursor-handbook/) is built from `main` by `[.github/workflows/pages.yml](.github/workflows/pages.yml)`. In the repository **Settings → Pages**, set **Source** to **GitHub Actions** once so deployments appear.
+**Handbook website (GitHub Pages):** [girijashankarj.github.io/cursor-handbook](https://girijashankarj.github.io/cursor-handbook/) is built from `main` by [.github/workflows/pages.yml](https://github.com/girijashankarj/cursor-handbook/blob/main/.github/workflows/pages.yml). In the repository **Settings → Pages**, set **Source** to **GitHub Actions** once so deployments appear.
 
 ---
 
@@ -588,11 +443,11 @@ Built for **[Cursor IDE](https://cursor.com)** — thanks to the Cursor team for
 
 ## License
 
-[MIT License](LICENSE) — use freely in personal and commercial projects. No attribution required (but appreciated).
+[MIT License](https://github.com/girijashankarj/cursor-handbook/blob/main/LICENSE) — use freely in personal and commercial projects. No attribution required (but appreciated).
 
 ---
 
 **Stop teaching your AI the same things twice.**  
 Clone cursor-handbook, set your project once, and let 208 components work for you — every prompt, every project, every day.
 
-[Get Started](#quick-start-5-minutes)  •  [npm Package](https://www.npmjs.com/package/cursor-handbook)  •  [Browse Components](COMPONENT_INDEX.md)  •  [Contribute](CONTRIBUTING.md)  •  Documentation
+[Get Started](#quick-start-5-minutes)  •  [npm Package](https://www.npmjs.com/package/cursor-handbook)  •  [Browse Components](https://github.com/girijashankarj/cursor-handbook/blob/main/COMPONENT_INDEX.md)  •  [Contribute](https://github.com/girijashankarj/cursor-handbook/blob/main/CONTRIBUTING.md)  •  [Documentation](https://github.com/girijashankarj/cursor-handbook#documentation)

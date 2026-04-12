@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+## [1.5.1] - 2026-04-13
+
+### Added
+
+- `README.npm.md`: npm-friendly README without Mermaid diagrams; `prepublishOnly`/`postpublish` lifecycle scripts in `package.json` swap it during `npm publish`
+- `.npmignore`: exclude README swap artifacts (`README.npm.md`, `README.github.md`) from published package
+- README badge refresh: node version, colored stars/forks badges, version bump to 1.5.1
+
 ## [1.5.0] - 2026-04-13
 
 ### Added

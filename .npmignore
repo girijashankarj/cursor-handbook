@@ -19,6 +19,10 @@ CODE_OF_CONDUCT.md
 CONTRIBUTING.md
 SECURITY.md
 
+# README swap artifacts (npm gets README.md via prepublishOnly script)
+README.npm.md
+README.github.md
+
 # Cursor config that users generate themselves
 .cursor/config/project.json
 .cursor/config/project.json.handbook

@@ -12,7 +12,7 @@ alwaysApply: true
 # Stage 1: Dependencies
 FROM node:20-alpine AS deps
 WORKDIR /app
-COPY package.json {{CONFIG.techStack.packageManager}}-lock.yaml ./
+COPY package.json package-lock.json* pnpm-lock.yaml* yarn.lock* ./
 RUN {{CONFIG.techStack.packageManager}} install --frozen-lockfile
 
 # Stage 2: Build

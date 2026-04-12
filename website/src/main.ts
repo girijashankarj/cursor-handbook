@@ -10,10 +10,18 @@ import {
 } from "./state";
 import { applyColorScheme, bindSystemThemeChange, cycleThemePreference } from "./theme";
 import { copyWithFeedback, escapeHtml } from "./ui";
-import { normalizeBrowseFilters, pickSectionId, renderBrowse, renderGuide } from "./views";
+import { normalizeBrowseFilters, pickSectionId, renderBrowse, renderGuide, renderHome, renderSetup } from "./views";
 
 function refreshViewAfterThemeChange(): void {
   const { view, sectionId } = parseHash();
+  if (view === "home") {
+    renderHome(getCachedComponents());
+    return;
+  }
+  if (view === "setup") {
+    renderSetup();
+    return;
+  }
   const cachedGuide = getCachedGuide();
   if (view === "guide" && cachedGuide) {
     const activeId = pickSectionId(cachedGuide, sectionId, getGuideFilter());
@@ -32,6 +40,26 @@ function refreshViewAfterThemeChange(): void {
 async function route(): Promise<void> {
   const parsed = parseHash();
   try {
+    if (parsed.view === "home") {
+      let cachedComponents = getCachedComponents();
+      if (!cachedComponents) {
+        try {
+          cachedComponents = await loadComponents();
+          setCachedComponents(cachedComponents);
+        } catch {
+          // Home page works without component data
+        }
+      }
+      if (cachedComponents) applySiteMeta(cachedComponents);
+      renderHome(cachedComponents);
+      return;
+    }
+
+    if (parsed.view === "setup") {
+      renderSetup();
+      return;
+    }
+
     if (parsed.view === "guide") {
       let cachedGuide = getCachedGuide();
       if (!cachedGuide) cachedGuide = await loadGuide();
@@ -82,6 +110,18 @@ document.addEventListener("click", (e) => {
 });
 
 document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") {
+    const drawer = document.querySelector(".content-drawer.is-visible");
+    if (drawer) {
+      const overlay = document.querySelector(".drawer-overlay");
+      overlay?.classList.remove("is-visible");
+      drawer.classList.remove("is-visible");
+      document.body.classList.remove("drawer-open");
+      setTimeout(() => { overlay?.remove(); drawer.remove(); }, 200);
+      return;
+    }
+  }
+
   const target = e.target as HTMLElement | null;
   const isTypingTarget =
     !!target &&
@@ -96,6 +136,12 @@ document.addEventListener("keydown", (e) => {
     const input = document.getElementById("search") as HTMLInputElement | null;
     const guideInput = document.getElementById("guide-filter") as HTMLInputElement | null;
     (guideInput ?? input)?.focus();
+    return;
+  }
+
+  if (e.key.toLowerCase() === "h") {
+    e.preventDefault();
+    window.location.hash = "home";
     return;
   }
 

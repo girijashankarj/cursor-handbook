@@ -1,0 +1,26 @@
+# Repo tooling and docs site — not needed by consumers
+website/
+docs/
+scripts/
+plan/
+temp/
+.github/
+.vscode/
+.git/
+.DS_Store
+.cursorignore
+.cursorindexingignore
+mkdocs.yml
+catalog-info.yaml
+Makefile
+ARCHITECTURE.md
+CHANGELOG.md
+CODE_OF_CONDUCT.md
+CONTRIBUTING.md
+SECURITY.md
+
+# Cursor config that users generate themselves
+.cursor/config/project.json
+.cursor/config/project.json.handbook
+.cursor/.DS_Store
+.cursor/rules/.DS_Store

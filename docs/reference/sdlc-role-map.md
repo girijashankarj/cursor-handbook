@@ -21,18 +21,18 @@ This document maps **software development lifecycle** roles to cursor-handbook *
 
 | Need | Start here |
 |------|------------|
-| System design | Agent: `architecture-design-agent` (`/design-agent`) |
+| System design | Agent: `design-agent` (`/design-agent`) |
 | Refactors | Agent: `architecture-refactoring-agent` (`/refactoring-agent`) |
-| Migrations | Agent: `architecture-migration-agent`, skill: `database/migration` |
+| Migrations | Agent: `migration-agent`, skill: `database/migration` |
 
 ## Backend
 
 | Need | Start here |
 |------|------------|
 | APIs, handlers | Agent: `backend-api-agent`, skill: `backend/create-handler`, rules: `backend/handler-patterns.mdc` |
-| Implementation | Agent: `backend-implementation-agent` |
+| Implementation | Agent: `implementation-agent` |
 | Debugging | Agent: `backend-debugging-agent`, skill: `backend/debug-issue` |
-| Performance | Agent: `backend-performance-agent`, skill: `backend/optimize-performance` |
+| Performance | Agent: `performance-agent`, skill: `backend/optimize-performance` |
 | Events | Agent: `backend-event-handler-agent` |
 | Code review | Agent: `backend-code-reviewer`, skill: `backend/code-review` |
 
@@ -40,17 +40,17 @@ This document maps **software development lifecycle** roles to cursor-handbook *
 
 | Need | Start here |
 |------|------------|
-| UI components | Agent: `frontend-ui-component-agent`, skill: `frontend/component-creation` |
+| UI components | Agent: `ui-component-agent`, skill: `frontend/component-creation` |
 | State | Agent: `frontend-state-agent`, skill: `frontend/state-management` |
 | Styling | Agent: `frontend-styling-agent` |
-| Performance / a11y | Agents: `frontend-performance-frontend-agent`, rules: `frontend/accessibility.mdc`, `frontend/performance.mdc` |
+| Performance / a11y | Agent: `frontend-performance-agent`, rules: `frontend/accessibility.mdc`, `frontend/performance.mdc` |
 
 ## Quality assurance and testing
 
 | Need | Start here |
 |------|------------|
-| Unit / integration tests | Agent: `testing-testing-agent`, rules: `testing/testing-standards.mdc` |
-| E2E | Agent: `testing-e2e-testing-agent` |
+| Unit / integration tests | Agent: `testing-agent`, rules: `testing/testing-standards.mdc` |
+| E2E | Agent: `e2e-testing-agent` |
 | Load | Agent: `testing-load-testing-agent` |
 | Security testing | Agent: `testing-security-testing-agent` |
 | Flaky tests | Skill: `testing/flaky-test` |
@@ -69,9 +69,9 @@ This document maps **software development lifecycle** roles to cursor-handbook *
 
 | Need | Start here |
 |------|------------|
-| Audits | Agent: `security-security-audit-agent` |
+| Audits | Agent: `security-audit-agent` |
 | Auth | Agent: `security-auth-agent` |
-| Compliance | Agent: `security-compliance-agent` |
+| Compliance | Agent: `compliance-agent` |
 | Secrets / deps | Rules: `security/secrets-rules.mdc`, commands: `/audit-deps`, `/fix-vulnerable-deps`, `/check-secrets` |
 
 ## Cloud and infrastructure
@@ -88,7 +88,7 @@ This document maps **software development lifecycle** roles to cursor-handbook *
 | Need | Start here |
 |------|------------|
 | CI/CD | Agent: `devops-ci-cd-agent`, skill: `devops/ci-cd` |
-| Monitoring | Agents: `devops-monitoring-agent`, skills: `devops/monitoring`, `devops/setup-monitoring` |
+| Monitoring | Agent: `monitoring-agent`, skills: `devops/monitoring`, `devops/setup-monitoring` |
 | Incidents | Agent: `devops-incident-agent` |
 | Commits / PRs | Commands: `/commit-message`, `/pr-description` |
 | Dependency remediation | Skill: `devops/dependency-remediation`, command: `/fix-vulnerable-deps` |
@@ -100,7 +100,7 @@ This document maps **software development lifecycle** roles to cursor-handbook *
 | API docs | Skill: `documentation/api-docs` |
 | Architecture docs | Skill: `documentation/architecture-docs` |
 | Research | Skill: `documentation/websearch` |
-| Agent: `documentation-docs-agent` (`/docs-agent`) |
+| General docs | Agent: `docs-agent` (`/docs-agent`) |
 
 ## Platform and developer experience
 
@@ -116,9 +116,9 @@ This document maps **software development lifecycle** roles to cursor-handbook *
 
 ## Gaps and extensions
 
-- **Manual QA checklists** — Combine `testing-testing-agent` with project-specific rules in `.cursor/rules/`.
+- **Manual QA checklists** — Combine `testing-agent` with project-specific rules in `.cursor/rules/`.
 - **Design / UX copy** — Use `frontend` agents + `accessibility.mdc`; add a scoped rule for `docs/**/*.md` if needed.
-- **Release marketing** — Use `documentation-docs-agent` and plain-language instructions in [non-technical.md](../getting-started/non-technical.md).
+- **Release marketing** — Use `docs-agent` and plain-language instructions in [non-technical.md](../getting-started/non-technical.md).
 
 For **non-developers**, see [getting started: non-technical](../getting-started/non-technical.md).
 

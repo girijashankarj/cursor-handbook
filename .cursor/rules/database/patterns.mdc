@@ -1,0 +1,56 @@
+---
+description: "Database design patterns, indexing strategies, and data modeling rules."
+alwaysApply: false
+globs: "**/*.sql,**/*.model.ts,**/*.entity.ts,**/*.prisma,**/migrations/**/*"
+---
+
+# Database Patterns
+
+## Data Modeling
+- Normalize to 3NF by default; denormalize only with measured performance justification
+- Use UUIDs for primary keys in distributed systems; BIGSERIAL for single-database apps
+- Define foreign keys explicitly with `ON DELETE` and `ON UPDATE` actions
+- Use check constraints for domain validation at the database level
+- Document entity relationships in a schema diagram (update quarterly)
+
+## Table Design
+- Every table MUST have: `id`, `created_at`, `updated_at`, `active_indicator`
+- Use `TIMESTAMP WITH TIME ZONE` for all timestamp columns
+- Use `TEXT` over `VARCHAR(n)` unless a hard limit is required
+- Use `JSONB` for semi-structured data; avoid `JSON` (no indexing)
+- Add `DEFAULT` values for columns where a sensible default exists
+
+## Indexing Strategy
+- Index all foreign key columns
+- Index columns in `WHERE`, `JOIN`, and `ORDER BY` clauses
+- Use composite indexes for multi-column queries (leftmost prefix rule)
+- Use partial indexes for queries with constant filters (e.g. `WHERE active_indicator = true`)
+- Use expression indexes for computed lookups (e.g. `LOWER(email)`)
+- Monitor `pg_stat_user_indexes` for unused indexes; drop them
+
+## Common Patterns
+
+### Soft Delete
+```sql
+UPDATE orders SET active_indicator = false, updated_at = NOW() WHERE id = $1;
+SELECT * FROM orders WHERE active_indicator = true AND customer_id = $2;
+```
+
+### Audit Trail
+- Use a separate `audit_log` table for sensitive operations
+- Record: `table_name`, `record_id`, `action`, `changed_by`, `changed_at`, `old_value`, `new_value`
+
+### Enum Pattern
+- Use PostgreSQL `ENUM` types for small, stable sets
+- Use a lookup table for enums that may change or need metadata
+
+### Multi-Tenancy
+- Schema-per-tenant for strong isolation
+- Row-level with `tenant_id` column for simpler cases — add to all queries and indexes
+
+## Anti-patterns
+- Don't use `SELECT *` in application code — list columns explicitly
+- Don't store monetary values as `FLOAT` — use `NUMERIC` or `DECIMAL`
+- Don't store comma-separated values in a single column — use a junction table
+- Don't create indexes on every column — measure first
+- Don't skip `WHERE active_indicator = true` in queries

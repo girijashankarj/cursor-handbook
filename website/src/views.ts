@@ -1,9 +1,9 @@
 import { marked } from "marked";
-import { currentSiteMeta, hydrateRepoStats, repoUrl } from "./services";
+import { currentSiteMeta, fetchRawContent, hydrateRepoStats, repoUrl } from "./services";
 import { parseHash, replaceBrowseHash, setGuideHash } from "./router";
 import { syncThemeControlUi } from "./theme";
 import type { BrowseFilters, Component, GuidePayload, GuideSection, Payload } from "./types";
-import { debounce, ensureExternalLinksOpenInNewTab, escapeHtml, sanitizeHtmlFragment } from "./ui";
+import { announce, copyWithFeedback, debounce, ensureExternalLinksOpenInNewTab, escapeHtml, sanitizeHtmlFragment } from "./ui";
 
 marked.setOptions({ gfm: true });
 let mermaidApi: typeof import("mermaid").default | null = null;
@@ -162,16 +162,18 @@ function groupForBrowse(
   return out;
 }
 
-function appShell(active: "browse" | "guide", content: string): string {
+function appShell(active: "home" | "setup" | "browse" | "guide", content: string): string {
   const repo = repoUrl();
   const branch = currentSiteMeta().branch;
   return `<div class="app-shell">
     <header class="app-topbar">
-      <a class="app-logo" href="#browse" aria-label="cursor-handbook home">
+      <a class="app-logo" href="#home" aria-label="cursor-handbook home">
         <img src="${ASSET_BASE}favicon.svg" width="26" height="26" alt="" />
         <span>cursor-handbook</span>
       </a>
       <nav class="app-nav" aria-label="Primary">
+        <a href="#home" class="${active === "home" ? "is-active" : ""}">Home</a>
+        <a href="#setup" class="${active === "setup" ? "is-active" : ""}">Get Started</a>
         <a href="#browse" class="${active === "browse" ? "is-active" : ""}">Browse</a>
         <a href="#guide" class="${active === "guide" ? "is-active" : ""}">Guidelines</a>
         <a href="${repo}" target="_blank" rel="noopener">Repo</a>
@@ -191,6 +193,7 @@ function appShell(active: "browse" | "guide", content: string): string {
     <footer class="app-footer">
       <p>Repository: <a href="${repo}" target="_blank" rel="noopener">${repo}</a> (${escapeHtml(branch)})</p>
       <p>For authoritative behavior, verify on <a href="${CURSOR_DOCS}" target="_blank" rel="noopener">cursor.com/docs</a>.</p>
+      <p class="footer-thanks">Built for <a href="https://cursor.com" target="_blank" rel="noopener">Cursor IDE</a> — thanks to the Cursor team for building the AI-first code editor that makes this possible.</p>
     </footer>
     <div id="ui-announce" class="sr-only" aria-live="polite"></div>
   </div>`;
@@ -220,9 +223,9 @@ function cardHtml(c: Component): string {
       <p class="card-description">${escapeHtml(short) || "—"}</p>
       <p class="card-path">${escapeHtml(c.path)}</p>
       <div class="card-actions">
+        <button type="button" class="preview-btn" data-component-id="${escapeHtml(c.id)}">Preview &amp; Copy</button>
         <button type="button" class="copy-path" data-path="${escapeHtml(c.path)}">${icon("copy")}Copy path</button>
         <a class="card-link" href="${escapeHtml(c.githubUrl)}" target="_blank" rel="noopener">View source</a>
-        <a class="card-link" href="${escapeHtml(c.rawUrl)}" target="_blank" rel="noopener">Raw file</a>
       </div>
     </article>
   `;
@@ -233,12 +236,15 @@ function browseSectionsHtml(list: Component[]): string {
   return grouped
     .map(
       (sec) => `
-      <section class="browse-section" aria-labelledby="browse-h-${escapeHtml(sec.typeKey)}">
-        <h2 class="browse-section__title type-title type-${escapeHtml(sec.typeKey)}" id="browse-h-${escapeHtml(sec.typeKey)}">${escapeHtml(sec.typeLabel)}</h2>
+      <details class="browse-section browse-type-accordion" aria-labelledby="browse-h-${escapeHtml(sec.typeKey)}">
+        <summary class="browse-section__summary">
+          <h2 class="browse-section__title type-title type-${escapeHtml(sec.typeKey)}" id="browse-h-${escapeHtml(sec.typeKey)}">${escapeHtml(sec.typeLabel)} <span class="browse-section__count">${Array.from(sec.byCategory.values()).reduce((s, a) => s + a.length, 0)}</span></h2>
+        </summary>
+        <div class="browse-section__body">
         ${Array.from(sec.byCategory.entries())
           .map(
-            ([cat, items], idx) => `
-          <details class="browse-subsection mb-6" ${idx === 0 ? "open" : ""}>
+            ([cat, items]) => `
+          <details class="browse-subsection mb-6">
             <summary class="browse-subsection__summary">
               <span class="browse-subsection__heading">
                 <span class="browse-subsection__title">${escapeHtml(cat)}</span>
@@ -251,9 +257,22 @@ function browseSectionsHtml(list: Component[]): string {
           </details>`,
           )
           .join("")}
-      </section>`,
+        </div>
+      </details>`,
     )
     .join("");
+}
+
+function bindTypeAccordion(): void {
+  const sections = document.querySelectorAll<HTMLDetailsElement>(".browse-type-accordion");
+  sections.forEach((section) => {
+    section.addEventListener("toggle", () => {
+      if (!section.open) return;
+      sections.forEach((other) => {
+        if (other !== section && other.open) other.open = false;
+      });
+    });
+  });
 }
 
 function filteredComponents(payload: Payload, filters: BrowseFilters): Component[] {
@@ -279,6 +298,7 @@ function renderBrowseResults(payload: Payload, filters: BrowseFilters): void {
           <p>No components match your filters.</p>
           <button type="button" id="clear-browse-filters" class="clear-filters-btn">Clear filters</button>
         </div>`;
+    bindTypeAccordion();
     const clearBtn = document.getElementById("clear-browse-filters");
     if (clearBtn) {
       clearBtn.addEventListener("click", () => {
@@ -325,10 +345,13 @@ export function renderBrowse(payload: Payload, filters: BrowseFilters): void {
   if (!app) return;
   const cats = uniqueCategories(payload.components);
   const header = `
+    <div class="browse-banner">
+      New here? <a href="#setup">Get Started</a> to install cursor-handbook in your project.
+    </div>
     <section class="top-flow">
       <section class="hero">
-        <h1>Design system for Cursor teams</h1>
-        <p>Browse reusable rules, agents, skills, commands, and hooks with instant filters.</p>
+        <h1>Browse &amp; copy components</h1>
+        <p>Search, preview, and copy reusable rules, agents, skills, commands, and hooks.</p>
       </section>
       <section class="filters">
         <div class="field">
@@ -377,6 +400,17 @@ export function renderBrowse(payload: Payload, filters: BrowseFilters): void {
   search?.addEventListener("input", debounce(bindFilters, 300));
   typeSel?.addEventListener("change", bindFilters);
   catSel?.addEventListener("change", bindFilters);
+
+  document.addEventListener("click", (e) => {
+    const btn = (e.target as HTMLElement).closest<HTMLButtonElement>(".preview-btn");
+    if (!btn) return;
+    const id = btn.getAttribute("data-component-id");
+    if (!id) return;
+    const comp = payload.components.find((c) => c.id === id);
+    if (comp) openContentDrawer(comp);
+  });
+
+  bindTypeAccordion();
 }
 
 function hoistMermaidBlocks(root: HTMLElement): void {
@@ -559,4 +593,413 @@ export function renderGuide(
 
   void runMermaidInGuide();
   buildGuideHeadingToc();
+}
+
+/* ------------------------------------------------------------------ */
+/*  Home / Landing                                                     */
+/* ------------------------------------------------------------------ */
+
+function typeCountsFromPayload(payload: Payload | null): Record<string, number> {
+  const counts: Record<string, number> = {};
+  if (!payload) return counts;
+  for (const c of payload.components) {
+    counts[c.type] = (counts[c.type] ?? 0) + 1;
+  }
+  return counts;
+}
+
+function statChip(label: string, count: number, typeClass: string): string {
+  return `<div class="stat-chip stat-chip--${escapeHtml(typeClass)}">
+    <span class="stat-chip__count">${count}</span>
+    <span class="stat-chip__label">${escapeHtml(label)}</span>
+  </div>`;
+}
+
+export function renderHome(payload: Payload | null): void {
+  const app = document.getElementById("app");
+  if (!app) return;
+  const counts = typeCountsFromPayload(payload);
+  const total = payload?.componentCount ?? 117;
+  const repo = repoUrl();
+
+  const content = `
+    <section class="landing-hero">
+      <h1 class="landing-hero__title">The open-source rules engine for Cursor&nbsp;IDE</h1>
+      <p class="landing-hero__sub">${total} components &mdash; rules, agents, skills, commands, and hooks &mdash; that turn your AI into a senior engineer who follows your standards, knows your codebase, and never wastes a token.</p>
+      <div class="landing-hero__cta">
+        <a href="#setup" class="btn-cta btn-cta--primary">Get Started</a>
+        <a href="#browse" class="btn-cta btn-cta--secondary">Browse Components</a>
+      </div>
+    </section>
+
+    <section class="landing-stats" aria-label="Component breakdown">
+      ${statChip("Rules", counts["rule"] ?? 31, "rule")}
+      ${statChip("Agents", counts["agent"] ?? 34, "agent")}
+      ${statChip("Skills", counts["skill"] ?? 23, "skill")}
+      ${statChip("Commands", counts["command"] ?? 17, "command")}
+      ${statChip("Hooks", counts["hook"] ?? 12, "hook")}
+    </section>
+
+    <section class="landing-problem">
+      <h2 class="landing-section__title">The problem</h2>
+      <p class="landing-section__sub">Every time you open Cursor, your AI starts from zero.</p>
+      <div class="problem-grid">
+        <div class="problem-card">
+          <div class="problem-card__icon">${svgIcon("refresh")}</div>
+          <h3>Repeats itself</h3>
+          <p>You explain the same conventions, patterns, and security rules every session.</p>
+        </div>
+        <div class="problem-card">
+          <div class="problem-card__icon">${svgIcon("tokens")}</div>
+          <h3>Burns tokens</h3>
+          <p>Runs the full test suite (100K+ tokens) when a type-check would do.</p>
+        </div>
+        <div class="problem-card">
+          <div class="problem-card__icon">${svgIcon("shield")}</div>
+          <h3>Ignores security</h3>
+          <p>Happily hardcodes API keys, logs PII, and exposes infrastructure names.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="landing-solution">
+      <h2 class="landing-section__title">How cursor-handbook fixes it</h2>
+      <p class="landing-section__sub">Permanent memory for your AI &mdash; standards, security, and workflows baked into every prompt.</p>
+      <div class="steps-grid">
+        <div class="step-card">
+          <span class="step-card__num">1</span>
+          <h3>Install</h3>
+          <p>Use the Setup Agent, clone, or add from GitHub &mdash; pick the method that fits your workflow.</p>
+        </div>
+        <div class="step-card">
+          <span class="step-card__num">2</span>
+          <h3>Configure</h3>
+          <p>Edit <code>project.json</code> with your stack, naming conventions, and domain entities.</p>
+        </div>
+        <div class="step-card">
+          <span class="step-card__num">3</span>
+          <h3>Code</h3>
+          <p>Your AI now follows your standards automatically &mdash; security, testing, architecture, logging.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="landing-thanks">
+      <div class="thanks-card">
+        <p class="thanks-card__text">Built for <a href="https://cursor.com" target="_blank" rel="noopener">Cursor IDE</a> &mdash; thanks to the Cursor team for building the AI-first code editor that makes projects like this possible.</p>
+      </div>
+    </section>
+
+    <section class="landing-links">
+      <h2 class="landing-section__title">Explore</h2>
+      <div class="quick-links-grid">
+        <a href="#setup" class="quick-link-card">
+          <h3>Get Started</h3>
+          <p>Step-by-step installation with multiple methods.</p>
+        </a>
+        <a href="#browse" class="quick-link-card">
+          <h3>Browse Components</h3>
+          <p>Search, filter, preview, and copy any component.</p>
+        </a>
+        <a href="#guide" class="quick-link-card">
+          <h3>Guidelines</h3>
+          <p>Learn Cursor IDE patterns and best practices.</p>
+        </a>
+        <a href="${escapeHtml(repo)}" target="_blank" rel="noopener" class="quick-link-card">
+          <h3>GitHub Repo</h3>
+          <p>Star, fork, or contribute to the project.</p>
+        </a>
+      </div>
+    </section>
+  `;
+
+  app.innerHTML = appShell("home", content);
+  syncThemeControlUi();
+  void hydrateRepoStats("repo-stats-header");
+}
+
+function svgIcon(name: string): string {
+  const c = `class="landing-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"`;
+  if (name === "refresh")
+    return `<svg ${c}><path d="M23 4v6h-6"/><path d="M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>`;
+  if (name === "tokens")
+    return `<svg ${c}><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>`;
+  if (name === "shield")
+    return `<svg ${c}><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>`;
+  return "";
+}
+
+/* ------------------------------------------------------------------ */
+/*  Get Started / Setup                                                */
+/* ------------------------------------------------------------------ */
+
+export function renderSetup(): void {
+  const app = document.getElementById("app");
+  if (!app) return;
+  const repo = repoUrl();
+
+  const content = `
+    <section class="setup-hero">
+      <h1>Get Started with cursor-handbook</h1>
+      <p>Pick the installation method that fits your workflow. All methods give you the same components.</p>
+    </section>
+
+    <section class="setup-methods">
+      <article class="method-card method-card--recommended">
+        <div class="method-card__badge">Recommended</div>
+        <h2>Cursor Setup Agent</h2>
+        <p>The smartest approach. The agent scans your project, detects your tech stack, and installs only the components you need.</p>
+        <div class="method-steps">
+          <div class="method-step">
+            <span class="method-step__num">1</span>
+            <div>
+              <p class="method-step__label">Clone the repo into your project:</p>
+              <div class="command-block">
+                <code>git clone ${escapeHtml(repo)}.git .cursor-handbook</code>
+                <button type="button" class="copy-cmd" data-cmd="git clone ${escapeHtml(repo)}.git .cursor-handbook">Copy</button>
+              </div>
+            </div>
+          </div>
+          <div class="method-step">
+            <span class="method-step__num">2</span>
+            <div>
+              <p class="method-step__label">Open your project in Cursor and run:</p>
+              <div class="command-block">
+                <code>@cursor-setup-agent</code>
+                <button type="button" class="copy-cmd" data-cmd="@cursor-setup-agent">Copy</button>
+              </div>
+            </div>
+          </div>
+          <div class="method-step">
+            <span class="method-step__num">3</span>
+            <div>
+              <p class="method-step__label">The agent generates <code>project.json</code>, selects components for your stack, and sets up <code>.cursor/</code>.</p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="method-card">
+        <h2>Clone &amp; Copy</h2>
+        <p>Use the full rules engine. Clone, copy the <code>.cursor</code> folder, and customize.</p>
+        <div class="method-steps">
+          <div class="method-step">
+            <span class="method-step__num">1</span>
+            <div>
+              <div class="command-block">
+                <code>git clone ${escapeHtml(repo)}.git cursor-handbook</code>
+                <button type="button" class="copy-cmd" data-cmd="git clone ${escapeHtml(repo)}.git cursor-handbook">Copy</button>
+              </div>
+            </div>
+          </div>
+          <div class="method-step">
+            <span class="method-step__num">2</span>
+            <div>
+              <div class="command-block">
+                <code>cp -r cursor-handbook/.cursor your-project/.cursor</code>
+                <button type="button" class="copy-cmd" data-cmd="cp -r cursor-handbook/.cursor your-project/.cursor">Copy</button>
+              </div>
+            </div>
+          </div>
+          <div class="method-step">
+            <span class="method-step__num">3</span>
+            <div>
+              <p class="method-step__label">Edit <code>.cursor/config/project.json</code> with your stack details. Restart Cursor.</p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="method-card">
+        <h2>npm / Artifactory</h2>
+        <p>One command to scaffold everything. Ideal for teams using a private registry (JFrog Artifactory, Verdaccio, GitHub Packages).</p>
+        <div class="method-steps">
+          <div class="method-step">
+            <span class="method-step__num">1</span>
+            <div>
+              <p class="method-step__label">Run from your project root:</p>
+              <div class="command-block">
+                <code>npx cursor-handbook init</code>
+                <button type="button" class="copy-cmd" data-cmd="npx cursor-handbook init">Copy</button>
+              </div>
+            </div>
+          </div>
+          <div class="method-step">
+            <span class="method-step__num">2</span>
+            <div>
+              <p class="method-step__label">Edit <code>.cursor/config/project.json</code> &mdash; replace <code>{{PLACEHOLDER}}</code> values with your stack details.</p>
+            </div>
+          </div>
+          <div class="method-step">
+            <span class="method-step__num">3</span>
+            <div>
+              <p class="method-step__label">Remove the package once setup is done:</p>
+              <div class="command-block">
+                <code>npm uninstall cursor-handbook</code>
+                <button type="button" class="copy-cmd" data-cmd="npm uninstall cursor-handbook">Copy</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p class="method-note">For private registries, publish first with <code>npm publish --registry https://your-registry</code>, then teams install via <code>npx cursor-handbook init</code>.</p>
+      </article>
+
+      <article class="method-card">
+        <h2>Add from GitHub (Cursor UI)</h2>
+        <p>Add rules, skills, or agents without cloning &mdash; directly from Cursor Settings.</p>
+        <div class="method-steps">
+          <div class="method-step">
+            <span class="method-step__num">1</span>
+            <div><p class="method-step__label">Open Cursor IDE &rarr; <strong>Settings &rarr; Rules / Skills / Agents</strong></p></div>
+          </div>
+          <div class="method-step">
+            <span class="method-step__num">2</span>
+            <div><p class="method-step__label">Click <strong>Add new &rarr; Add from GitHub</strong></p></div>
+          </div>
+          <div class="method-step">
+            <span class="method-step__num">3</span>
+            <div>
+              <p class="method-step__label">Paste the repo URL:</p>
+              <div class="command-block">
+                <code>${escapeHtml(repo)}</code>
+                <button type="button" class="copy-cmd" data-cmd="${escapeHtml(repo)}">Copy</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="method-card">
+        <h2>Pick &amp; Choose</h2>
+        <p>Download only the components you need. Browse, preview the content, and copy individual files.</p>
+        <div class="method-steps">
+          <div class="method-step">
+            <span class="method-step__num">1</span>
+            <div><p class="method-step__label">Go to <a href="#browse">Browse Components</a></p></div>
+          </div>
+          <div class="method-step">
+            <span class="method-step__num">2</span>
+            <div><p class="method-step__label">Find the component you want, click <strong>Preview &amp; Copy</strong></p></div>
+          </div>
+          <div class="method-step">
+            <span class="method-step__num">3</span>
+            <div><p class="method-step__label">Paste the content into the matching path in your project's <code>.cursor/</code> folder.</p></div>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <section class="setup-next">
+      <h2 class="landing-section__title">What's next?</h2>
+      <div class="quick-links-grid">
+        <a href="#browse" class="quick-link-card">
+          <h3>Browse Components</h3>
+          <p>Search, filter, and copy any of the ${escapeHtml(String(117))} components.</p>
+        </a>
+        <a href="#guide" class="quick-link-card">
+          <h3>Read Guidelines</h3>
+          <p>Learn Cursor IDE patterns and best practices.</p>
+        </a>
+        <a href="${escapeHtml(repo)}" target="_blank" rel="noopener" class="quick-link-card">
+          <h3>View on GitHub</h3>
+          <p>Star, fork, or open an issue.</p>
+        </a>
+      </div>
+    </section>
+  `;
+
+  app.innerHTML = appShell("setup", content);
+  syncThemeControlUi();
+  void hydrateRepoStats("repo-stats-header");
+  bindCopyCommands();
+}
+
+function bindCopyCommands(): void {
+  document.querySelectorAll<HTMLButtonElement>(".copy-cmd").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const cmd = btn.getAttribute("data-cmd");
+      if (!cmd) return;
+      void copyWithFeedback(cmd);
+      btn.textContent = "Copied!";
+      setTimeout(() => { btn.textContent = "Copy"; }, 1500);
+    });
+  });
+}
+
+/* ------------------------------------------------------------------ */
+/*  Content Preview Drawer (Browse)                                    */
+/* ------------------------------------------------------------------ */
+
+export function openContentDrawer(component: Component): void {
+  closeContentDrawer();
+
+  const overlay = document.createElement("div");
+  overlay.className = "drawer-overlay";
+  overlay.addEventListener("click", closeContentDrawer);
+
+  const drawer = document.createElement("aside");
+  drawer.className = "content-drawer";
+  drawer.setAttribute("role", "dialog");
+  drawer.setAttribute("aria-label", `Preview: ${component.name}`);
+  drawer.innerHTML = `
+    <div class="drawer-header">
+      <div>
+        <span class="type-badge">${escapeHtml(TYPE_ICON_NAME[component.type] ?? component.type)}</span>
+        <h2 class="drawer-title">${escapeHtml(component.name)}</h2>
+      </div>
+      <button type="button" class="drawer-close" aria-label="Close preview">&times;</button>
+    </div>
+    <p class="drawer-path">${escapeHtml(component.path)}</p>
+    <div class="drawer-actions">
+      <button type="button" class="btn-cta btn-cta--primary drawer-copy-content" disabled>Copy file content</button>
+      <a class="btn-cta btn-cta--secondary" href="${escapeHtml(component.githubUrl)}" target="_blank" rel="noopener">View on GitHub</a>
+    </div>
+    <div class="drawer-body">
+      <div class="drawer-loading">Loading content&hellip;</div>
+    </div>
+  `;
+
+  document.body.appendChild(overlay);
+  document.body.appendChild(drawer);
+  document.body.classList.add("drawer-open");
+
+  requestAnimationFrame(() => {
+    overlay.classList.add("is-visible");
+    drawer.classList.add("is-visible");
+  });
+
+  drawer.querySelector(".drawer-close")?.addEventListener("click", closeContentDrawer);
+
+  void fetchRawContent(component.rawUrl).then((text) => {
+    const body = drawer.querySelector(".drawer-body");
+    if (!body) return;
+    body.innerHTML = `<pre class="drawer-code"><code>${escapeHtml(text)}</code></pre>`;
+
+    const copyBtn = drawer.querySelector<HTMLButtonElement>(".drawer-copy-content");
+    if (copyBtn) {
+      copyBtn.disabled = false;
+      copyBtn.addEventListener("click", () => {
+        void navigator.clipboard.writeText(text).then(() => {
+          announce(`Copied content of ${component.name}`);
+          copyBtn.textContent = "Copied!";
+          setTimeout(() => { copyBtn.textContent = "Copy file content"; }, 1500);
+        });
+      });
+    }
+  }).catch(() => {
+    const body = drawer.querySelector(".drawer-body");
+    if (body) body.innerHTML = `<p class="drawer-error">Could not load file content. <a href="${escapeHtml(component.rawUrl)}" target="_blank" rel="noopener">Open raw file</a></p>`;
+  });
+}
+
+function closeContentDrawer(): void {
+  const overlay = document.querySelector(".drawer-overlay");
+  const drawer = document.querySelector(".content-drawer");
+  overlay?.classList.remove("is-visible");
+  drawer?.classList.remove("is-visible");
+  document.body.classList.remove("drawer-open");
+  setTimeout(() => {
+    overlay?.remove();
+    drawer?.remove();
+  }, 200);
 }

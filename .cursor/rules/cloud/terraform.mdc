@@ -1,0 +1,67 @@
+---
+description: "Terraform conventions, module patterns, and state management."
+alwaysApply: false
+globs: "**/*.tf,**/*.tfvars,**/terraform/**/*"
+---
+
+# Cloud: Terraform
+
+## Project Structure
+```
+infrastructure/
+├── modules/           # Reusable modules
+│   ├── networking/
+│   ├── compute/
+│   └── database/
+├── environments/      # Environment-specific configs
+│   ├── dev/
+│   ├── staging/
+│   └── prod/
+├── main.tf            # Root module
+├── variables.tf       # Input variables
+├── outputs.tf         # Outputs
+├── providers.tf       # Provider configuration
+├── versions.tf        # Required provider versions
+└── backend.tf         # State backend config
+```
+
+## State Management
+- Use remote state backend (S3 + DynamoDB for AWS, GCS for GCP)
+- Enable state locking to prevent concurrent modifications
+- Separate state files per environment — never share state across envs
+- Enable state encryption at rest
+- Never commit `.tfstate` files to version control
+
+## Module Conventions
+- Every module must have: `main.tf`, `variables.tf`, `outputs.tf`, `README.md`
+- Pin module versions using `version` constraint or git tags
+- Use input validation with `validation` blocks on variables
+- Keep modules small and single-purpose (one concern per module)
+
+## Naming
+- Resources: `{project}_{env}_{type}_{qualifier}` (e.g. `myapp_prod_rds_primary`)
+- Variables: `snake_case`, descriptive, with `description` and `type`
+- Outputs: `snake_case`, prefixed with module context
+- Tags: apply consistent tags to all taggable resources via a `locals` block
+
+## Security
+- Never hardcode credentials in `.tf` files; use variables or data sources
+- Use `sensitive = true` for secret variables and outputs
+- Store secrets in a secrets manager; reference via `data` sources
+- Run `tfsec` or `checkov` in CI for security scanning
+- Review `terraform plan` output before every `apply`
+
+## Workflow
+1. `terraform fmt` — format code
+2. `terraform validate` — syntax check
+3. `terraform plan` — preview changes
+4. Code review the plan output
+5. `terraform apply` — apply changes (automated in CI for non-prod)
+- Use `terraform import` for existing resources; never recreate manually
+- Use `moved` blocks for refactoring without destroying resources
+
+## Anti-patterns
+- Don't use `count` for complex conditional logic — prefer `for_each`
+- Don't use `local-exec` provisioners for configuration — use proper tools
+- Don't hardcode AMI IDs — use `data` sources to look up latest
+- Don't create monolithic root modules — decompose into modules

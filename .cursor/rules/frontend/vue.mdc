@@ -1,0 +1,53 @@
+---
+description: "Vue.js conventions, Composition API patterns, and project structure."
+alwaysApply: false
+globs: "**/*.vue,**/*.ts,**/composables/**/*,**/vite.config.*,**/nuxt.config.*"
+---
+
+# Frontend: Vue
+
+## Component Patterns
+- Use `<script setup lang="ts">` (Composition API) for all new components
+- One component per `.vue` file; name files in `PascalCase`
+- Keep components focused; extract composables for reusable logic
+- Use `defineProps` and `defineEmits` with TypeScript generics for type safety
+
+## Composition API
+- Use `ref()` for primitive reactive values; `reactive()` for objects
+- Use `computed()` for derived values — never store computed state
+- Use `watch()` and `watchEffect()` for side effects
+- Extract reusable logic into composables (`useXxx` in `composables/` directory)
+- Return explicit refs from composables; avoid returning reactive objects
+
+## State Management
+- Use Pinia for global state (official replacement for Vuex)
+- Define stores with `defineStore` using the setup syntax
+- Keep stores small and domain-specific
+- Use `storeToRefs()` to destructure store state reactively
+
+## Nuxt (Full-Stack)
+- Use `pages/` directory for file-based routing
+- Use `useFetch` / `useAsyncData` for data fetching with SSR support
+- Use `server/api/` for API routes
+- Use auto-imports for composables and components
+- Use `definePageMeta` for route-level metadata (middleware, layout)
+
+## Performance
+- Use `defineAsyncComponent` for lazy-loading heavy components
+- Use `v-once` for content that never changes
+- Use `v-memo` for expensive list rendering
+- Use `shallowRef` / `shallowReactive` when deep reactivity isn't needed
+- Keep `<template>` sections clean; move complex expressions to `computed`
+
+## Testing
+- Use `@vue/test-utils` with Vitest for component tests
+- Use `mount` for integration-style tests; `shallowMount` for isolation
+- Test user interactions (click, input) and emitted events
+- Mock API calls at the network layer (MSW) or composable boundary
+
+## Conventions
+- Follow Vue Style Guide priority levels (essential, strongly recommended, recommended)
+- Use `eslint-plugin-vue` with the `vue3-recommended` config
+- Prefix composables with `use`: `useAuth`, `useOrders`
+- Use `<style scoped>` by default; `<style module>` for CSS Modules
+- Use slots for component composition over excessive props

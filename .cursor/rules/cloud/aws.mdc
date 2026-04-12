@@ -1,0 +1,47 @@
+---
+description: "AWS-specific patterns, service usage, and security rules."
+alwaysApply: false
+globs: "**/*.tf,**/*.ts,**/*.yml,**/cdk/**/*,**/cloudformation/**/*"
+---
+
+# Cloud: AWS
+
+## Service Selection
+| Need | AWS Service | Notes |
+|------|-------------|-------|
+| Compute (containers) | ECS Fargate / EKS | Fargate for simplicity, EKS for Kubernetes |
+| Compute (functions) | Lambda | <15 min execution, <10 GB memory |
+| API Gateway | API Gateway / ALB | API GW for serverless, ALB for containers |
+| Database (relational) | RDS / Aurora | Aurora for high availability |
+| Database (NoSQL) | DynamoDB | Single-digit ms latency at any scale |
+| Cache | ElastiCache (Redis) | Session store, query cache |
+| Queue | SQS / EventBridge | SQS for point-to-point, EventBridge for fan-out |
+| Storage | S3 | Use lifecycle rules for cost optimization |
+| Secrets | Secrets Manager / SSM Parameter Store | Secrets Manager for rotation |
+
+## Security
+- Use IAM roles for service-to-service auth; **never** access keys in code
+- Apply least-privilege IAM policies; scope to specific resources with ARNs
+- Enable CloudTrail in all accounts and regions
+- Use VPC endpoints for S3, DynamoDB, and other supported services
+- Enable GuardDuty for threat detection
+- Use `[AWS_ACCOUNT_ID]` placeholder in docs — never real account IDs
+
+## Networking
+- Use private subnets for compute and database resources
+- Public subnets only for load balancers and NAT gateways
+- Use Security Groups as the primary network firewall
+- Enable VPC Flow Logs for network monitoring
+
+## Cost
+- Tag all resources: `project`, `environment`, `owner`, `cost-center`
+- Use Savings Plans or Reserved Instances for predictable workloads
+- Use Spot Instances for fault-tolerant batch workloads
+- Set up AWS Budgets with alerts at 80% and 100% thresholds
+- Review Cost Explorer monthly; right-size underutilized instances
+
+## Conventions
+- Use IaC (Terraform, CDK, or CloudFormation) for all resources
+- Resource naming: `{project}-{env}-{service}-{qualifier}`
+- One AWS account per environment (dev, staging, prod) via AWS Organizations
+- Enable default encryption on S3 buckets, EBS volumes, and RDS instances

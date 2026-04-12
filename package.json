@@ -1,0 +1,48 @@
+{
+  "name": "cursor-handbook",
+  "version": "1.0.0",
+  "private": false,
+  "description": "Cursor IDE configuration boilerplate -- rules, agents, skills, commands, and hooks",
+  "license": "MIT",
+  "author": "girijashankarj",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/girijashankarj/cursor-handbook.git"
+  },
+  "homepage": "https://github.com/girijashankarj/cursor-handbook",
+  "keywords": [
+    "cursor",
+    "cursor-ide",
+    "cursor-rules",
+    "cursor-agents",
+    "ai-coding",
+    "developer-tools",
+    "boilerplate"
+  ],
+  "bin": {
+    "cursor-handbook": "./cli/cursor-handbook.js"
+  },
+  "files": [
+    "cli/",
+    "lib/",
+    ".cursor/agents/",
+    ".cursor/commands/",
+    ".cursor/config/",
+    ".cursor/hooks/",
+    ".cursor/rules/",
+    ".cursor/settings/",
+    ".cursor/skills/",
+    ".cursor/templates/",
+    ".cursor/hooks.json",
+    ".cursor/BUGBOT.md",
+    ".cursor/README.md",
+    "SETUP-GUIDE.md",
+    "AGENTS.md",
+    "CLAUDE.md",
+    "COMPONENT_INDEX.md",
+    "examples/"
+  ],
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}

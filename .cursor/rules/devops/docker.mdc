@@ -1,0 +1,75 @@
+---
+description: "Docker best practices, image optimization, and Compose patterns."
+alwaysApply: false
+globs: "**/Dockerfile*,**/docker-compose*.yml,**/docker-compose*.yaml,**/.dockerignore"
+---
+
+# DevOps: Docker
+
+## Dockerfile Best Practices
+- **ALWAYS** use multi-stage builds for production images
+- **ALWAYS** pin base image versions — never use `latest`
+- **ALWAYS** run as non-root user in production
+- **ALWAYS** include a `HEALTHCHECK` instruction
+- Order instructions from least to most frequently changed for cache optimization
+- Combine `RUN` commands with `&&` to minimize layers
+- Use `COPY` over `ADD` unless you need tar extraction or URL fetching
+
+## Multi-Stage Build Template
+```dockerfile
+FROM node:20-alpine AS deps
+WORKDIR /app
+COPY package.json package-lock.json* ./
+RUN npm ci --production=false
+
+FROM node:20-alpine AS builder
+WORKDIR /app
+COPY --from=deps /app/node_modules ./node_modules
+COPY . .
+RUN npm run build
+
+FROM node:20-alpine AS runner
+WORKDIR /app
+RUN addgroup --system --gid 1001 appgroup && \
+    adduser --system --uid 1001 appuser
+COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/package.json ./
+USER appuser
+EXPOSE 3000
+HEALTHCHECK --interval=30s --timeout=3s --start-period=10s CMD wget --spider http://localhost:3000/health || exit 1
+CMD ["node", "dist/index.js"]
+```
+
+## .dockerignore
+Always include:
+```
+node_modules
+.git
+.env*
+tests
+docs
+coverage
+*.md
+.vscode
+.cursor
+```
+
+## Image Security
+- Scan images with Trivy, Snyk, or Docker Scout before pushing
+- Use `alpine` or `distroless` base images to minimize attack surface
+- Never store secrets in image layers — use runtime env vars or secrets mounts
+- Update base images regularly for security patches
+
+## Docker Compose (Development)
+- Use for local development environments
+- Mount source code as volumes for hot reload
+- Use `.env` files for local configuration (never commit them)
+- Define health checks for all services
+- Pin service image versions in `docker-compose.yml`
+
+## Conventions
+- Tag images with git SHA and semantic version: `myapp:1.2.3`, `myapp:abc1234`
+- Use `docker-compose.override.yml` for local dev overrides
+- Document required environment variables in `docker-compose.yml` comments
+- Log to stdout/stderr — let the orchestrator handle log routing

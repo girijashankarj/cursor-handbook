@@ -1,14 +1,46 @@
 # Quick Start Guide
 
-You can use cursor-handbook in four ways: **clone & copy** the `.cursor` folder, **add from GitHub** in Cursor Settings, **fork & customize** for your team, or **pick and choose** individual rules/agents/skills. See [Ways to use cursor-handbook](https://github.com/girijashankarj/cursor-handbook#ways-to-use-cursor-handbook) in the README for details. This guide walks through the clone-and-copy option.
+You can use cursor-handbook in several ways: **npm install**, **clone & copy**, **add from GitHub**, **fork & customize**, or **pick and choose** individual components. See [Ways to use cursor-handbook](https://github.com/girijashankarj/cursor-handbook#ways-to-use-cursor-handbook) in the README for details.
 
 ## Prerequisites
 
 - [Cursor IDE](https://cursor.sh/) installed
-- Git installed
+- Node.js 16+ (for npm method) or Git (for clone method)
 - A project to add rules to
 
-## Setup (5 minutes) — Option 1: Clone & copy
+## Setup (2 minutes) — Option 1: npm (Recommended)
+
+```bash
+npx cursor-handbook init
+```
+
+You'll be prompted to either **copy all** components or **select by category** (frontend, backend, database, cloud, testing, devops, documentation, security — multi-select). To skip the prompt and copy everything:
+
+```bash
+npx cursor-handbook init --all
+```
+
+This copies the `.cursor/` folder, `CLAUDE.md`, `AGENTS.md`, and `SETUP-GUIDE.md` into your project root.
+
+Then:
+
+1. Edit `.cursor/config/project.json` — replace `{{PLACEHOLDER}}` values with your project details
+2. Restart Cursor IDE
+3. Use `@cursor-setup-agent` in Cursor to keep only the components you need
+4. Remove the package when done: `npm uninstall cursor-handbook`
+
+Or install first, then initialize:
+
+```bash
+npm install -D cursor-handbook
+npx cursor-handbook init
+# After setup:
+npm uninstall cursor-handbook
+```
+
+The `.cursor/` folder stays in your project after uninstalling. Commit it to version control.
+
+## Setup (5 minutes) — Option 2: Clone & copy
 
 ```mermaid
 flowchart LR
@@ -33,14 +65,16 @@ git clone https://github.com/girijashankarj/cursor-handbook.git .cursor
 
 ```bash
 # Option A: One-command setup (recommended)
-make init
+make -f .cursor/Makefile init
 
 # Option B: Interactive generator
-./scripts/init-project-config.sh
+./.cursor/scripts/init-project-config.sh
 
 # Option C: Manual copy
 cp .cursor/config/project.json.template .cursor/config/project.json
 ```
+
+> **Note:** After cloning into `.cursor/`, the Makefile and scripts live inside `.cursor/`. Use `make -f .cursor/Makefile init` from your project root. If you cloned the full repo standalone, use `make init` from the repo root.
 
 If using the handbook repo itself, `make init` copies `project.json.handbook` to `project.json`.
 
@@ -93,14 +127,15 @@ Try one of these commands in Cursor:
 
 After setup, you'll have:
 
-- **31 rules** (several always-on; others apply by file pattern or context)
-- **34 agents** available via `/agent-name` commands
-- **23 skills** for guided workflows
-- **17 commands** for quick actions
+- **47 rules** (several always-on; others apply by file pattern or context)
+- **62 agents** available via `/agent-name` commands
+- **50 skills** for guided workflows
+- **37 commands** for quick actions
 - **12 hooks** automating the AI loop
 
 ## Other ways to use cursor-handbook
 
+- **npm:** `npx cursor-handbook init` — fastest one-command setup (see above).
 - **Add from GitHub:** Cursor IDE → Settings → Rules / Skills / Agents → Add new → Add from GitHub → paste repo URL.
 
   ![Add from GitHub in Cursor Settings](../snaps/cursor_settings_add_rules_etc.png)

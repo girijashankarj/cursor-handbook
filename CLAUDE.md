@@ -4,7 +4,7 @@
 
 ## Project
 
-**cursor-handbook** — A Cursor IDE configuration boilerplate with 117 components (rules, agents, skills, commands, hooks).
+**cursor-handbook** — A Cursor IDE configuration boilerplate with 208 components (rules, agents, skills, commands, hooks).
 
 ## Critical Rules
 
@@ -38,10 +38,10 @@
 ```
 .cursor/
 ├── config/     # project.json configuration
-├── rules/      # 29 always-applied .mdc rules
-├── agents/     # 34 specialized AI agents
-├── skills/     # 21 step-by-step workflows
-├── commands/   # 14 quick action commands
+├── rules/      # 47 .mdc rules (always-applied and scoped)
+├── agents/     # 62 specialized AI agents
+├── skills/     # 50 step-by-step workflows
+├── commands/   # 37 quick action commands
 ├── hooks/      # 12 automation scripts
 ├── templates/  # Code scaffolding templates
 └── settings/   # IDE settings

@@ -5,7 +5,6 @@
   "type": "object",
   "required": [
     "project",
-    "cursor",
     "techStack"
   ],
   "properties": {

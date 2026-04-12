@@ -1,11 +1,11 @@
 <p align="center">
-  <img src="https://img.shields.io/github/stars/girijashankarj/cursor-handbook?style=social" alt="GitHub stars" />
-  <img src="https://img.shields.io/github/forks/girijashankarj/cursor-handbook?style=social" alt="GitHub forks" />
-  <img src="https://img.shields.io/github/last-commit/girijashankarj/cursor-handbook" alt="GitHub last commit" />
-  <img src="https://img.shields.io/github/issues/girijashankarj/cursor-handbook" alt="GitHub issues" />
-  <img src="https://img.shields.io/badge/license-MIT-green" alt="License MIT" />
+  <a href="https://github.com/girijashankarj/cursor-handbook/stargazers"><img src="https://img.shields.io/github/stars/girijashankarj/cursor-handbook?style=social" alt="GitHub stars" /></a>
+  <a href="https://github.com/girijashankarj/cursor-handbook/fork"><img src="https://img.shields.io/github/forks/girijashankarj/cursor-handbook?style=social" alt="GitHub forks" /></a>
+  <a href="https://github.com/girijashankarj/cursor-handbook/commits/main"><img src="https://img.shields.io/github/last-commit/girijashankarj/cursor-handbook" alt="GitHub last commit" /></a>
+  <a href="https://github.com/girijashankarj/cursor-handbook/issues"><img src="https://img.shields.io/github/issues/girijashankarj/cursor-handbook" alt="GitHub issues" /></a>
+  <a href="https://github.com/girijashankarj/cursor-handbook/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-green" alt="License MIT" /></a>
   <img src="https://img.shields.io/badge/version-1.4.0-blue" alt="Version" />
-  <img src="https://img.shields.io/badge/Components-117-green" alt="117 Components" />
+  <img src="https://img.shields.io/badge/Components-208-green" alt="208 Components" />
   <img src="https://img.shields.io/badge/Token%20Savings-30%25%2B-green?style=for-the-badge" alt="30%+ Savings" />
 </p>
 
@@ -13,7 +13,13 @@
 
 🌐 **Live handbook:** [https://girijashankarj.github.io/cursor-handbook/](https://girijashankarj.github.io/cursor-handbook/)
 
-**The open-source rules engine for Cursor IDE — 117 components (rules, agents, skills, commands, hooks) that turn your AI into a senior engineer who follows your standards, knows your codebase, and never wastes a token.**
+<p align="center">
+  <a href="https://girijashankarj.github.io/cursor-handbook/">
+    <img src="docs/snaps/handbook-website-preview.png" alt="cursor-handbook website — browse components, read guidelines, search and copy paths" width="800" />
+  </a>
+</p>
+
+**The open-source rules engine for Cursor IDE — 208 components (rules, agents, skills, commands, hooks) that turn your AI into a senior engineer who follows your standards, knows your codebase, and never wastes a token.**
 
 > Stop teaching your AI the same things every session. cursor-handbook gives Cursor permanent memory of your standards, security policies, and workflows — across every project, every team member, every prompt.
 
@@ -22,7 +28,7 @@
 </p>
 
 <p align="center">
-  <img src="docs/snaps/readme-hero-banner.png" alt="cursor-handbook — Rules engine for Cursor IDE" width="800" />
+  <img src="docs/snaps/readme-hero-banner%202.png" alt="cursor-handbook — Rules engine for Cursor IDE" width="800" />
 </p>
 
 ---
@@ -35,6 +41,7 @@
 - [Who is this for?](#who-is-this-for)
 - [How It Works](#how-it-works)
 - [Quick Start](#quick-start-5-minutes)
+- [Cursor Setup Agent](#using-the-cursor-setup-agent)
 - [Documentation](#documentation)
 
 ---
@@ -43,15 +50,19 @@
 
 Pick the option that fits your workflow:
 
-| Option | Best for |
-|--------|----------|
-| **1. Clone & copy** | Use the full rules engine in your repo. Clone this repo, copy the `.cursor` folder into your project, then edit `project.json` and tailor rules/agents/skills to your stack. |
-| **2. Add from GitHub (Cursor UI)** | Use rules, skills, or agents without cloning. In Cursor IDE go to **Settings → Rules / Skills / Agents**, click **Add new → Add from GitHub**, and paste this repo’s clone URL. Add only what you need. |
+> **Recommended:** Run `npx cursor-handbook init` — it copies the `.cursor/` folder into your project. Then use `@cursor-setup-agent` in Cursor to keep only the components you need.
 
-![Add from GitHub in Cursor Settings](docs/snaps/cursor_settings_add_rules_etc.png)
-| **3. Fork & customize** | Maintain your own version. Fork this repo, adapt the `.cursor` files for your team or product, then use that fork across your projects or share it internally. |
-| **4. Pick and choose** | Use individual components. Download only the production-ready, generic rules, skills, agents, commands, or hooks you need from this repo and drop them into your existing `.cursor` setup. |
-| **5. Handbook website** | **Browse** components or read **Guidelines** (Cursor IDE topics) in the browser — **[GitHub Pages](https://girijashankarj.github.io/cursor-handbook/)** (optional; clone, ZIP, and command line still work). |
+| Option                             | Best for                                                                                                                                                                                                                                                                                                                                                   |
+| ---------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **1. npm** ⭐                      | **Fastest approach.** Run `npx cursor-handbook init`, use `@cursor-setup-agent` to keep only what you need, then `npm uninstall cursor-handbook`. See [Quick Start](#quick-start-5-minutes). |
+| **2. Cursor Setup Agent**       | **Smartest approach.** Clone this repo, open your project in Cursor, then run `@cursor-setup-agent`. The agent scans your codebase, detects your language/framework/database/CI stack, selects only relevant components, generates `project.json`, and copies everything into `.cursor/` — in one step. See [how it works](#using-the-cursor-setup-agent). |
+| **3. Clone & copy**                | Use the full rules engine in your repo. Clone this repo, copy the `.cursor` folder into your project, then edit `project.json` and tailor rules/agents/skills to your stack.                                                                                                                                                                               |
+| **4. Add from GitHub (Cursor UI)** | Use rules, skills, or agents without cloning. In Cursor IDE go to **Settings → Rules / Skills / Agents**, click **Add new → Add from GitHub**, and paste this repo’s clone URL. Add only what you need.                                                                                                                                                    |
+
+Add from GitHub in Cursor Settings
+| **5. Fork & customize** | Maintain your own version. Fork this repo, adapt the `.cursor` files for your team or product, then use that fork across your projects or share it internally. |
+| **6. Pick and choose** | Use individual components. Download only the production-ready, generic rules, skills, agents, commands, or hooks you need from this repo and drop them into your existing `.cursor` setup. |
+| **7. Handbook website** | **Browse** components or read **Guidelines** (Cursor IDE topics) in the browser — **[GitHub Pages](https://girijashankarj.github.io/cursor-handbook/)** (optional; clone, ZIP, and command line still work). |
 
 **Improvements welcome.** If you want to add or improve rules, skills, hooks, agents, or commands, see [CONTRIBUTING.md](CONTRIBUTING.md) and open an issue or PR.
 
@@ -74,31 +85,23 @@ You end up repeating yourself, burning tokens, and fixing the same mistakes. **c
 
 ## Before vs After
 
-| Before cursor-handbook | After cursor-handbook |
-|------------------------|------------------------|
-| AI hardcodes API keys | Security rules block it |
+| Before cursor-handbook                 | After cursor-handbook                       |
+| -------------------------------------- | ------------------------------------------- |
+| AI hardcodes API keys                  | Security rules block it                     |
 | AI runs full test suite (~100K tokens) | Uses type-check (~10K) or single-file tests |
-| You repeat conventions every session | Rules remember them — always on |
-| Inconsistent code across team | One rules engine, one standard |
-| No guardrails on expensive ops | Hooks warn or block dangerous commands |
-
-<p align="center">
-  <img src="docs/snaps/before-after-concept.png" alt="Before vs After cursor-handbook" width="700" />
-</p>
+| You repeat conventions every session   | Rules remember them — always on             |
+| Inconsistent code across team          | One rules engine, one standard              |
+| No guardrails on expensive ops         | Hooks warn or block dangerous commands      |
 
 ---
 
 ## Who is this for?
 
-| Audience | Benefit |
-|----------|---------|
-| **Solo developers** | Consistent AI behavior without repeating yourself every session |
-| **Teams** | Shared standards; everyone gets the same guardrails and conventions |
-| **Enterprises** | Security, compliance, and token efficiency built in from day one |
-
-<p align="center">
-  <img src="docs/snaps/who-uses-this.png" alt="Who uses cursor-handbook" width="700" />
-</p>
+| Audience            | Benefit                                                             |
+| ------------------- | ------------------------------------------------------------------- |
+| **Solo developers** | Consistent AI behavior without repeating yourself every session     |
+| **Teams**           | Shared standards; everyone gets the same guardrails and conventions |
+| **Enterprises**     | Security, compliance, and token efficiency built in from day one    |
 
 ---
 
@@ -116,10 +119,10 @@ graph TB
     end
 
     subgraph ENGINE ["cursor-handbook Engine"]
-        D[30 Rules<br/>Always-applied standards]
-        E[34 Agents<br/>Specialized AI assistants]
-        F[22 Skills<br/>Step-by-step workflows]
-        G[14 Commands<br/>Quick actions]
+        D[47 Rules<br/>Always-applied standards]
+        E[62 Agents<br/>Specialized AI assistants]
+        F[50 Skills<br/>Step-by-step workflows]
+        G[37 Commands<br/>Quick actions]
     end
 
     subgraph CONFIG ["Project Settings"]
@@ -154,55 +157,66 @@ graph TB
 ## What's Inside
 
 ```mermaid
-%%{init: {'theme': 'neutral'}}%%
-mindmap
-  root((cursor-handbook<br/>117 Components))
-    Rules — 30
-      Architecture — 3
-      Backend — 6
-      Frontend — 4
-      Security — 3
-      Database — 3
-      Cloud — 3
-      Testing — 3
-      DevOps — 3
-      Core — 1
-    Agents — 34
-      Architecture — 3
-      Backend — 7
-      Frontend — 4
-      Testing — 4
-      Database — 2
-      Security — 3
-      Cloud — 3
-      DevOps — 3
-      Business — 2
-      AI/ML — 1
-      Docs — 1
-      Platform — 1
-    Skills — 21
-      Backend — 4
-      Frontend — 2
-      Testing — 2
-      Database — 3
-      Cloud — 3
-      DevOps — 4
-      Docs — 3
-    Commands — 14
-    Hooks — 12
-    Templates — 9
+graph TD
+    ROOT["cursor-handbook<br/>208 Components"]
+
+    ROOT --- RULES["📏 Rules — 47"]
+    ROOT --- AGENTS["🤖 Agents — 62"]
+    ROOT --- SKILLS["🛠️ Skills — 50"]
+    ROOT --- COMMANDS["⚡ Commands — 37"]
+    ROOT --- HOOKS["🔗 Hooks — 12"]
+    ROOT --- TEMPLATES["📄 Templates — 9"]
+
+    RULES --- R1["Architecture (3)"]
+    RULES --- R2["Backend (12)"]
+    RULES --- R3["Frontend (8)"]
+    RULES --- R4["Security (3)"]
+    RULES --- R5["Database (4)"]
+    RULES --- R6["Cloud (5)"]
+    RULES --- R7["Testing (5)"]
+    RULES --- R8["DevOps (6)"]
+    RULES --- R9["Core (1)"]
+
+    AGENTS --- A1["Architecture + Design (7)"]
+    AGENTS --- A2["Backend (12)"]
+    AGENTS --- A3["Frontend (6)"]
+    AGENTS --- A4["Testing (6)"]
+    AGENTS --- A5["Database (4)"]
+    AGENTS --- A6["Security (6)"]
+    AGENTS --- A7["Cloud (5)"]
+    AGENTS --- A8["DevOps (7)"]
+    AGENTS --- A9["Business (4)"]
+    AGENTS --- A10["AI/ML (3)"]
+    AGENTS --- A11["Docs (5)"]
+    AGENTS --- A12["Platform (6)"]
+
+    SKILLS --- S1["Backend (8)"]
+    SKILLS --- S2["Frontend (2)"]
+    SKILLS --- S3["Testing (5)"]
+    SKILLS --- S4["Database (3)"]
+    SKILLS --- S5["Cloud (5)"]
+    SKILLS --- S6["DevOps (19)"]
+    SKILLS --- S7["Docs (8)"]
+
+    style ROOT fill:#1a1a2e,stroke:#e94560,color:#fff,stroke-width:3px
+    style RULES fill:#3b82f6,stroke:#2563eb,color:#fff
+    style AGENTS fill:#8b5cf6,stroke:#7c3aed,color:#fff
+    style SKILLS fill:#22c55e,stroke:#16a34a,color:#fff
+    style COMMANDS fill:#ef4444,stroke:#dc2626,color:#fff
+    style HOOKS fill:#06b6d4,stroke:#0891b2,color:#fff
+    style TEMPLATES fill:#f59e0b,stroke:#d97706,color:#000
 ```
 
 | Layer         | Count | What It Does                                      | How It's Triggered                  |
-| ------------- | ----: | ------------------------------------------------- | ----------------------------------- |
-| **Rules**     |    30 | Enforces coding standards on every AI interaction | Automatically — always on           |
-| **Agents**    |    34 | Specialized assistants for complex tasks          | On demand — `/agent-name`           |
-| **Skills**    |    22 | Step-by-step guided workflows with checklists     | Contextually — when patterns match  |
-| **Commands**  |    14 | Lightweight, token-efficient quick actions        | On demand — `/command`              |
-| **Hooks**     |    12 | Automation scripts in the AI loop                 | Event-driven — before/after actions |
-| **Templates** |     9 | Scaffolding for handlers, components, tests, etc. | Referenced by skills and agents     |
+| ------------- | ----- | ------------------------------------------------- | ----------------------------------- |
+| **Rules**     | 47    | Enforces coding standards on every AI interaction | Automatically — always on           |
+| **Agents**    | 62    | Specialized assistants for complex tasks          | On demand — `/agent-name`           |
+| **Skills**    | 50    | Step-by-step guided workflows with checklists     | Contextually — when patterns match  |
+| **Commands**  | 37    | Lightweight, token-efficient quick actions        | On demand — `/command`              |
+| **Hooks**     | 12    | Automation scripts in the AI loop                 | Event-driven — before/after actions |
+| **Templates** | 9     | Scaffolding for handlers, components, tests, etc. | Referenced by skills and agents     |
 
-> **Note:** The 117 component count = Rules + Agents + Skills + Commands + Hooks. Templates (9) are supporting assets referenced by skills and agents.
+> **Note:** The 208 component count = Rules + Agents + Skills + Commands + Hooks. Templates (9) are supporting assets referenced by skills and agents.
 
 ---
 
@@ -218,7 +232,35 @@ graph LR
     style D fill:#8b5cf6,stroke:#7c3aed,color:#fff,stroke-width:2px
 ```
 
-### One-line install
+### npm (Recommended)
+
+```bash
+npx cursor-handbook init
+```
+
+You'll be prompted to either **copy all** components or **select by category** (frontend, backend, database, cloud, testing, devops, etc.). To skip the prompt:
+
+```bash
+npx cursor-handbook init --all    # copy everything
+```
+
+Then:
+
+1. Edit `.cursor/config/project.json` — replace `{{PLACEHOLDER}}` values with your project details
+2. Restart Cursor IDE
+3. Use `@cursor-setup-agent` to further customize components
+4. Remove the package: `npm uninstall cursor-handbook`
+
+Or install explicitly, then initialize:
+
+```bash
+npm install -D cursor-handbook
+npx cursor-handbook init
+# After setup, remove:
+npm uninstall cursor-handbook
+```
+
+### Alternative: Clone & copy
 
 ```bash
 git clone https://github.com/girijashankarj/cursor-handbook.git .cursor && make -f .cursor/Makefile init
@@ -237,10 +279,10 @@ git clone https://github.com/girijashankarj/cursor-handbook.git .cursor
 
 ```bash
 # Option A: One-command setup
-make init
+make -f .cursor/Makefile init
 
 # Option B: Interactive generator
-./scripts/init-project-config.sh
+./.cursor/scripts/init-project-config.sh
 
 # Option C: Manual copy
 cp .cursor/config/project.json.template .cursor/config/project.json
@@ -268,7 +310,7 @@ Edit `.cursor/config/project.json` — replace placeholders with your project de
 
 ### Step 3 — Restart Cursor IDE
 
-Close and reopen Cursor. All 117 components are now active.
+Close and reopen Cursor. All 208 components are now active.
 
 ### Step 4 — Verify
 
@@ -296,6 +338,52 @@ make init
 
 ---
 
+## Using the Cursor Setup Agent
+
+The **Cursor Setup Agent** is the recommended way to adopt cursor-handbook. Instead of manually choosing which components to copy, the agent does it for you.
+
+### How it works
+
+```mermaid
+graph LR
+    A["1. Clone handbook"] --> B["2. Run @cursor-setup-agent"] --> C["3. Agent scans project"] --> D["4. Copies relevant components"]
+
+    style A fill:#22c55e,stroke:#16a34a,color:#fff,stroke-width:2px
+    style B fill:#3b82f6,stroke:#2563eb,color:#fff,stroke-width:2px
+    style C fill:#f59e0b,stroke:#d97706,color:#fff,stroke-width:2px
+    style D fill:#8b5cf6,stroke:#7c3aed,color:#fff,stroke-width:2px
+```
+
+1. **Clone** cursor-handbook alongside your project (or into a temp directory)
+2. **Open your project** in Cursor IDE
+3. **Run** `@cursor-setup-agent` in the Cursor chat
+4. The agent will:
+
+- Detect your language, framework, database, testing, CI/CD, and cloud stack
+- Build a component manifest with only the relevant rules, agents, skills, commands, hooks, and templates
+- Show you a summary table and ask for confirmation before copying anything
+- Generate a tailored `project.json`, `CLAUDE.md`, and `AGENTS.md`
+- Print a post-setup checklist
+
+### What it detects
+
+| Category           | Signals                                                                                    |
+| ------------------ | ------------------------------------------------------------------------------------------ |
+| **Language**       | `tsconfig.json`, `go.mod`, `Cargo.toml`, `requirements.txt`, `pom.xml`, file extensions    |
+| **Framework**      | Dependencies in `package.json` / `requirements.txt` (React, Express, Django, Spring, etc.) |
+| **Database**       | ORM configs (`prisma/`, `sequelize`, `typeorm`), `.sql` files, migration folders           |
+| **Testing**        | `jest.config.`_, `vitest`, `pytest`, `cypress/`, `playwright.config._`                     |
+| **Infrastructure** | `Dockerfile`, `terraform/`, `cdk.json`, `serverless.yml`, cloud SDK deps                   |
+| **CI/CD**          | `.github/workflows/`, `.gitlab-ci.yml`, `Jenkinsfile`                                      |
+
+### Example
+
+For a **TypeScript + Express + PostgreSQL + Jest + Docker** project, the agent would install ~120 targeted components (out of 209) and skip irrelevant ones like `react.mdc`, `angular.mdc`, `python.mdc`, and `go.mdc`.
+
+> **Full agent spec:** `[.cursor/agents/cursor-setup-agent.md](.cursor/agents/cursor-setup-agent.md)`
+
+---
+
 ## User Flow
 
 Here's what happens at every stage of your development workflow:
@@ -305,7 +393,7 @@ sequenceDiagram
     actor Dev as Developer
     participant C as Cursor IDE
     participant H as Hooks
-    participant R as Rules (30)
+    participant R as Rules (47)
     participant A as Agents/Skills
     participant Code as Codebase
 
@@ -314,7 +402,7 @@ sequenceDiagram
     H->>H: Enrich with project context
     H->>H: Guard against expensive ops
     H->>R: Pass enriched prompt
-    R->>R: Apply 30 always-on rules
+    R->>R: Apply 47 always-on rules
     Note over R: Token efficiency<br/>Security guardrails<br/>Code standards<br/>Architecture patterns
     R->>A: Route to agent/skill/command
     A->>Code: Generate or modify code
@@ -334,7 +422,7 @@ sequenceDiagram
 | Build a new endpoint | "Create a POST /orders endpoint" | Skill triggers full handler scaffolding (9 files, 7-step flow) |
 | Review code          | `/code-reviewer`                 | Agent checks security, performance, correctness, tests         |
 | Fix broken tests     | `/testing-agent fix these tests` | Skill diagnoses failures, fixes mocks, verifies coverage       |
-| Quick validation     | `/type-check`                    | Runs type check (~10K tokens) instead of full tests (~100K)    |
+| Quick validation     | `/type-check`                    | Runs type check (~~10K tokens) instead of full tests (~~100K)  |
 | Deploy safely        | `/deployment-agent`              | Agent generates deployment checklist with rollback plan        |
 | Optimize a query     | `/query-opt-agent`               | Agent runs EXPLAIN ANALYZE, rewrites query, adds indexes       |
 
@@ -382,7 +470,7 @@ graph TD
 **Layer 1 — Pre-Processing (Hooks)**
 Before your prompt even reaches the AI, hooks inject your project context, block dangerous shell commands, and validate git operations.
 
-**Layer 2 — Rules Engine (30 Rules, Always Active)**
+**Layer 2 — Rules Engine (47 Rules, Always Active)**
 Every AI response is shaped by your rules. These aren't suggestions — they're hard constraints:
 
 | Rule Category     | What It Enforces                                            |
@@ -412,7 +500,7 @@ pie title Token Usage Comparison (per operation)
     "Saved vs Full Tests" : 90
 ```
 
-| Without cursor-handbook         | With cursor-handbook                    | Tokens Saved   |
+| Without cursor-handbook         | With cursor-handbook                   | Tokens Saved   |
 | ------------------------------- | -------------------------------------- | -------------- |
 | Full test suite: ~100K tokens   | `/type-check`: ~10K tokens             | **~90K (90%)** |
 | Full lint run: ~50K tokens      | `/lint-check` (read_lints): ~2K tokens | **~48K (96%)** |
@@ -468,15 +556,15 @@ Don't start from scratch — pick your stack:
 
 | Stack              | File                                                           | Language   | Framework   |
 | ------------------ | -------------------------------------------------------------- | ---------- | ----------- |
-| TypeScript/Express | [`examples/typescript-express/`](examples/typescript-express/) | TypeScript | Express.js  |
-| TypeScript/NestJS  | [`examples/typescript-nest/`](examples/typescript-nest/)       | TypeScript | NestJS      |
-| Python/FastAPI     | [`examples/python-fastapi/`](examples/python-fastapi/)         | Python     | FastAPI     |
-| Go/Chi             | [`examples/go-chi/`](examples/go-chi/)                         | Go         | Chi         |
-| React SPA          | [`examples/react/`](examples/react/)                           | TypeScript | React       |
-| Next.js            | [`examples/nextjs/`](examples/nextjs/)                         | TypeScript | Next.js     |
-| Rust/Actix         | [`examples/rust-actix/`](examples/rust-actix/)                 | Rust       | Actix Web   |
-| Kotlin/Spring      | [`examples/kotlin-spring/`](examples/kotlin-spring/)           | Kotlin     | Spring Boot |
-| Flutter            | [`examples/flutter/`](examples/flutter/)                       | Dart       | Flutter     |
+| TypeScript/Express | `[examples/typescript-express/](examples/typescript-express/)` | TypeScript | Express.js  |
+| TypeScript/NestJS  | `[examples/typescript-nest/](examples/typescript-nest/)`       | TypeScript | NestJS      |
+| Python/FastAPI     | `[examples/python-fastapi/](examples/python-fastapi/)`         | Python     | FastAPI     |
+| Go/Chi             | `[examples/go-chi/](examples/go-chi/)`                         | Go         | Chi         |
+| React SPA          | `[examples/react/](examples/react/)`                           | TypeScript | React       |
+| Next.js            | `[examples/nextjs/](examples/nextjs/)`                         | TypeScript | Next.js     |
+| Rust/Actix         | `[examples/rust-actix/](examples/rust-actix/)`                 | Rust       | Actix Web   |
+| Kotlin/Spring      | `[examples/kotlin-spring/](examples/kotlin-spring/)`           | Kotlin     | Spring Boot |
+| Flutter            | `[examples/flutter/](examples/flutter/)`                       | Dart       | Flutter     |
 
 ```bash
 # Use a pre-made preset
@@ -488,7 +576,7 @@ cp examples/typescript-express/project.json .cursor/config/project.json
 
 ## Component Deep Dive
 
-### Rules (30) — Your AI's Permanent Memory
+### Rules (47) — Your AI's Permanent Memory
 
 Rules are the backbone. They load on every interaction, every time, with zero effort.
 
@@ -553,7 +641,7 @@ graph LR
     M --> ARCH & BE & FE & SEC & DB & CLD & TST & OPS
 ```
 
-### Agents (34) — Your On-Demand Specialists
+### Agents (62) — Your On-Demand Specialists
 
 | Domain           | Agent                | Invocation              | Best For                          |
 | ---------------- | -------------------- | ----------------------- | --------------------------------- |
@@ -592,7 +680,7 @@ graph LR
 | **Docs**         | Docs Agent           | `/docs-agent`           | Technical documentation           |
 | **Platform**     | DX Agent             | `/dx-agent`             | Developer experience              |
 
-### Commands (17) — Token-Efficient Quick Actions
+### Commands (37) — Token-Efficient Quick Actions
 
 ```mermaid
 graph LR
@@ -713,31 +801,19 @@ cursor-handbook/
 │   │   ├── project.json.template  #   Template (start here)
 │   │   ├── project.json.example   #   Complete example
 │   │   └── project-schema.json    #   JSON Schema validation
-│   ├── rules/                     # 30 always-applied rules
+│   ├── rules/                     # 47 rules (always-applied and scoped)
 │   │   ├── main-rules.mdc        #   Master rules
 │   │   ├── architecture/          #   3 architecture rules
-│   │   ├── backend/               #   6 backend rules
-│   │   ├── frontend/              #   4 frontend rules
+│   │   ├── backend/               #   12 backend rules
+│   │   ├── frontend/              #   8 frontend rules
 │   │   ├── security/              #   3 security rules
-│   │   ├── database/              #   3 database rules
-│   │   ├── cloud/                 #   3 cloud rules
-│   │   ├── testing/               #   3 testing rules
-│   │   └── devops/                #   3 devops rules
-│   ├── agents/                    # 34 specialized AI agents
-│   │   ├── architecture/          #   3 agents
-│   │   ├── backend/               #   7 agents
-│   │   ├── frontend/              #   4 agents
-│   │   ├── testing/               #   4 agents
-│   │   ├── database/              #   2 agents
-│   │   ├── security/              #   3 agents
-│   │   ├── cloud/                 #   3 agents
-│   │   ├── devops/                #   3 agents
-│   │   ├── business/              #   2 agents
-│   │   ├── ai-ml/                 #   1 agent
-│   │   ├── documentation/         #   1 agent
-│   │   └── platform/              #   1 agent
-│   ├── skills/                    # 22 guided workflows
-│   ├── commands/                  # 14 quick actions
+│   │   ├── database/              #   4 database rules
+│   │   ├── cloud/                 #   5 cloud rules
+│   │   ├── testing/               #   5 testing rules
+│   │   └── devops/                #   6 devops rules
+│   ├── agents/                    # 62 specialized AI agents
+│   ├── skills/                    # 50 guided workflows
+│   ├── commands/                  # 37 quick actions
 │   ├── hooks/                     # 12 automation scripts
 │   ├── templates/                 # 9 code templates
 │   └── settings/                  # IDE settings
@@ -790,7 +866,7 @@ cursor-handbook/
 
 | Metric                      | Value              |
 | --------------------------- | ------------------ |
-| Components                  | 117                |
+| Components                  | 208                |
 | Supported tech stacks       | 9                  |
 | Token savings per operation | 67-96%             |
 | Setup time                  | ~5 minutes         |
@@ -828,27 +904,34 @@ graph LR
 
 ## Documentation
 
-| Document                                                      | Description                          |
-| ------------------------------------------------------------- | ------------------------------------ |
-| [Architecture](ARCHITECTURE.md)                               | System design, data flow, extension points |
-| [Quick Start](docs/getting-started/quick-start.md)            | Get running in 5 minutes             |
-| [Project Setup](docs/getting-started/configuration.md)        | Customize rules to your stack        |
-| [Component Overview](docs/components/overview.md)             | How components work together         |
-| [Component readiness](docs/component-readiness.md)           | Production-ready, generic components list |
-| [Best Practices](docs/guides/best-practices.md)               | Get the most out of cursor-handbook  |
-| [Cursor usage](docs/guides/cursor-usage.md)                  | Token usage, agent review, BugBot setup |
-| [Claude IDE support](docs/guides/claude-ide-support.md)       | Use with Claude Code and other IDEs  |
-| [Security Guide](docs/security/security-guide.md)             | Security features and policies       |
-| [Schema Reference](docs/reference/configuration-reference.md)  | Full `project.json` schema           |
-| [Component Index](COMPONENT_INDEX.md)                         | Complete list of all 117 components  |
-| [Handbook website](https://girijashankarj.github.io/cursor-handbook/) | **Browse** (components) and **Guidelines** (Cursor IDE topics); search; copy paths (GitHub Pages) |
-| [Cursor guidelines](docs/cursor-guidelines/README.md) | Settings, rules, skills, agents, hooks, token efficiency, security, MCP, comparisons, workflow examples |
-| [Non-technical guide](docs/getting-started/non-technical.md) | Using cursor-handbook without writing code |
-| [SDLC role map](docs/reference/sdlc-role-map.md)              | Components by role (PM, QA, DevOps, …) |
-| [Contributing](CONTRIBUTING.md)                               | How to contribute                    |
-| [Contribution Examples](docs/guides/contribution-examples.md) | Concrete examples of adding components |
+| Document                                                              | Description                                                                                             |
+| --------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
+| [Architecture](ARCHITECTURE.md)                                       | System design, data flow, extension points                                                              |
+| [Quick Start](docs/getting-started/quick-start.md)                    | Get running in 5 minutes                                                                                |
+| [Project Setup](docs/getting-started/configuration.md)                | Customize rules to your stack                                                                           |
+| [Component Overview](docs/components/overview.md)                     | How components work together                                                                            |
+| [Component readiness](docs/component-readiness.md)                    | Production-ready, generic components list                                                               |
+| [Best Practices](docs/guides/best-practices.md)                       | Get the most out of cursor-handbook                                                                     |
+| [Cursor usage](docs/guides/cursor-usage.md)                           | Token usage, agent review, BugBot setup                                                                 |
+| [Claude IDE support](docs/guides/claude-ide-support.md)               | Use with Claude Code and other IDEs                                                                     |
+| [Security Guide](docs/security/security-guide.md)                     | Security features and policies                                                                          |
+| [Schema Reference](docs/reference/configuration-reference.md)         | Full `project.json` schema                                                                              |
+| [Component Picker](docs/guides/component-picker.md)                   | Find the right components for your project type (frontend, backend, fullstack, etc.)                    |
+| [Component Index](COMPONENT_INDEX.md)                                 | Complete list of all 208 components                                                                     |
+| [Handbook website](https://girijashankarj.github.io/cursor-handbook/) | **Browse** (components) and **Guidelines** (Cursor IDE topics); search; copy paths (GitHub Pages)       |
+| [Cursor guidelines](docs/cursor-guidelines/README.md)                 | Settings, rules, skills, agents, hooks, token efficiency, security, MCP, comparisons, workflow examples |
+| [Non-technical guide](docs/getting-started/non-technical.md)          | Using cursor-handbook without writing code                                                              |
+| [SDLC role map](docs/reference/sdlc-role-map.md)                      | Components by role (PM, QA, DevOps, …)                                                                  |
+| [Contributing](CONTRIBUTING.md)                                       | How to contribute                                                                                       |
+| [Contribution Examples](docs/guides/contribution-examples.md)         | Concrete examples of adding components                                                                  |
 
-**Handbook website (GitHub Pages):** [girijashankarj.github.io/cursor-handbook](https://girijashankarj.github.io/cursor-handbook/) is built from `main` by [`.github/workflows/pages.yml`](.github/workflows/pages.yml). In the repository **Settings → Pages**, set **Source** to **GitHub Actions** once so deployments appear.
+**Handbook website (GitHub Pages):** [girijashankarj.github.io/cursor-handbook](https://girijashankarj.github.io/cursor-handbook/) is built from `main` by `[.github/workflows/pages.yml](.github/workflows/pages.yml)`. In the repository **Settings → Pages**, set **Source** to **GitHub Actions** once so deployments appear.
+
+---
+
+## Acknowledgments
+
+Built for **[Cursor IDE](https://cursor.com)** — thanks to the Cursor team for building the AI-first code editor that makes projects like this possible. cursor-handbook exists because Cursor's rules, agents, skills, and hooks architecture gives developers real control over their AI workflows.
 
 ---
 
@@ -858,14 +941,7 @@ graph LR
 
 ---
 
-<p align="center">
-  <strong>Stop teaching your AI the same things twice.</strong><br/>
-  Clone cursor-handbook, set your project once, and let 117 components work for you — every prompt, every project, every day.
-</p>
+**Stop teaching your AI the same things twice.**  
+Clone cursor-handbook, set your project once, and let 208 components work for you — every prompt, every project, every day.
 
-<p align="center">
-  <a href="#quick-start-5-minutes">Get Started</a> &nbsp;&bull;&nbsp;
-  <a href="COMPONENT_INDEX.md">Browse Components</a> &nbsp;&bull;&nbsp;
-  <a href="CONTRIBUTING.md">Contribute</a> &nbsp;&bull;&nbsp;
-  <a href="docs/getting-started/quick-start.md">Documentation</a>
-</p>
+[Get Started](#quick-start-5-minutes)  •  [Browse Components](COMPONENT_INDEX.md)  •  [Contribute](CONTRIBUTING.md)  •  Documentation

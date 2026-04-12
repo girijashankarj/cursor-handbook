@@ -11,11 +11,19 @@ const VALID_BROWSE_TYPES = new Set([
 
 export function parseHash(): ParsedHash {
   let raw = window.location.hash.replace(/^#/, "").trim();
-  if (!raw) raw = "browse";
+  if (!raw) raw = "home";
   const qIdx = raw.indexOf("?");
   const path = qIdx === -1 ? raw : raw.slice(0, qIdx);
   const qs = qIdx === -1 ? "" : raw.slice(qIdx + 1);
   const params = qs ? new URLSearchParams(qs) : new URLSearchParams();
+
+  if (path === "home") {
+    return { view: "home" };
+  }
+
+  if (path === "setup") {
+    return { view: "setup" };
+  }
 
   if (path === "guide") {
     return {
@@ -24,7 +32,7 @@ export function parseHash(): ParsedHash {
     };
   }
 
-  if (path === "browse" || path === "") {
+  if (path === "browse") {
     const type = params.get("type") || "all";
     const category = params.get("category") || "all";
     const q = params.get("q") || "";
@@ -38,7 +46,7 @@ export function parseHash(): ParsedHash {
     };
   }
 
-  return { view: "browse", browse: { type: "all", category: "all", q: "" } };
+  return { view: "home" };
 }
 
 function buildBrowseHash(filters: BrowseFilters): string {

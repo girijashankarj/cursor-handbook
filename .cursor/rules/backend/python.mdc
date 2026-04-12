@@ -1,0 +1,48 @@
+---
+description: "Python conventions, project structure, and async patterns."
+alwaysApply: false
+globs: "**/*.py"
+---
+
+# Backend: Python
+
+## Project Structure
+- Use `src/` layout with `pyproject.toml` for packaging
+- Organize by feature or layer: `api/`, `services/`, `models/`, `utils/`
+- Keep `__init__.py` files minimal; prefer explicit imports
+
+## Conventions
+- Target Python 3.11+ for modern features (exception groups, `tomllib`, `StrEnum`)
+- Use type hints on all public functions and class attributes
+- Use `dataclasses` or `pydantic` models for structured data
+- Follow PEP 8; enforce with `ruff` or `black` + `isort`
+- Use `snake_case` for functions/variables, `PascalCase` for classes, `UPPER_SNAKE_CASE` for constants
+
+## Async
+- Use `async/await` with `asyncio` for I/O-bound workloads
+- Use `httpx` or `aiohttp` for async HTTP clients
+- Use `asyncpg` or async ORM adapters for database access
+- Never mix blocking I/O with async code without `run_in_executor`
+
+## Error Handling
+- Define custom exception classes inheriting from a base `AppError`
+- Use `try/except` with specific exception types; never bare `except:`
+- Log full tracebacks server-side; return sanitized errors to clients
+- Use context managers (`with`) for resource management
+
+## Dependencies
+- Pin dependencies in `requirements.txt` or `pyproject.toml` with exact versions
+- Use virtual environments (`venv`, `poetry`, or `uv`) — never install globally
+- Run `pip audit` or `safety check` in CI
+- Separate dev dependencies from production
+
+## Testing
+- Use `pytest` as the test framework
+- Use `pytest-asyncio` for async test functions
+- Use `factory_boy` or `faker` for test data
+- Follow AAA pattern; use descriptive test names with `test_should_..._when_...`
+
+## Linting
+- Use `ruff` for linting and formatting (replaces flake8 + isort + black)
+- Use `mypy` or `pyright` for static type checking in CI
+- Enforce docstrings on public modules, classes, and functions

@@ -7,6 +7,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 ## [Unreleased]
 
 ### Added
+
 - Rule `response-summary.mdc`: optional assistive footer (files, tools; honest note on token metrics)
 - Commands: `/commit-message`, `/pr-description`, `/fix-vulnerable-deps`; skill `dependency-remediation`
 - Docs: `docs/reference/sdlc-role-map.md`, `docs/getting-started/non-technical.md`; AGENTS.md pointer for non-developers
@@ -20,6 +21,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - docs/snaps/README.md with image index
 
 ### Changed
+
 - Cursor official best practices documented (500-line rule, etc.)
 - CONTRIBUTING agent location, troubleshooting hooks section
 - Active vs available hooks documented

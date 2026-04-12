@@ -47,7 +47,7 @@ export interface BrowseFilters {
 }
 
 export interface ParsedHash {
-  view: "browse" | "guide";
+  view: "home" | "setup" | "browse" | "guide";
   sectionId?: string;
   browse?: BrowseFilters;
 }

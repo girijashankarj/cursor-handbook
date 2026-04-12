@@ -1,0 +1,51 @@
+---
+description: "Svelte/SvelteKit conventions, reactivity patterns, and component structure."
+alwaysApply: false
+globs: "**/*.svelte,**/*.svelte.ts,**/*.svelte.js,**/svelte.config.*"
+---
+
+# Frontend: Svelte
+
+## Component Structure
+- Use SvelteKit for full-stack apps; standalone Svelte for widget-style embeds
+- One component per `.svelte` file; name files in `PascalCase`
+- Keep components under 200 lines; extract child components when growing
+- Use `<script lang="ts">` for TypeScript support
+
+## Reactivity (Svelte 5 Runes)
+- Use `$state()` for reactive state declarations
+- Use `$derived()` for computed values (replaces `$:` reactive statements)
+- Use `$effect()` for side effects (replaces `$:` blocks with side effects)
+- Use `$props()` for component props with type safety
+- Avoid mutating state outside of the component that owns it
+
+## SvelteKit Patterns
+- Use `+page.svelte` and `+page.server.ts` for page components and data loading
+- Use `+layout.svelte` for shared UI (nav, footer)
+- Use `+server.ts` for API routes
+- Use `load` functions for data fetching — avoid client-side fetching when SSR is available
+- Use form actions for mutations; progressive enhancement with `use:enhance`
+
+## State Management
+- Use Svelte stores (`writable`, `readable`, `derived`) for shared state
+- Prefer `$state()` runes in Svelte 5 over stores for local state
+- Use context API (`setContext`/`getContext`) for dependency injection
+- Keep stores small and domain-specific; avoid a single global store
+
+## Performance
+- SvelteKit handles code splitting per route automatically
+- Use `{#key}` blocks to force re-render when data identity changes
+- Use `{#each items as item (item.id)}` with keys for list performance
+- Lazy-load heavy components with dynamic `import()`
+
+## Testing
+- Use `@testing-library/svelte` for component tests
+- Use Playwright for E2E tests with SvelteKit
+- Test component behavior via user interactions, not internal state
+- Mock `fetch` or use MSW for API mocking in tests
+
+## Conventions
+- Follow SvelteKit file-based routing conventions
+- Use TypeScript in all `.svelte` files
+- Use CSS scoping (default in Svelte); use `:global()` sparingly
+- Use `svelte-check` in CI for type and lint validation

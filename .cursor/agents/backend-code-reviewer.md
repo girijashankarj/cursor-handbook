@@ -1,8 +1,3 @@
----
-name: code-reviewer
-description: Performs thorough code reviews focused on correctness, security, performance, and maintainability.
----
-
 # Code Review Agent
 
 ## Invocation
@@ -65,4 +60,5 @@ Performs thorough code reviews focused on correctness, security, performance, an
 
 ## Related Agents
 - Use after `@implementation-agent` or `@api-agent` for post-implementation review
-- Use `@security-security-audit-agent` for deep security review
+- Use `@security-audit-agent` for deep security review
+- Use `@guardrail-agent` for security guardrail validation

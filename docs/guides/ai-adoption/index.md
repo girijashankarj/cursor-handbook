@@ -13,5 +13,6 @@ This section covers how to adopt and use AI tools effectively in your developmen
 - [Component creation](component-creation.md) — Creating rules, agents, and skills
 - [Workflows](workflows.md) — Example workflows (review, refactor, test)
 - [BugBot](bugbot.md) — Triage and debugging agent
+- [Prompt engineering](prompt-engineering-guidelines.md) — Writing effective prompts for Cursor
 - [MCP guide](mcp-guide.md) — Model Context Protocol integration
 - [Claude IDE support](../claude-ide-support.md) — Using cursor-handbook with Claude Code

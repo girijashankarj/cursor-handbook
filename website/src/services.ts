@@ -47,42 +47,50 @@ function formatDate(iso: string): string {
   }).format(d);
 }
 
-const REPO_STATS_ICON = `<svg class="header-repo-stats__icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-4"/></svg>`;
+const STAR_SVG = `<svg class="repo-stat-inline__svg" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25z"/></svg>`;
+const FORK_SVG = `<svg class="repo-stat-inline__svg" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M5 5.372v.878c0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75v-.878a2.25 2.25 0 1 1 1.5 0v.878a2.25 2.25 0 0 1-2.25 2.25h-1.5v2.128a2.251 2.251 0 1 1-1.5 0V8.5h-1.5A2.25 2.25 0 0 1 3.5 6.25v-.878a2.25 2.25 0 1 1 1.5 0ZM5 3.25a.75.75 0 1 0-1.5 0 .75.75 0 0 0 1.5 0Zm6.75.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm-3 8.75a.75.75 0 1 0-1.5 0 .75.75 0 0 0 1.5 0Z"/></svg>`;
+const ISSUE_SVG = `<svg class="repo-stat-inline__svg" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><circle cx="8" cy="8" r="7" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M8 4v5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"/><circle cx="8" cy="11.5" r=".75"/></svg>`;
+const WATCHER_SVG = `<svg class="repo-stat-inline__svg" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 2c-3.3 0-6 2.7-6 6s2.7 6 6 6 6-2.7 6-6-2.7-6-6-6Zm0 10.5A4.5 4.5 0 1 1 8 3.5a4.5 4.5 0 0 1 0 9Z" fill="none" stroke="currentColor" stroke-width="1.2"/><circle cx="8" cy="8" r="2"/></svg>`;
 
 function repoStatsPanelInner(stats: RepoStats): string {
   const iso = escapeHtml(stats.updatedAt);
   return `<div class="header-repo-stats-panel" role="region" aria-label="Repository stats">
     <p class="header-repo-stats-panel__title">Repository stats</p>
     <div class="header-repo-stats__chips">
-      <span class="header-repo-stats__chip">Stars ${formatCount(stats.stars)}</span>
-      <span class="header-repo-stats__chip">Forks ${formatCount(stats.forks)}</span>
-      <span class="header-repo-stats__chip">Open issues ${formatCount(stats.openIssues)}</span>
-      <span class="header-repo-stats__chip">Watchers ${formatCount(stats.watchers)}</span>
+      <span class="header-repo-stats__chip">${ISSUE_SVG} Issues ${formatCount(stats.openIssues)}</span>
+      <span class="header-repo-stats__chip">${WATCHER_SVG} Watchers ${formatCount(stats.watchers)}</span>
     </div>
     <time class="header-repo-stats__updated" datetime="${iso}">Updated ${formatDate(stats.updatedAt)}</time>
   </div>`;
 }
 
-/** Icon in header; full stats in dropdown panel (`#repo-stats-header`). */
+/** Visible star/fork chips in header; issues/watchers in dropdown. */
 export function repoStatsHtml(
   stats: RepoStats | null,
   opts: { loading?: boolean; unavailable?: boolean } = {},
 ): string {
+  const repoHref = `https://github.com/${siteRepo}`;
   if (opts.loading) {
-    return `<div class="header-repo-stats-dropdown" aria-live="polite">
-      <span class="header-repo-stats-icon-btn header-repo-stats-icon-btn--loading" title="Loading repository stats" aria-busy="true">${REPO_STATS_ICON}</span>
+    return `<div class="repo-stats-bar" aria-live="polite" aria-busy="true">
+      <span class="repo-stat-inline repo-stat-inline--loading">${STAR_SVG} —</span>
+      <span class="repo-stat-inline repo-stat-inline--loading">${FORK_SVG} —</span>
     </div>`;
   }
   if (opts.unavailable) {
-    return `<div class="header-repo-stats-dropdown" aria-live="polite">
-      <span class="header-repo-stats-icon-btn header-repo-stats-icon-btn--muted" title="Repository stats unavailable (API limit or network)">${REPO_STATS_ICON}</span>
+    return `<div class="repo-stats-bar" aria-live="polite">
+      <a class="repo-stat-inline" href="${repoHref}/stargazers" target="_blank" rel="noopener">${STAR_SVG} Star</a>
+      <a class="repo-stat-inline" href="${repoHref}/fork" target="_blank" rel="noopener">${FORK_SVG} Fork</a>
     </div>`;
   }
   if (!stats) return "";
-  return `<details class="header-repo-stats-dropdown">
-    <summary class="header-repo-stats-icon-btn" title="Repository stats" aria-label="Show repository stats">${REPO_STATS_ICON}</summary>
-    ${repoStatsPanelInner(stats)}
-  </details>`;
+  return `<div class="repo-stats-bar" aria-live="polite">
+    <a class="repo-stat-inline" href="${repoHref}/stargazers" target="_blank" rel="noopener" title="${stats.stars} stars">${STAR_SVG} ${formatCount(stats.stars)}</a>
+    <a class="repo-stat-inline" href="${repoHref}/fork" target="_blank" rel="noopener" title="${stats.forks} forks">${FORK_SVG} ${formatCount(stats.forks)}</a>
+    <details class="header-repo-stats-dropdown">
+      <summary class="repo-stat-inline repo-stat-inline--more" title="More stats">···</summary>
+      ${repoStatsPanelInner(stats)}
+    </details>
+  </div>`;
 }
 
 async function loadRepoStats(): Promise<RepoStats | null> {
@@ -134,4 +142,16 @@ export async function loadGuide(): Promise<GuidePayload> {
   const res = await fetch(url);
   if (!res.ok) throw new Error(`Failed to load ${url}: ${res.status}`);
   return res.json();
+}
+
+const contentCache = new Map<string, string>();
+
+export async function fetchRawContent(rawUrl: string): Promise<string> {
+  const cached = contentCache.get(rawUrl);
+  if (cached !== undefined) return cached;
+  const res = await fetch(rawUrl);
+  if (!res.ok) throw new Error(`Failed to fetch ${rawUrl}: ${res.status}`);
+  const text = await res.text();
+  contentCache.set(rawUrl, text);
+  return text;
 }

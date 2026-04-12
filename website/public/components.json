@@ -2,7 +2,7 @@
   "generated": true,
   "repo": "girijashankarj/cursor-handbook",
   "branch": "main",
-  "componentCount": 117,
+  "componentCount": 210,
   "components": [
     {
       "id": "rule:.cursor/rules/architecture/core-principles.mdc",
@@ -101,6 +101,54 @@
       "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/rules/backend/error-handling.mdc"
     },
     {
+      "id": "rule:.cursor/rules/backend/es6.mdc",
+      "type": "rule",
+      "path": ".cursor/rules/backend/es6.mdc",
+      "name": "es6",
+      "description": "ES6+ JavaScript patterns and conventions for modern backend code.",
+      "shortDescription": "ES6+ JavaScript patterns and conventions for modern backend code.",
+      "category": "backend",
+      "tags": [
+        "rule",
+        "backend"
+      ],
+      "invocation": "",
+      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/rules/backend/es6.mdc",
+      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/rules/backend/es6.mdc"
+    },
+    {
+      "id": "rule:.cursor/rules/backend/go.mdc",
+      "type": "rule",
+      "path": ".cursor/rules/backend/go.mdc",
+      "name": "go",
+      "description": "Go language conventions, error handling, and project structure.",
+      "shortDescription": "Go language conventions, error handling, and project structure.",
+      "category": "backend",
+      "tags": [
+        "rule",
+        "backend"
+      ],
+      "invocation": "",
+      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/rules/backend/go.mdc",
+      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/rules/backend/go.mdc"
+    },
+    {
+      "id": "rule:.cursor/rules/backend/graphql.mdc",
+      "type": "rule",
+      "path": ".cursor/rules/backend/graphql.mdc",
+      "name": "graphql",
+      "description": "GraphQL schema design, resolver patterns, and security rules.",
+      "shortDescription": "GraphQL schema design, resolver patterns, and security rules.",
+      "category": "backend",
+      "tags": [
+        "rule",
+        "backend"
+      ],
+      "invocation": "",
+      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/rules/backend/graphql.mdc",
+      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/rules/backend/graphql.mdc"
+    },
+    {
       "id": "rule:.cursor/rules/backend/handler-patterns.mdc",
       "type": "rule",
       "path": ".cursor/rules/backend/handler-patterns.mdc",
@@ -117,12 +165,44 @@
       "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/rules/backend/handler-patterns.mdc"
     },
     {
+      "id": "rule:.cursor/rules/backend/java.mdc",
+      "type": "rule",
+      "path": ".cursor/rules/backend/java.mdc",
+      "name": "java",
+      "description": "Java conventions, Spring patterns, and project structure.",
+      "shortDescription": "Java conventions, Spring patterns, and project structure.",
+      "category": "backend",
+      "tags": [
+        "rule",
+        "backend"
+      ],
+      "invocation": "",
+      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/rules/backend/java.mdc",
+      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/rules/backend/java.mdc"
+    },
+    {
+      "id": "rule:.cursor/rules/backend/logging.mdc",
+      "type": "rule",
+      "path": ".cursor/rules/backend/logging.mdc",
+      "name": "logging",
+      "description": "Backend logging standards: structured logging, levels, and PII rules.",
+      "shortDescription": "Backend logging standards: structured logging, levels, and PII rules.",
+      "category": "backend",
+      "tags": [
+        "rule",
+        "backend"
+      ],
+      "invocation": "",
+      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/rules/backend/logging.mdc",
+      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/rules/backend/logging.mdc"
+    },
+    {
       "id": "rule:.cursor/rules/backend/nodejs.mdc",
       "type": "rule",
       "path": ".cursor/rules/backend/nodejs.mdc",
       "name": "nodejs",
-      "description": "Backend: Node.js",
-      "shortDescription": "Backend: Node.js",
+      "description": "Node.js runtime conventions, async patterns, and import order.",
+      "shortDescription": "Node.js runtime conventions, async patterns, and import order.",
       "category": "backend",
       "tags": [
         "rule",
@@ -133,12 +213,28 @@
       "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/rules/backend/nodejs.mdc"
     },
     {
+      "id": "rule:.cursor/rules/backend/python.mdc",
+      "type": "rule",
+      "path": ".cursor/rules/backend/python.mdc",
+      "name": "python",
+      "description": "Python conventions, project structure, and async patterns.",
+      "shortDescription": "Python conventions, project structure, and async patterns.",
+      "category": "backend",
+      "tags": [
+        "rule",
+        "backend"
+      ],
+      "invocation": "",
+      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/rules/backend/python.mdc",
+      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/rules/backend/python.mdc"
+    },
+    {
       "id": "rule:.cursor/rules/backend/typescript.mdc",
       "type": "rule",
       "path": ".cursor/rules/backend/typescript.mdc",
       "name": "typescript",
-      "description": "Backend: TypeScript",
-      "shortDescription": "Backend: TypeScript",
+      "description": "TypeScript strictness, types, and conventions for backend code.",
+      "shortDescription": "TypeScript strictness, types, and conventions for backend code.",
       "category": "backend",
       "tags": [
         "rule",
@@ -147,6 +243,22 @@
       "invocation": "",
       "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/rules/backend/typescript.mdc",
       "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/rules/backend/typescript.mdc"
+    },
+    {
+      "id": "rule:.cursor/rules/cloud/aws.mdc",
+      "type": "rule",
+      "path": ".cursor/rules/cloud/aws.mdc",
+      "name": "aws",
+      "description": "AWS-specific patterns, service usage, and security rules.",
+      "shortDescription": "AWS-specific patterns, service usage, and security rules.",
+      "category": "cloud",
+      "tags": [
+        "rule",
+        "cloud"
+      ],
+      "invocation": "",
+      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/rules/cloud/aws.mdc",
+      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/rules/cloud/aws.mdc"
     },
     {
       "id": "rule:.cursor/rules/cloud/containerization.mdc",
@@ -197,6 +309,22 @@
       "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/rules/cloud/serverless.mdc"
     },
     {
+      "id": "rule:.cursor/rules/cloud/terraform.mdc",
+      "type": "rule",
+      "path": ".cursor/rules/cloud/terraform.mdc",
+      "name": "terraform",
+      "description": "Terraform conventions, module patterns, and state management.",
+      "shortDescription": "Terraform conventions, module patterns, and state management.",
+      "category": "cloud",
+      "tags": [
+        "rule",
+        "cloud"
+      ],
+      "invocation": "",
+      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/rules/cloud/terraform.mdc",
+      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/rules/cloud/terraform.mdc"
+    },
+    {
       "id": "rule:.cursor/rules/database/migration-rules.mdc",
       "type": "rule",
       "path": ".cursor/rules/database/migration-rules.mdc",
@@ -211,6 +339,22 @@
       "invocation": "",
       "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/rules/database/migration-rules.mdc",
       "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/rules/database/migration-rules.mdc"
+    },
+    {
+      "id": "rule:.cursor/rules/database/patterns.mdc",
+      "type": "rule",
+      "path": ".cursor/rules/database/patterns.mdc",
+      "name": "patterns",
+      "description": "Database design patterns, indexing strategies, and data modeling rules.",
+      "shortDescription": "Database design patterns, indexing strategies, and data modeling rules.",
+      "category": "database",
+      "tags": [
+        "rule",
+        "database"
+      ],
+      "invocation": "",
+      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/rules/database/patterns.mdc",
+      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/rules/database/patterns.mdc"
     },
     {
       "id": "rule:.cursor/rules/database/query-patterns.mdc",
@@ -259,6 +403,38 @@
       "invocation": "",
       "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/rules/devops/ci-cd.mdc",
       "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/rules/devops/ci-cd.mdc"
+    },
+    {
+      "id": "rule:.cursor/rules/devops/cursor-handbook-sync.mdc",
+      "type": "rule",
+      "path": ".cursor/rules/devops/cursor-handbook-sync.mdc",
+      "name": "cursor-handbook-sync",
+      "description": "Keep cursor-setup-agent in sync when .cursor/ components change — applies only to this repo (cursor-handbook), not consumer projects",
+      "shortDescription": "Keep cursor-setup-agent in sync when .cursor/ components change — applies only to this repo (cursor-handbook), not consumer projects",
+      "category": "devops",
+      "tags": [
+        "rule",
+        "devops"
+      ],
+      "invocation": "",
+      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/rules/devops/cursor-handbook-sync.mdc",
+      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/rules/devops/cursor-handbook-sync.mdc"
+    },
+    {
+      "id": "rule:.cursor/rules/devops/docker.mdc",
+      "type": "rule",
+      "path": ".cursor/rules/devops/docker.mdc",
+      "name": "docker",
+      "description": "Docker best practices, image optimization, and Compose patterns.",
+      "shortDescription": "Docker best practices, image optimization, and Compose patterns.",
+      "category": "devops",
+      "tags": [
+        "rule",
+        "devops"
+      ],
+      "invocation": "",
+      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/rules/devops/docker.mdc",
+      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/rules/devops/docker.mdc"
     },
     {
       "id": "rule:.cursor/rules/devops/documentation-standards.mdc",
@@ -325,6 +501,22 @@
       "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/rules/frontend/accessibility.mdc"
     },
     {
+      "id": "rule:.cursor/rules/frontend/angular.mdc",
+      "type": "rule",
+      "path": ".cursor/rules/frontend/angular.mdc",
+      "name": "angular",
+      "description": "Angular conventions, component patterns, and project structure.",
+      "shortDescription": "Angular conventions, component patterns, and project structure.",
+      "category": "frontend",
+      "tags": [
+        "rule",
+        "frontend"
+      ],
+      "invocation": "",
+      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/rules/frontend/angular.mdc",
+      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/rules/frontend/angular.mdc"
+    },
+    {
       "id": "rule:.cursor/rules/frontend/component-patterns.mdc",
       "type": "rule",
       "path": ".cursor/rules/frontend/component-patterns.mdc",
@@ -357,6 +549,22 @@
       "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/rules/frontend/performance.mdc"
     },
     {
+      "id": "rule:.cursor/rules/frontend/react.mdc",
+      "type": "rule",
+      "path": ".cursor/rules/frontend/react.mdc",
+      "name": "react",
+      "description": "React conventions, hook patterns, and component architecture.",
+      "shortDescription": "React conventions, hook patterns, and component architecture.",
+      "category": "frontend",
+      "tags": [
+        "rule",
+        "frontend"
+      ],
+      "invocation": "",
+      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/rules/frontend/react.mdc",
+      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/rules/frontend/react.mdc"
+    },
+    {
       "id": "rule:.cursor/rules/frontend/state-management.mdc",
       "type": "rule",
       "path": ".cursor/rules/frontend/state-management.mdc",
@@ -371,6 +579,38 @@
       "invocation": "",
       "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/rules/frontend/state-management.mdc",
       "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/rules/frontend/state-management.mdc"
+    },
+    {
+      "id": "rule:.cursor/rules/frontend/svelte.mdc",
+      "type": "rule",
+      "path": ".cursor/rules/frontend/svelte.mdc",
+      "name": "svelte",
+      "description": "Svelte/SvelteKit conventions, reactivity patterns, and component structure.",
+      "shortDescription": "Svelte/SvelteKit conventions, reactivity patterns, and component structure.",
+      "category": "frontend",
+      "tags": [
+        "rule",
+        "frontend"
+      ],
+      "invocation": "",
+      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/rules/frontend/svelte.mdc",
+      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/rules/frontend/svelte.mdc"
+    },
+    {
+      "id": "rule:.cursor/rules/frontend/vue.mdc",
+      "type": "rule",
+      "path": ".cursor/rules/frontend/vue.mdc",
+      "name": "vue",
+      "description": "Vue.js conventions, Composition API patterns, and project structure.",
+      "shortDescription": "Vue.js conventions, Composition API patterns, and project structure.",
+      "category": "frontend",
+      "tags": [
+        "rule",
+        "frontend"
+      ],
+      "invocation": "",
+      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/rules/frontend/vue.mdc",
+      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/rules/frontend/vue.mdc"
     },
     {
       "id": "rule:.cursor/rules/main-rules.mdc",
@@ -453,6 +693,22 @@
       "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/rules/testing/integration-testing.mdc"
     },
     {
+      "id": "rule:.cursor/rules/testing/jest.mdc",
+      "type": "rule",
+      "path": ".cursor/rules/testing/jest.mdc",
+      "name": "jest",
+      "description": "Jest testing framework configuration, patterns, and best practices.",
+      "shortDescription": "Jest testing framework configuration, patterns, and best practices.",
+      "category": "testing",
+      "tags": [
+        "rule",
+        "testing"
+      ],
+      "invocation": "",
+      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/rules/testing/jest.mdc",
+      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/rules/testing/jest.mdc"
+    },
+    {
       "id": "rule:.cursor/rules/testing/mock-patterns.mdc",
       "type": "rule",
       "path": ".cursor/rules/testing/mock-patterns.mdc",
@@ -501,6 +757,57 @@
       "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/rules/testing/testing-standards.mdc"
     },
     {
+      "id": "agent:.cursor/agents/README.md",
+      "type": "agent",
+      "path": ".cursor/agents/README.md",
+      "name": "README",
+      "description": "Cursor Agents",
+      "shortDescription": "Cursor Agents",
+      "category": "general",
+      "tags": [
+        "agent",
+        "general",
+        "agent-name"
+      ],
+      "invocation": "/agent-name",
+      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/agents/README.md",
+      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/agents/README.md"
+    },
+    {
+      "id": "agent:.cursor/agents/accessibility-agent.md",
+      "type": "agent",
+      "path": ".cursor/agents/accessibility-agent.md",
+      "name": "accessibility-agent",
+      "description": "Accessibility Agent",
+      "shortDescription": "Accessibility Agent",
+      "category": "accessibility",
+      "tags": [
+        "agent",
+        "accessibility",
+        "accessibility-agent"
+      ],
+      "invocation": "/accessibility-agent",
+      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/agents/accessibility-agent.md",
+      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/agents/accessibility-agent.md"
+    },
+    {
+      "id": "agent:.cursor/agents/agent-creator-agent.md",
+      "type": "agent",
+      "path": ".cursor/agents/agent-creator-agent.md",
+      "name": "agent-creator-agent",
+      "description": "Agent Creator Agent",
+      "shortDescription": "Agent Creator Agent",
+      "category": "agent",
+      "tags": [
+        "agent",
+        "agent",
+        "agent-creator-agent"
+      ],
+      "invocation": "/agent-creator-agent",
+      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/agents/agent-creator-agent.md",
+      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/agents/agent-creator-agent.md"
+    },
+    {
       "id": "agent:.cursor/agents/ai-ml-prompt-engineering-agent.md",
       "type": "agent",
       "path": ".cursor/agents/ai-ml-prompt-engineering-agent.md",
@@ -518,38 +825,55 @@
       "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/agents/ai-ml-prompt-engineering-agent.md"
     },
     {
-      "id": "agent:.cursor/agents/architecture-design-agent.md",
+      "id": "agent:.cursor/agents/ai-platform-engineer-agent.md",
       "type": "agent",
-      "path": ".cursor/agents/architecture-design-agent.md",
-      "name": "architecture-design-agent",
-      "description": "Architecture Design Agent",
-      "shortDescription": "Architecture Design Agent",
-      "category": "architecture",
+      "path": ".cursor/agents/ai-platform-engineer-agent.md",
+      "name": "ai-platform-engineer-agent",
+      "description": "AI Platform Engineer Agent",
+      "shortDescription": "AI Platform Engineer Agent",
+      "category": "ai",
       "tags": [
         "agent",
-        "architecture",
-        "design-agent"
+        "ai",
+        "ai-platform-engineer-agent"
       ],
-      "invocation": "/design-agent",
-      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/agents/architecture-design-agent.md",
-      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/agents/architecture-design-agent.md"
+      "invocation": "/ai-platform-engineer-agent",
+      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/agents/ai-platform-engineer-agent.md",
+      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/agents/ai-platform-engineer-agent.md"
     },
     {
-      "id": "agent:.cursor/agents/architecture-migration-agent.md",
+      "id": "agent:.cursor/agents/api-gateway-agent.md",
       "type": "agent",
-      "path": ".cursor/agents/architecture-migration-agent.md",
-      "name": "architecture-migration-agent",
-      "description": "Migration Agent",
-      "shortDescription": "Migration Agent",
-      "category": "architecture",
+      "path": ".cursor/agents/api-gateway-agent.md",
+      "name": "api-gateway-agent",
+      "description": "API Gateway Agent",
+      "shortDescription": "API Gateway Agent",
+      "category": "api",
       "tags": [
         "agent",
-        "architecture",
-        "migration-agent"
+        "api",
+        "api-gateway-agent"
       ],
-      "invocation": "/migration-agent",
-      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/agents/architecture-migration-agent.md",
-      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/agents/architecture-migration-agent.md"
+      "invocation": "/api-gateway-agent",
+      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/agents/api-gateway-agent.md",
+      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/agents/api-gateway-agent.md"
+    },
+    {
+      "id": "agent:.cursor/agents/architect-agent.md",
+      "type": "agent",
+      "path": ".cursor/agents/architect-agent.md",
+      "name": "architect-agent",
+      "description": "Architect Agent",
+      "shortDescription": "Architect Agent",
+      "category": "architect",
+      "tags": [
+        "agent",
+        "architect",
+        "architect-agent"
+      ],
+      "invocation": "/architect-agent",
+      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/agents/architect-agent.md",
+      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/agents/architect-agent.md"
     },
     {
       "id": "agent:.cursor/agents/architecture-refactoring-agent.md",
@@ -654,38 +978,38 @@
       "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/agents/backend-event-handler-agent.md"
     },
     {
-      "id": "agent:.cursor/agents/backend-implementation-agent.md",
+      "id": "agent:.cursor/agents/boundaries-agent.md",
       "type": "agent",
-      "path": ".cursor/agents/backend-implementation-agent.md",
-      "name": "backend-implementation-agent",
-      "description": "Implementation Agent",
-      "shortDescription": "Implementation Agent",
-      "category": "backend",
+      "path": ".cursor/agents/boundaries-agent.md",
+      "name": "boundaries-agent",
+      "description": "Boundaries Agent",
+      "shortDescription": "Boundaries Agent",
+      "category": "boundaries",
       "tags": [
         "agent",
-        "backend",
-        "implementation-agent"
+        "boundaries",
+        "boundaries-agent"
       ],
-      "invocation": "/implementation-agent",
-      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/agents/backend-implementation-agent.md",
-      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/agents/backend-implementation-agent.md"
+      "invocation": "/boundaries-agent",
+      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/agents/boundaries-agent.md",
+      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/agents/boundaries-agent.md"
     },
     {
-      "id": "agent:.cursor/agents/backend-performance-agent.md",
+      "id": "agent:.cursor/agents/business-agent.md",
       "type": "agent",
-      "path": ".cursor/agents/backend-performance-agent.md",
-      "name": "backend-performance-agent",
-      "description": "Performance Agent",
-      "shortDescription": "Performance Agent",
-      "category": "backend",
+      "path": ".cursor/agents/business-agent.md",
+      "name": "business-agent",
+      "description": "Business Agent",
+      "shortDescription": "Business Agent",
+      "category": "business",
       "tags": [
         "agent",
-        "backend",
-        "performance-agent"
+        "business",
+        "business-agent"
       ],
-      "invocation": "/performance-agent",
-      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/agents/backend-performance-agent.md",
-      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/agents/backend-performance-agent.md"
+      "invocation": "/business-agent",
+      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/agents/business-agent.md",
+      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/agents/business-agent.md"
     },
     {
       "id": "agent:.cursor/agents/business-estimation-agent.md",
@@ -773,6 +1097,91 @@
       "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/agents/cloud-infrastructure-agent.md"
     },
     {
+      "id": "agent:.cursor/agents/compliance-agent.md",
+      "type": "agent",
+      "path": ".cursor/agents/compliance-agent.md",
+      "name": "compliance-agent",
+      "description": "Compliance Agent",
+      "shortDescription": "Compliance Agent",
+      "category": "compliance",
+      "tags": [
+        "agent",
+        "compliance",
+        "compliance-agent"
+      ],
+      "invocation": "/compliance-agent",
+      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/agents/compliance-agent.md",
+      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/agents/compliance-agent.md"
+    },
+    {
+      "id": "agent:.cursor/agents/cost-optimizer-agent.md",
+      "type": "agent",
+      "path": ".cursor/agents/cost-optimizer-agent.md",
+      "name": "cost-optimizer-agent",
+      "description": "Cost Optimizer Agent",
+      "shortDescription": "Cost Optimizer Agent",
+      "category": "cost",
+      "tags": [
+        "agent",
+        "cost",
+        "cost-optimizer-agent"
+      ],
+      "invocation": "/cost-optimizer-agent",
+      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/agents/cost-optimizer-agent.md",
+      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/agents/cost-optimizer-agent.md"
+    },
+    {
+      "id": "agent:.cursor/agents/cursor-setup-agent.md",
+      "type": "agent",
+      "path": ".cursor/agents/cursor-setup-agent.md",
+      "name": "cursor-setup-agent",
+      "description": "Cursor Setup Agent",
+      "shortDescription": "Cursor Setup Agent",
+      "category": "cursor",
+      "tags": [
+        "agent",
+        "cursor",
+        "cursor-setup-agent"
+      ],
+      "invocation": "/cursor-setup-agent",
+      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/agents/cursor-setup-agent.md",
+      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/agents/cursor-setup-agent.md"
+    },
+    {
+      "id": "agent:.cursor/agents/data-labeller-agent.md",
+      "type": "agent",
+      "path": ".cursor/agents/data-labeller-agent.md",
+      "name": "data-labeller-agent",
+      "description": "Data Labeller Agent",
+      "shortDescription": "Data Labeller Agent",
+      "category": "data",
+      "tags": [
+        "agent",
+        "data",
+        "data-labeller-agent"
+      ],
+      "invocation": "/data-labeller-agent",
+      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/agents/data-labeller-agent.md",
+      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/agents/data-labeller-agent.md"
+    },
+    {
+      "id": "agent:.cursor/agents/data-validator-agent.md",
+      "type": "agent",
+      "path": ".cursor/agents/data-validator-agent.md",
+      "name": "data-validator-agent",
+      "description": "Data Validator Agent",
+      "shortDescription": "Data Validator Agent",
+      "category": "data",
+      "tags": [
+        "agent",
+        "data",
+        "data-validator-agent"
+      ],
+      "invocation": "/data-validator-agent",
+      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/agents/data-validator-agent.md",
+      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/agents/data-validator-agent.md"
+    },
+    {
       "id": "agent:.cursor/agents/database-query-optimization-agent.md",
       "type": "agent",
       "path": ".cursor/agents/database-query-optimization-agent.md",
@@ -805,6 +1214,57 @@
       "invocation": "/schema-agent",
       "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/agents/database-schema-agent.md",
       "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/agents/database-schema-agent.md"
+    },
+    {
+      "id": "agent:.cursor/agents/db-agent.md",
+      "type": "agent",
+      "path": ".cursor/agents/db-agent.md",
+      "name": "db-agent",
+      "description": "Database Agent",
+      "shortDescription": "Database Agent",
+      "category": "db",
+      "tags": [
+        "agent",
+        "db",
+        "db-agent"
+      ],
+      "invocation": "/db-agent",
+      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/agents/db-agent.md",
+      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/agents/db-agent.md"
+    },
+    {
+      "id": "agent:.cursor/agents/design-agent.md",
+      "type": "agent",
+      "path": ".cursor/agents/design-agent.md",
+      "name": "design-agent",
+      "description": "Design Agent",
+      "shortDescription": "Design Agent",
+      "category": "design",
+      "tags": [
+        "agent",
+        "design",
+        "design-agent"
+      ],
+      "invocation": "/design-agent",
+      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/agents/design-agent.md",
+      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/agents/design-agent.md"
+    },
+    {
+      "id": "agent:.cursor/agents/design-pattern-agent.md",
+      "type": "agent",
+      "path": ".cursor/agents/design-pattern-agent.md",
+      "name": "design-pattern-agent",
+      "description": "Design Pattern Agent",
+      "shortDescription": "Design Pattern Agent",
+      "category": "design",
+      "tags": [
+        "agent",
+        "design",
+        "design-pattern-agent"
+      ],
+      "invocation": "/design-pattern-agent",
+      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/agents/design-pattern-agent.md",
+      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/agents/design-pattern-agent.md"
     },
     {
       "id": "agent:.cursor/agents/devops-ci-cd-agent.md",
@@ -841,44 +1301,112 @@
       "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/agents/devops-incident-agent.md"
     },
     {
-      "id": "agent:.cursor/agents/devops-monitoring-agent.md",
+      "id": "agent:.cursor/agents/diagram-agent.md",
       "type": "agent",
-      "path": ".cursor/agents/devops-monitoring-agent.md",
-      "name": "devops-monitoring-agent",
-      "description": "Monitoring & Observability Agent",
-      "shortDescription": "Monitoring & Observability Agent",
-      "category": "devops",
+      "path": ".cursor/agents/diagram-agent.md",
+      "name": "diagram-agent",
+      "description": "Diagram Agent",
+      "shortDescription": "Diagram Agent",
+      "category": "diagram",
       "tags": [
         "agent",
-        "devops",
-        "monitoring-agent"
+        "diagram",
+        "diagram-agent"
       ],
-      "invocation": "/monitoring-agent",
-      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/agents/devops-monitoring-agent.md",
-      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/agents/devops-monitoring-agent.md"
+      "invocation": "/diagram-agent",
+      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/agents/diagram-agent.md",
+      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/agents/diagram-agent.md"
     },
     {
-      "id": "agent:.cursor/agents/documentation-docs-agent.md",
+      "id": "agent:.cursor/agents/doc-setup-agent.md",
       "type": "agent",
-      "path": ".cursor/agents/documentation-docs-agent.md",
-      "name": "documentation-docs-agent",
-      "description": "Documentation Agent",
-      "shortDescription": "Documentation Agent",
-      "category": "documentation",
+      "path": ".cursor/agents/doc-setup-agent.md",
+      "name": "doc-setup-agent",
+      "description": "Documentation Setup Agent",
+      "shortDescription": "Documentation Setup Agent",
+      "category": "doc",
       "tags": [
         "agent",
-        "documentation",
+        "doc",
+        "doc-setup-agent"
+      ],
+      "invocation": "/doc-setup-agent",
+      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/agents/doc-setup-agent.md",
+      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/agents/doc-setup-agent.md"
+    },
+    {
+      "id": "agent:.cursor/agents/doc-sync-agent.md",
+      "type": "agent",
+      "path": ".cursor/agents/doc-sync-agent.md",
+      "name": "doc-sync-agent",
+      "description": "Documentation Sync Agent",
+      "shortDescription": "Documentation Sync Agent",
+      "category": "doc",
+      "tags": [
+        "agent",
+        "doc",
+        "doc-sync-agent"
+      ],
+      "invocation": "/doc-sync-agent",
+      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/agents/doc-sync-agent.md",
+      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/agents/doc-sync-agent.md"
+    },
+    {
+      "id": "agent:.cursor/agents/docs-agent.md",
+      "type": "agent",
+      "path": ".cursor/agents/docs-agent.md",
+      "name": "docs-agent",
+      "description": "Documentation Agent",
+      "shortDescription": "Documentation Agent",
+      "category": "docs",
+      "tags": [
+        "agent",
+        "docs",
         "docs-agent"
       ],
       "invocation": "/docs-agent",
-      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/agents/documentation-docs-agent.md",
-      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/agents/documentation-docs-agent.md"
+      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/agents/docs-agent.md",
+      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/agents/docs-agent.md"
     },
     {
-      "id": "agent:.cursor/agents/frontend-performance-frontend-agent.md",
+      "id": "agent:.cursor/agents/e2e-testing-agent.md",
       "type": "agent",
-      "path": ".cursor/agents/frontend-performance-frontend-agent.md",
-      "name": "frontend-performance-frontend-agent",
+      "path": ".cursor/agents/e2e-testing-agent.md",
+      "name": "e2e-testing-agent",
+      "description": "E2E Testing Agent",
+      "shortDescription": "E2E Testing Agent",
+      "category": "e2e",
+      "tags": [
+        "agent",
+        "e2e",
+        "e2e-agent"
+      ],
+      "invocation": "/e2e-agent",
+      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/agents/e2e-testing-agent.md",
+      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/agents/e2e-testing-agent.md"
+    },
+    {
+      "id": "agent:.cursor/agents/expense-agent.md",
+      "type": "agent",
+      "path": ".cursor/agents/expense-agent.md",
+      "name": "expense-agent",
+      "description": "Expense Agent",
+      "shortDescription": "Expense Agent",
+      "category": "expense",
+      "tags": [
+        "agent",
+        "expense",
+        "expense-agent"
+      ],
+      "invocation": "/expense-agent",
+      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/agents/expense-agent.md",
+      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/agents/expense-agent.md"
+    },
+    {
+      "id": "agent:.cursor/agents/frontend-performance-agent.md",
+      "type": "agent",
+      "path": ".cursor/agents/frontend-performance-agent.md",
+      "name": "frontend-performance-agent",
       "description": "Frontend Performance Agent",
       "shortDescription": "Frontend Performance Agent",
       "category": "frontend",
@@ -888,8 +1416,8 @@
         "frontend-perf-agent"
       ],
       "invocation": "/frontend-perf-agent",
-      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/agents/frontend-performance-frontend-agent.md",
-      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/agents/frontend-performance-frontend-agent.md"
+      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/agents/frontend-performance-agent.md",
+      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/agents/frontend-performance-agent.md"
     },
     {
       "id": "agent:.cursor/agents/frontend-state-agent.md",
@@ -926,21 +1454,157 @@
       "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/agents/frontend-styling-agent.md"
     },
     {
-      "id": "agent:.cursor/agents/frontend-ui-component-agent.md",
+      "id": "agent:.cursor/agents/git-agent.md",
       "type": "agent",
-      "path": ".cursor/agents/frontend-ui-component-agent.md",
-      "name": "frontend-ui-component-agent",
-      "description": "UI Component Agent",
-      "shortDescription": "UI Component Agent",
-      "category": "frontend",
+      "path": ".cursor/agents/git-agent.md",
+      "name": "git-agent",
+      "description": "Git Agent",
+      "shortDescription": "Git Agent",
+      "category": "git",
       "tags": [
         "agent",
-        "frontend",
-        "ui-component-agent"
+        "git",
+        "git-agent"
       ],
-      "invocation": "/ui-component-agent",
-      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/agents/frontend-ui-component-agent.md",
-      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/agents/frontend-ui-component-agent.md"
+      "invocation": "/git-agent",
+      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/agents/git-agent.md",
+      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/agents/git-agent.md"
+    },
+    {
+      "id": "agent:.cursor/agents/guardrail-agent.md",
+      "type": "agent",
+      "path": ".cursor/agents/guardrail-agent.md",
+      "name": "guardrail-agent",
+      "description": "Guardrail Agent",
+      "shortDescription": "Guardrail Agent",
+      "category": "guardrail",
+      "tags": [
+        "agent",
+        "guardrail",
+        "guardrail-agent"
+      ],
+      "invocation": "/guardrail-agent",
+      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/agents/guardrail-agent.md",
+      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/agents/guardrail-agent.md"
+    },
+    {
+      "id": "agent:.cursor/agents/implementation-agent.md",
+      "type": "agent",
+      "path": ".cursor/agents/implementation-agent.md",
+      "name": "implementation-agent",
+      "description": "Implementation Agent",
+      "shortDescription": "Implementation Agent",
+      "category": "implementation",
+      "tags": [
+        "agent",
+        "implementation",
+        "implementation-agent"
+      ],
+      "invocation": "/implementation-agent",
+      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/agents/implementation-agent.md",
+      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/agents/implementation-agent.md"
+    },
+    {
+      "id": "agent:.cursor/agents/infra-agent.md",
+      "type": "agent",
+      "path": ".cursor/agents/infra-agent.md",
+      "name": "infra-agent",
+      "description": "Infrastructure Agent",
+      "shortDescription": "Infrastructure Agent",
+      "category": "infra",
+      "tags": [
+        "agent",
+        "infra",
+        "infra-agent"
+      ],
+      "invocation": "/infra-agent",
+      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/agents/infra-agent.md",
+      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/agents/infra-agent.md"
+    },
+    {
+      "id": "agent:.cursor/agents/migration-agent.md",
+      "type": "agent",
+      "path": ".cursor/agents/migration-agent.md",
+      "name": "migration-agent",
+      "description": "Migration Agent",
+      "shortDescription": "Migration Agent",
+      "category": "migration",
+      "tags": [
+        "agent",
+        "migration",
+        "migration-agent"
+      ],
+      "invocation": "/migration-agent",
+      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/agents/migration-agent.md",
+      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/agents/migration-agent.md"
+    },
+    {
+      "id": "agent:.cursor/agents/monitoring-agent.md",
+      "type": "agent",
+      "path": ".cursor/agents/monitoring-agent.md",
+      "name": "monitoring-agent",
+      "description": "Monitoring Agent",
+      "shortDescription": "Monitoring Agent",
+      "category": "monitoring",
+      "tags": [
+        "agent",
+        "monitoring",
+        "monitoring-agent"
+      ],
+      "invocation": "/monitoring-agent",
+      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/agents/monitoring-agent.md",
+      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/agents/monitoring-agent.md"
+    },
+    {
+      "id": "agent:.cursor/agents/multi-role-agent.md",
+      "type": "agent",
+      "path": ".cursor/agents/multi-role-agent.md",
+      "name": "multi-role-agent",
+      "description": "Multi-Role Agent",
+      "shortDescription": "Multi-Role Agent",
+      "category": "multi",
+      "tags": [
+        "agent",
+        "multi",
+        "multi-role-agent"
+      ],
+      "invocation": "/multi-role-agent",
+      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/agents/multi-role-agent.md",
+      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/agents/multi-role-agent.md"
+    },
+    {
+      "id": "agent:.cursor/agents/openapi-spec-agent.md",
+      "type": "agent",
+      "path": ".cursor/agents/openapi-spec-agent.md",
+      "name": "openapi-spec-agent",
+      "description": "OpenAPI Spec Agent",
+      "shortDescription": "OpenAPI Spec Agent",
+      "category": "openapi",
+      "tags": [
+        "agent",
+        "openapi",
+        "openapi-spec-agent"
+      ],
+      "invocation": "/openapi-spec-agent",
+      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/agents/openapi-spec-agent.md",
+      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/agents/openapi-spec-agent.md"
+    },
+    {
+      "id": "agent:.cursor/agents/performance-agent.md",
+      "type": "agent",
+      "path": ".cursor/agents/performance-agent.md",
+      "name": "performance-agent",
+      "description": "Performance Agent",
+      "shortDescription": "Performance Agent",
+      "category": "performance",
+      "tags": [
+        "agent",
+        "performance",
+        "performance-agent"
+      ],
+      "invocation": "/performance-agent",
+      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/agents/performance-agent.md",
+      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/agents/performance-agent.md"
     },
     {
       "id": "agent:.cursor/agents/platform-dx-agent.md",
@@ -960,6 +1624,108 @@
       "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/agents/platform-dx-agent.md"
     },
     {
+      "id": "agent:.cursor/agents/rag-creator-agent.md",
+      "type": "agent",
+      "path": ".cursor/agents/rag-creator-agent.md",
+      "name": "rag-creator-agent",
+      "description": "RAG Creator Agent",
+      "shortDescription": "RAG Creator Agent",
+      "category": "rag",
+      "tags": [
+        "agent",
+        "rag",
+        "rag-creator-agent"
+      ],
+      "invocation": "/rag-creator-agent",
+      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/agents/rag-creator-agent.md",
+      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/agents/rag-creator-agent.md"
+    },
+    {
+      "id": "agent:.cursor/agents/rate-agent.md",
+      "type": "agent",
+      "path": ".cursor/agents/rate-agent.md",
+      "name": "rate-agent",
+      "description": "Rate Limiting Agent",
+      "shortDescription": "Rate Limiting Agent",
+      "category": "rate",
+      "tags": [
+        "agent",
+        "rate",
+        "rate-agent"
+      ],
+      "invocation": "/rate-agent",
+      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/agents/rate-agent.md",
+      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/agents/rate-agent.md"
+    },
+    {
+      "id": "agent:.cursor/agents/refactor-agent.md",
+      "type": "agent",
+      "path": ".cursor/agents/refactor-agent.md",
+      "name": "refactor-agent",
+      "description": "Refactor Agent",
+      "shortDescription": "Refactor Agent",
+      "category": "refactor",
+      "tags": [
+        "agent",
+        "refactor",
+        "refactor-agent"
+      ],
+      "invocation": "/refactor-agent",
+      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/agents/refactor-agent.md",
+      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/agents/refactor-agent.md"
+    },
+    {
+      "id": "agent:.cursor/agents/regression-agent.md",
+      "type": "agent",
+      "path": ".cursor/agents/regression-agent.md",
+      "name": "regression-agent",
+      "description": "Regression Agent",
+      "shortDescription": "Regression Agent",
+      "category": "regression",
+      "tags": [
+        "agent",
+        "regression",
+        "regression-agent"
+      ],
+      "invocation": "/regression-agent",
+      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/agents/regression-agent.md",
+      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/agents/regression-agent.md"
+    },
+    {
+      "id": "agent:.cursor/agents/reverse-engineering-doc-agent.md",
+      "type": "agent",
+      "path": ".cursor/agents/reverse-engineering-doc-agent.md",
+      "name": "reverse-engineering-doc-agent",
+      "description": "Reverse Engineering Documentation Agent",
+      "shortDescription": "Reverse Engineering Documentation Agent",
+      "category": "reverse",
+      "tags": [
+        "agent",
+        "reverse",
+        "reverse-engineering-doc-agent"
+      ],
+      "invocation": "/reverse-engineering-doc-agent",
+      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/agents/reverse-engineering-doc-agent.md",
+      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/agents/reverse-engineering-doc-agent.md"
+    },
+    {
+      "id": "agent:.cursor/agents/security-audit-agent.md",
+      "type": "agent",
+      "path": ".cursor/agents/security-audit-agent.md",
+      "name": "security-audit-agent",
+      "description": "Security Audit Agent",
+      "shortDescription": "Security Audit Agent",
+      "category": "security",
+      "tags": [
+        "agent",
+        "security",
+        "security-audit-agent"
+      ],
+      "invocation": "/security-audit-agent",
+      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/agents/security-audit-agent.md",
+      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/agents/security-audit-agent.md"
+    },
+    {
       "id": "agent:.cursor/agents/security-auth-agent.md",
       "type": "agent",
       "path": ".cursor/agents/security-auth-agent.md",
@@ -977,55 +1743,38 @@
       "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/agents/security-auth-agent.md"
     },
     {
-      "id": "agent:.cursor/agents/security-compliance-agent.md",
+      "id": "agent:.cursor/agents/test-runner.md",
       "type": "agent",
-      "path": ".cursor/agents/security-compliance-agent.md",
-      "name": "security-compliance-agent",
-      "description": "Compliance Agent",
-      "shortDescription": "Compliance Agent",
-      "category": "security",
+      "path": ".cursor/agents/test-runner.md",
+      "name": "test-runner",
+      "description": "Test Runner Agent",
+      "shortDescription": "Test Runner Agent",
+      "category": "test",
       "tags": [
         "agent",
-        "security",
-        "compliance-agent"
+        "test",
+        "test-runner"
       ],
-      "invocation": "/compliance-agent",
-      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/agents/security-compliance-agent.md",
-      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/agents/security-compliance-agent.md"
+      "invocation": "/test-runner",
+      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/agents/test-runner.md",
+      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/agents/test-runner.md"
     },
     {
-      "id": "agent:.cursor/agents/security-security-audit-agent.md",
+      "id": "agent:.cursor/agents/testing-agent.md",
       "type": "agent",
-      "path": ".cursor/agents/security-security-audit-agent.md",
-      "name": "security-security-audit-agent",
-      "description": "Security Audit Agent",
-      "shortDescription": "Security Audit Agent",
-      "category": "security",
-      "tags": [
-        "agent",
-        "security",
-        "security-audit-agent"
-      ],
-      "invocation": "/security-audit-agent",
-      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/agents/security-security-audit-agent.md",
-      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/agents/security-security-audit-agent.md"
-    },
-    {
-      "id": "agent:.cursor/agents/testing-e2e-testing-agent.md",
-      "type": "agent",
-      "path": ".cursor/agents/testing-e2e-testing-agent.md",
-      "name": "testing-e2e-testing-agent",
-      "description": "E2E Testing Agent",
-      "shortDescription": "E2E Testing Agent",
+      "path": ".cursor/agents/testing-agent.md",
+      "name": "testing-agent",
+      "description": "Writes comprehensive tests and improves test coverage using project testing framework.",
+      "shortDescription": "Writes comprehensive tests and improves test coverage using project testing framework.",
       "category": "testing",
       "tags": [
         "agent",
         "testing",
-        "e2e-agent"
+        "testing-agent"
       ],
-      "invocation": "/e2e-agent",
-      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/agents/testing-e2e-testing-agent.md",
-      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/agents/testing-e2e-testing-agent.md"
+      "invocation": "/testing-agent",
+      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/agents/testing-agent.md",
+      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/agents/testing-agent.md"
     },
     {
       "id": "agent:.cursor/agents/testing-load-testing-agent.md",
@@ -1062,21 +1811,37 @@
       "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/agents/testing-security-testing-agent.md"
     },
     {
-      "id": "agent:.cursor/agents/testing-testing-agent.md",
+      "id": "agent:.cursor/agents/ui-component-agent.md",
       "type": "agent",
-      "path": ".cursor/agents/testing-testing-agent.md",
-      "name": "testing-agent",
-      "description": "Writes comprehensive tests and improves test coverage using project testing framework.",
-      "shortDescription": "Writes comprehensive tests and improves test coverage using project testing framework.",
-      "category": "testing",
+      "path": ".cursor/agents/ui-component-agent.md",
+      "name": "ui-component-agent",
+      "description": "UI Component Agent",
+      "shortDescription": "UI Component Agent",
+      "category": "ui",
       "tags": [
         "agent",
-        "testing",
-        "testing-agent"
+        "ui",
+        "ui-component-agent"
       ],
-      "invocation": "/testing-agent",
-      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/agents/testing-testing-agent.md",
-      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/agents/testing-testing-agent.md"
+      "invocation": "/ui-component-agent",
+      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/agents/ui-component-agent.md",
+      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/agents/ui-component-agent.md"
+    },
+    {
+      "id": "skill:.cursor/skills/backend/api-mock-server/SKILL.md",
+      "type": "skill",
+      "path": ".cursor/skills/backend/api-mock-server/SKILL.md",
+      "name": "api-mock-server",
+      "description": "Generate a mock API server from OpenAPI specs, TypeScript interfaces, or endpoint descriptions for frontend development and testing. Use when the user asks to create a mock server, fake API, or stub endpoints.",
+      "shortDescription": "Generate a mock API server from OpenAPI specs, TypeScript interfaces, or endpoint descriptions for frontend development and testing. Use…",
+      "category": "backend",
+      "tags": [
+        "skill",
+        "backend"
+      ],
+      "invocation": "",
+      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/skills/backend/api-mock-server/SKILL.md",
+      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/skills/backend/api-mock-server/SKILL.md"
     },
     {
       "id": "skill:.cursor/skills/backend/code-review/SKILL.md",
@@ -1127,6 +1892,54 @@
       "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/skills/backend/debug-issue/SKILL.md"
     },
     {
+      "id": "skill:.cursor/skills/backend/dependency-graph/SKILL.md",
+      "type": "skill",
+      "path": ".cursor/skills/backend/dependency-graph/SKILL.md",
+      "name": "dependency-graph",
+      "description": "Map and visualize module dependencies, detect circular imports, and identify coupling hotspots. Use when the user asks to analyze dependencies, find circular imports, or understand module relationships.",
+      "shortDescription": "Map and visualize module dependencies, detect circular imports, and identify coupling hotspots. Use when the user asks to analyze…",
+      "category": "backend",
+      "tags": [
+        "skill",
+        "backend"
+      ],
+      "invocation": "",
+      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/skills/backend/dependency-graph/SKILL.md",
+      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/skills/backend/dependency-graph/SKILL.md"
+    },
+    {
+      "id": "skill:.cursor/skills/backend/error-handler-generator/SKILL.md",
+      "type": "skill",
+      "path": ".cursor/skills/backend/error-handler-generator/SKILL.md",
+      "name": "error-handler-generator",
+      "description": "Generate typed error classes, error handling middleware, and HTTP error mapping following project conventions. Use when the user asks to set up error handling, create error classes, or implement error middleware.",
+      "shortDescription": "Generate typed error classes, error handling middleware, and HTTP error mapping following project conventions. Use when the user asks to set…",
+      "category": "backend",
+      "tags": [
+        "skill",
+        "backend"
+      ],
+      "invocation": "",
+      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/skills/backend/error-handler-generator/SKILL.md",
+      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/skills/backend/error-handler-generator/SKILL.md"
+    },
+    {
+      "id": "skill:.cursor/skills/backend/feature-flag-manager/SKILL.md",
+      "type": "skill",
+      "path": ".cursor/skills/backend/feature-flag-manager/SKILL.md",
+      "name": "feature-flag-manager",
+      "description": "Create, manage, and clean up feature flags for gradual rollouts and safe deployments. Use when the user asks to add a feature flag, toggle, or manage feature gating.",
+      "shortDescription": "Create, manage, and clean up feature flags for gradual rollouts and safe deployments. Use when the user asks to add a feature flag, toggle,…",
+      "category": "backend",
+      "tags": [
+        "skill",
+        "backend"
+      ],
+      "invocation": "",
+      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/skills/backend/feature-flag-manager/SKILL.md",
+      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/skills/backend/feature-flag-manager/SKILL.md"
+    },
+    {
       "id": "skill:.cursor/skills/backend/optimize-performance/SKILL.md",
       "type": "skill",
       "path": ".cursor/skills/backend/optimize-performance/SKILL.md",
@@ -1159,6 +1972,22 @@
       "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/skills/cloud/aws-cost-estimator/SKILL.md"
     },
     {
+      "id": "skill:.cursor/skills/cloud/docker-compose-generator/SKILL.md",
+      "type": "skill",
+      "path": ".cursor/skills/cloud/docker-compose-generator/SKILL.md",
+      "name": "docker-compose-generator",
+      "description": "Generate docker-compose.yml files for local development with application services, databases, caches, and queues. Use when the user asks to set up a local dev environment or create docker-compose configuration.",
+      "shortDescription": "Generate docker-compose.yml files for local development with application services, databases, caches, and queues. Use when the user asks to…",
+      "category": "cloud",
+      "tags": [
+        "skill",
+        "cloud"
+      ],
+      "invocation": "",
+      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/skills/cloud/docker-compose-generator/SKILL.md",
+      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/skills/cloud/docker-compose-generator/SKILL.md"
+    },
+    {
       "id": "skill:.cursor/skills/cloud/infrastructure/SKILL.md",
       "type": "skill",
       "path": ".cursor/skills/cloud/infrastructure/SKILL.md",
@@ -1189,6 +2018,22 @@
       "invocation": "",
       "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/skills/cloud/opensearch/SKILL.md",
       "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/skills/cloud/opensearch/SKILL.md"
+    },
+    {
+      "id": "skill:.cursor/skills/cloud/opensearch-dashboard/SKILL.md",
+      "type": "skill",
+      "path": ".cursor/skills/cloud/opensearch-dashboard/SKILL.md",
+      "name": "opensearch-dashboard",
+      "description": "Generate OpenSearch Dashboards (Kibana) saved objects — index patterns, visualizations, and dashboards as JSON. Use when the user asks to create dashboards, charts, or visualizations for OpenSearch/Elasticsearch/Kibana.",
+      "shortDescription": "Generate OpenSearch Dashboards (Kibana) saved objects — index patterns, visualizations, and dashboards as JSON. Use when the user asks to…",
+      "category": "cloud",
+      "tags": [
+        "skill",
+        "cloud"
+      ],
+      "invocation": "",
+      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/skills/cloud/opensearch-dashboard/SKILL.md",
+      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/skills/cloud/opensearch-dashboard/SKILL.md"
     },
     {
       "id": "skill:.cursor/skills/database/create-migration/SKILL.md",
@@ -1239,6 +2084,38 @@
       "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/skills/database/query-optimization/SKILL.md"
     },
     {
+      "id": "skill:.cursor/skills/devops/automation-helper/SKILL.md",
+      "type": "skill",
+      "path": ".cursor/skills/devops/automation-helper/SKILL.md",
+      "name": "automation-helper",
+      "description": "Design and create automation workflows — shell scripts, Cursor hooks, GitHub Actions, cron jobs, and task runners. Use when the user asks to automate a process, create a script, or set up a workflow.",
+      "shortDescription": "Design and create automation workflows — shell scripts, Cursor hooks, GitHub Actions, cron jobs, and task runners. Use when the user asks to…",
+      "category": "devops",
+      "tags": [
+        "skill",
+        "devops"
+      ],
+      "invocation": "",
+      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/skills/devops/automation-helper/SKILL.md",
+      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/skills/devops/automation-helper/SKILL.md"
+    },
+    {
+      "id": "skill:.cursor/skills/devops/changelog-generator/SKILL.md",
+      "type": "skill",
+      "path": ".cursor/skills/devops/changelog-generator/SKILL.md",
+      "name": "changelog-generator",
+      "description": "Generate a CHANGELOG.md from Conventional Commit history with grouped sections and version headers. Use when the user asks to create or update a changelog.",
+      "shortDescription": "Generate a CHANGELOG.md from Conventional Commit history with grouped sections and version headers. Use when the user asks to create or…",
+      "category": "devops",
+      "tags": [
+        "skill",
+        "devops"
+      ],
+      "invocation": "",
+      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/skills/devops/changelog-generator/SKILL.md",
+      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/skills/devops/changelog-generator/SKILL.md"
+    },
+    {
       "id": "skill:.cursor/skills/devops/ci-cd/SKILL.md",
       "type": "skill",
       "path": ".cursor/skills/devops/ci-cd/SKILL.md",
@@ -1253,6 +2130,54 @@
       "invocation": "",
       "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/skills/devops/ci-cd/SKILL.md",
       "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/skills/devops/ci-cd/SKILL.md"
+    },
+    {
+      "id": "skill:.cursor/skills/devops/commit-message-generator/SKILL.md",
+      "type": "skill",
+      "path": ".cursor/skills/devops/commit-message-generator/SKILL.md",
+      "name": "commit-message-generator",
+      "description": "Generate structured Conventional Commit messages from staged changes, diffs, or descriptions. Use when the user asks to write a commit message or needs help with commit formatting.",
+      "shortDescription": "Generate structured Conventional Commit messages from staged changes, diffs, or descriptions. Use when the user asks to write a commit…",
+      "category": "devops",
+      "tags": [
+        "skill",
+        "devops"
+      ],
+      "invocation": "",
+      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/skills/devops/commit-message-generator/SKILL.md",
+      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/skills/devops/commit-message-generator/SKILL.md"
+    },
+    {
+      "id": "skill:.cursor/skills/devops/component-search/SKILL.md",
+      "type": "skill",
+      "path": ".cursor/skills/devops/component-search/SKILL.md",
+      "name": "component-search",
+      "description": "Search across cursor-handbook rules, agents, commands, and skills for a specific term or topic. Use when the user asks to find a component, search for a keyword, or locate where something is defined.",
+      "shortDescription": "Search across cursor-handbook rules, agents, commands, and skills for a specific term or topic. Use when the user asks to find a component,…",
+      "category": "devops",
+      "tags": [
+        "skill",
+        "devops"
+      ],
+      "invocation": "",
+      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/skills/devops/component-search/SKILL.md",
+      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/skills/devops/component-search/SKILL.md"
+    },
+    {
+      "id": "skill:.cursor/skills/devops/cursor-setup/SKILL.md",
+      "type": "skill",
+      "path": ".cursor/skills/devops/cursor-setup/SKILL.md",
+      "name": "cursor-setup",
+      "description": "Set up cursor-handbook in a new project by cloning, configuring, and validating the .cursor directory. Use when the user asks to install cursor-handbook, set up a new project, or bootstrap Cursor configuration.",
+      "shortDescription": "Set up cursor-handbook in a new project by cloning, configuring, and validating the .cursor directory. Use when the user asks to install…",
+      "category": "devops",
+      "tags": [
+        "skill",
+        "devops"
+      ],
+      "invocation": "",
+      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/skills/devops/cursor-setup/SKILL.md",
+      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/skills/devops/cursor-setup/SKILL.md"
     },
     {
       "id": "skill:.cursor/skills/devops/dependency-remediation/SKILL.md",
@@ -1271,6 +2196,102 @@
       "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/skills/devops/dependency-remediation/SKILL.md"
     },
     {
+      "id": "skill:.cursor/skills/devops/doc-redactor/SKILL.md",
+      "type": "skill",
+      "path": ".cursor/skills/devops/doc-redactor/SKILL.md",
+      "name": "doc-redactor",
+      "description": "Scan and redact sensitive information (secrets, PII, internal URLs, credentials) from documents, configs, logs, and code. Use when the user asks to sanitize files, redact secrets, or prepare content for sharing.",
+      "shortDescription": "Scan and redact sensitive information (secrets, PII, internal URLs, credentials) from documents, configs, logs, and code. Use when the user…",
+      "category": "devops",
+      "tags": [
+        "skill",
+        "devops"
+      ],
+      "invocation": "",
+      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/skills/devops/doc-redactor/SKILL.md",
+      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/skills/devops/doc-redactor/SKILL.md"
+    },
+    {
+      "id": "skill:.cursor/skills/devops/env-file-generator/SKILL.md",
+      "type": "skill",
+      "path": ".cursor/skills/devops/env-file-generator/SKILL.md",
+      "name": "env-file-generator",
+      "description": "Scan codebase for environment variable references and generate a complete .env.example file with safe placeholders. Use when the user asks to create or update .env.example or audit env var usage.",
+      "shortDescription": "Scan codebase for environment variable references and generate a complete .env.example file with safe placeholders. Use when the user asks…",
+      "category": "devops",
+      "tags": [
+        "skill",
+        "devops"
+      ],
+      "invocation": "",
+      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/skills/devops/env-file-generator/SKILL.md",
+      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/skills/devops/env-file-generator/SKILL.md"
+    },
+    {
+      "id": "skill:.cursor/skills/devops/git-conflict-resolver/SKILL.md",
+      "type": "skill",
+      "path": ".cursor/skills/devops/git-conflict-resolver/SKILL.md",
+      "name": "git-conflict-resolver",
+      "description": "Systematic workflow for understanding and resolving git merge conflicts safely. Use when the user has merge conflicts or asks for help resolving conflicts.",
+      "shortDescription": "Systematic workflow for understanding and resolving git merge conflicts safely. Use when the user has merge conflicts or asks for help…",
+      "category": "devops",
+      "tags": [
+        "skill",
+        "devops"
+      ],
+      "invocation": "",
+      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/skills/devops/git-conflict-resolver/SKILL.md",
+      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/skills/devops/git-conflict-resolver/SKILL.md"
+    },
+    {
+      "id": "skill:.cursor/skills/devops/handbook-validator/SKILL.md",
+      "type": "skill",
+      "path": ".cursor/skills/devops/handbook-validator/SKILL.md",
+      "name": "handbook-validator",
+      "description": "Validate cursor-handbook structure, config, and component integrity. Use when the user asks to validate the setup, check for issues, or verify the handbook installation.",
+      "shortDescription": "Validate cursor-handbook structure, config, and component integrity. Use when the user asks to validate the setup, check for issues, or…",
+      "category": "devops",
+      "tags": [
+        "skill",
+        "devops"
+      ],
+      "invocation": "",
+      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/skills/devops/handbook-validator/SKILL.md",
+      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/skills/devops/handbook-validator/SKILL.md"
+    },
+    {
+      "id": "skill:.cursor/skills/devops/incident-runbook-creator/SKILL.md",
+      "type": "skill",
+      "path": ".cursor/skills/devops/incident-runbook-creator/SKILL.md",
+      "name": "incident-runbook-creator",
+      "description": "Generate operational runbooks for services covering common failure scenarios, diagnostics, and recovery steps. Use when the user asks to create a runbook, document incident response, or prepare on-call guides.",
+      "shortDescription": "Generate operational runbooks for services covering common failure scenarios, diagnostics, and recovery steps. Use when the user asks to…",
+      "category": "devops",
+      "tags": [
+        "skill",
+        "devops"
+      ],
+      "invocation": "",
+      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/skills/devops/incident-runbook-creator/SKILL.md",
+      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/skills/devops/incident-runbook-creator/SKILL.md"
+    },
+    {
+      "id": "skill:.cursor/skills/devops/jira-ticket-creator/SKILL.md",
+      "type": "skill",
+      "path": ".cursor/skills/devops/jira-ticket-creator/SKILL.md",
+      "name": "jira-ticket-creator",
+      "description": "Generate well-structured JIRA tickets (stories, bugs, tasks, epics) with acceptance criteria, estimates, and labels. Use when the user asks to create a JIRA ticket, write a story, or document a bug report.",
+      "shortDescription": "Generate well-structured JIRA tickets (stories, bugs, tasks, epics) with acceptance criteria, estimates, and labels. Use when the user asks…",
+      "category": "devops",
+      "tags": [
+        "skill",
+        "devops"
+      ],
+      "invocation": "",
+      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/skills/devops/jira-ticket-creator/SKILL.md",
+      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/skills/devops/jira-ticket-creator/SKILL.md"
+    },
+    {
       "id": "skill:.cursor/skills/devops/monitoring/SKILL.md",
       "type": "skill",
       "path": ".cursor/skills/devops/monitoring/SKILL.md",
@@ -1285,6 +2306,38 @@
       "invocation": "",
       "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/skills/devops/monitoring/SKILL.md",
       "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/skills/devops/monitoring/SKILL.md"
+    },
+    {
+      "id": "skill:.cursor/skills/devops/pr-description-generator/SKILL.md",
+      "type": "skill",
+      "path": ".cursor/skills/devops/pr-description-generator/SKILL.md",
+      "name": "pr-description-generator",
+      "description": "Generate comprehensive PR titles and descriptions with summary, test plan, risks, and linked issues. Use when the user asks to write or improve a pull request description.",
+      "shortDescription": "Generate comprehensive PR titles and descriptions with summary, test plan, risks, and linked issues. Use when the user asks to write or…",
+      "category": "devops",
+      "tags": [
+        "skill",
+        "devops"
+      ],
+      "invocation": "",
+      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/skills/devops/pr-description-generator/SKILL.md",
+      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/skills/devops/pr-description-generator/SKILL.md"
+    },
+    {
+      "id": "skill:.cursor/skills/devops/release-manager/SKILL.md",
+      "type": "skill",
+      "path": ".cursor/skills/devops/release-manager/SKILL.md",
+      "name": "release-manager",
+      "description": "Manage the full release lifecycle — version bump, changelog, tag, and release notes. Use when the user asks to prepare, create, or publish a release.",
+      "shortDescription": "Manage the full release lifecycle — version bump, changelog, tag, and release notes. Use when the user asks to prepare, create, or publish a…",
+      "category": "devops",
+      "tags": [
+        "skill",
+        "devops"
+      ],
+      "invocation": "",
+      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/skills/devops/release-manager/SKILL.md",
+      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/skills/devops/release-manager/SKILL.md"
     },
     {
       "id": "skill:.cursor/skills/devops/setup-monitoring/SKILL.md",
@@ -1319,6 +2372,38 @@
       "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/skills/devops/task-master/SKILL.md"
     },
     {
+      "id": "skill:.cursor/skills/devops/token-counter/SKILL.md",
+      "type": "skill",
+      "path": ".cursor/skills/devops/token-counter/SKILL.md",
+      "name": "token-counter",
+      "description": "Estimate LLM token counts for files or directories using a word-based heuristic. Use when the user asks how many tokens a file uses, wants to check context size, or needs to estimate token cost.",
+      "shortDescription": "Estimate LLM token counts for files or directories using a word-based heuristic. Use when the user asks how many tokens a file uses, wants…",
+      "category": "devops",
+      "tags": [
+        "skill",
+        "devops"
+      ],
+      "invocation": "",
+      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/skills/devops/token-counter/SKILL.md",
+      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/skills/devops/token-counter/SKILL.md"
+    },
+    {
+      "id": "skill:.cursor/skills/documentation/adr-generator/SKILL.md",
+      "type": "skill",
+      "path": ".cursor/skills/documentation/adr-generator/SKILL.md",
+      "name": "adr-generator",
+      "description": "Generate Architecture Decision Records (ADRs) documenting significant technical decisions with context, options, and consequences. Use when the user asks to document an architecture decision, design choice, or technical trade-off.",
+      "shortDescription": "Generate Architecture Decision Records (ADRs) documenting significant technical decisions with context, options, and consequences. Use when…",
+      "category": "documentation",
+      "tags": [
+        "skill",
+        "documentation"
+      ],
+      "invocation": "",
+      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/skills/documentation/adr-generator/SKILL.md",
+      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/skills/documentation/adr-generator/SKILL.md"
+    },
+    {
       "id": "skill:.cursor/skills/documentation/api-docs/SKILL.md",
       "type": "skill",
       "path": ".cursor/skills/documentation/api-docs/SKILL.md",
@@ -1349,6 +2434,70 @@
       "invocation": "",
       "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/skills/documentation/architecture-docs/SKILL.md",
       "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/skills/documentation/architecture-docs/SKILL.md"
+    },
+    {
+      "id": "skill:.cursor/skills/documentation/openapi-generator/SKILL.md",
+      "type": "skill",
+      "path": ".cursor/skills/documentation/openapi-generator/SKILL.md",
+      "name": "openapi-generator",
+      "description": "Generate OpenAPI 3.x specifications from code, requirements, or existing APIs. Use when the user asks to create an API spec, Swagger doc, or OpenAPI definition.",
+      "shortDescription": "Generate OpenAPI 3.x specifications from code, requirements, or existing APIs. Use when the user asks to create an API spec, Swagger doc, or…",
+      "category": "documentation",
+      "tags": [
+        "skill",
+        "documentation"
+      ],
+      "invocation": "",
+      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/skills/documentation/openapi-generator/SKILL.md",
+      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/skills/documentation/openapi-generator/SKILL.md"
+    },
+    {
+      "id": "skill:.cursor/skills/documentation/postman-collection-generator/SKILL.md",
+      "type": "skill",
+      "path": ".cursor/skills/documentation/postman-collection-generator/SKILL.md",
+      "name": "postman-collection-generator",
+      "description": "Generate Postman or Insomnia collections from OpenAPI specs, code, or endpoint descriptions. Use when the user asks to create an API collection, export endpoints for testing, or set up Postman/Insomnia.",
+      "shortDescription": "Generate Postman or Insomnia collections from OpenAPI specs, code, or endpoint descriptions. Use when the user asks to create an API…",
+      "category": "documentation",
+      "tags": [
+        "skill",
+        "documentation"
+      ],
+      "invocation": "",
+      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/skills/documentation/postman-collection-generator/SKILL.md",
+      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/skills/documentation/postman-collection-generator/SKILL.md"
+    },
+    {
+      "id": "skill:.cursor/skills/documentation/prompt-engineering/SKILL.md",
+      "type": "skill",
+      "path": ".cursor/skills/documentation/prompt-engineering/SKILL.md",
+      "name": "prompt-engineering",
+      "description": "Craft effective prompts and instructions for AI coding assistants. Use when creating rules, agents, skills, or system prompts for Cursor or other LLM-based tools.",
+      "shortDescription": "Craft effective prompts and instructions for AI coding assistants. Use when creating rules, agents, skills, or system prompts for Cursor or…",
+      "category": "documentation",
+      "tags": [
+        "skill",
+        "documentation"
+      ],
+      "invocation": "",
+      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/skills/documentation/prompt-engineering/SKILL.md",
+      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/skills/documentation/prompt-engineering/SKILL.md"
+    },
+    {
+      "id": "skill:.cursor/skills/documentation/regex-builder/SKILL.md",
+      "type": "skill",
+      "path": ".cursor/skills/documentation/regex-builder/SKILL.md",
+      "name": "regex-builder",
+      "description": "Build, explain, and test regular expressions step-by-step with plain-English breakdowns. Use when the user asks to create, debug, or explain a regex pattern.",
+      "shortDescription": "Build, explain, and test regular expressions step-by-step with plain-English breakdowns. Use when the user asks to create, debug, or explain…",
+      "category": "documentation",
+      "tags": [
+        "skill",
+        "documentation"
+      ],
+      "invocation": "",
+      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/skills/documentation/regex-builder/SKILL.md",
+      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/skills/documentation/regex-builder/SKILL.md"
     },
     {
       "id": "skill:.cursor/skills/documentation/websearch/SKILL.md",
@@ -1447,6 +2596,89 @@
       "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/skills/testing/flaky-test/SKILL.md"
     },
     {
+      "id": "skill:.cursor/skills/testing/load-test-generator/SKILL.md",
+      "type": "skill",
+      "path": ".cursor/skills/testing/load-test-generator/SKILL.md",
+      "name": "load-test-generator",
+      "description": "Generate load test scripts using k6, Artillery, or Locust from API endpoints or OpenAPI specs. Use when the user asks to create load tests, stress tests, or performance benchmarks.",
+      "shortDescription": "Generate load test scripts using k6, Artillery, or Locust from API endpoints or OpenAPI specs. Use when the user asks to create load tests,…",
+      "category": "testing",
+      "tags": [
+        "skill",
+        "testing"
+      ],
+      "invocation": "",
+      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/skills/testing/load-test-generator/SKILL.md",
+      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/skills/testing/load-test-generator/SKILL.md"
+    },
+    {
+      "id": "skill:.cursor/skills/testing/test-data-factory/SKILL.md",
+      "type": "skill",
+      "path": ".cursor/skills/testing/test-data-factory/SKILL.md",
+      "name": "test-data-factory",
+      "description": "Generate type-safe test data factories and fixtures for unit and integration tests. Use when the user asks to create mock data, test fixtures, or data factories.",
+      "shortDescription": "Generate type-safe test data factories and fixtures for unit and integration tests. Use when the user asks to create mock data, test…",
+      "category": "testing",
+      "tags": [
+        "skill",
+        "testing"
+      ],
+      "invocation": "",
+      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/skills/testing/test-data-factory/SKILL.md",
+      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/skills/testing/test-data-factory/SKILL.md"
+    },
+    {
+      "id": "command:.cursor/commands/backend/complexity.md",
+      "type": "command",
+      "path": ".cursor/commands/backend/complexity.md",
+      "name": "complexity",
+      "description": "Analyze cyclomatic complexity and cognitive complexity of functions in a file or module.",
+      "shortDescription": "Analyze cyclomatic complexity and cognitive complexity of functions in a file or module.",
+      "category": "backend",
+      "tags": [
+        "command",
+        "backend",
+        "complexity"
+      ],
+      "invocation": "/complexity",
+      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/commands/backend/complexity.md",
+      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/commands/backend/complexity.md"
+    },
+    {
+      "id": "command:.cursor/commands/backend/dead-code.md",
+      "type": "command",
+      "path": ".cursor/commands/backend/dead-code.md",
+      "name": "dead-code",
+      "description": "Find unused exports, functions, and variables in the codebase.",
+      "shortDescription": "Find unused exports, functions, and variables in the codebase.",
+      "category": "backend",
+      "tags": [
+        "command",
+        "backend",
+        "dead-code"
+      ],
+      "invocation": "/dead-code",
+      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/commands/backend/dead-code.md",
+      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/commands/backend/dead-code.md"
+    },
+    {
+      "id": "command:.cursor/commands/backend/feature-flag.md",
+      "type": "command",
+      "path": ".cursor/commands/backend/feature-flag.md",
+      "name": "feature-flag",
+      "description": "Scaffold a new feature flag with config, utility check, and test template.",
+      "shortDescription": "Scaffold a new feature flag with config, utility check, and test template.",
+      "category": "backend",
+      "tags": [
+        "command",
+        "backend",
+        "feature-flag"
+      ],
+      "invocation": "/feature-flag",
+      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/commands/backend/feature-flag.md",
+      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/commands/backend/feature-flag.md"
+    },
+    {
       "id": "command:.cursor/commands/backend/format.md",
       "type": "command",
       "path": ".cursor/commands/backend/format.md",
@@ -1515,6 +2747,23 @@
       "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/commands/backend/lint-fix.md"
     },
     {
+      "id": "command:.cursor/commands/backend/regex.md",
+      "type": "command",
+      "path": ".cursor/commands/backend/regex.md",
+      "name": "regex",
+      "description": "Build, explain, or debug a regular expression with plain-English breakdown and test cases.",
+      "shortDescription": "Build, explain, or debug a regular expression with plain-English breakdown and test cases.",
+      "category": "backend",
+      "tags": [
+        "command",
+        "backend",
+        "regex"
+      ],
+      "invocation": "/regex",
+      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/commands/backend/regex.md",
+      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/commands/backend/regex.md"
+    },
+    {
       "id": "command:.cursor/commands/backend/type-check.md",
       "type": "command",
       "path": ".cursor/commands/backend/type-check.md",
@@ -1530,6 +2779,57 @@
       "invocation": "/type-check",
       "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/commands/backend/type-check.md",
       "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/commands/backend/type-check.md"
+    },
+    {
+      "id": "command:.cursor/commands/database/migration-check.md",
+      "type": "command",
+      "path": ".cursor/commands/database/migration-check.md",
+      "name": "migration-check",
+      "description": "Validate a database migration for safety — checks for destructive operations, missing rollback, and locking risks.",
+      "shortDescription": "Validate a database migration for safety — checks for destructive operations, missing rollback, and locking risks.",
+      "category": "database",
+      "tags": [
+        "command",
+        "database",
+        "migration-check"
+      ],
+      "invocation": "/migration-check",
+      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/commands/database/migration-check.md",
+      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/commands/database/migration-check.md"
+    },
+    {
+      "id": "command:.cursor/commands/database/sql-explain.md",
+      "type": "command",
+      "path": ".cursor/commands/database/sql-explain.md",
+      "name": "sql-explain",
+      "description": "Explain a SQL query's execution plan and suggest performance optimizations.",
+      "shortDescription": "Explain a SQL query's execution plan and suggest performance optimizations.",
+      "category": "database",
+      "tags": [
+        "command",
+        "database",
+        "sql-explain"
+      ],
+      "invocation": "/sql-explain",
+      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/commands/database/sql-explain.md",
+      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/commands/database/sql-explain.md"
+    },
+    {
+      "id": "command:.cursor/commands/devops/automate.md",
+      "type": "command",
+      "path": ".cursor/commands/devops/automate.md",
+      "name": "automate",
+      "description": "Quickly scaffold a shell script, GitHub Action, or Cursor hook for a described automation task.",
+      "shortDescription": "Quickly scaffold a shell script, GitHub Action, or Cursor hook for a described automation task.",
+      "category": "devops",
+      "tags": [
+        "command",
+        "devops",
+        "automate"
+      ],
+      "invocation": "/automate",
+      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/commands/devops/automate.md",
+      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/commands/devops/automate.md"
     },
     {
       "id": "command:.cursor/commands/devops/build.md",
@@ -1549,6 +2849,23 @@
       "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/commands/devops/build.md"
     },
     {
+      "id": "command:.cursor/commands/devops/changelog.md",
+      "type": "command",
+      "path": ".cursor/commands/devops/changelog.md",
+      "name": "changelog",
+      "description": "Generate a changelog entry from recent commits using Conventional Commits format.",
+      "shortDescription": "Generate a changelog entry from recent commits using Conventional Commits format.",
+      "category": "devops",
+      "tags": [
+        "command",
+        "devops",
+        "changelog"
+      ],
+      "invocation": "/changelog",
+      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/commands/devops/changelog.md",
+      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/commands/devops/changelog.md"
+    },
+    {
       "id": "command:.cursor/commands/devops/commit-message.md",
       "type": "command",
       "path": ".cursor/commands/devops/commit-message.md",
@@ -1564,6 +2881,23 @@
       "invocation": "/commit-message",
       "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/commands/devops/commit-message.md",
       "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/commands/devops/commit-message.md"
+    },
+    {
+      "id": "command:.cursor/commands/devops/cron.md",
+      "type": "command",
+      "path": ".cursor/commands/devops/cron.md",
+      "name": "cron",
+      "description": "Build, explain, or convert a cron expression with human-readable description and next run times.",
+      "shortDescription": "Build, explain, or convert a cron expression with human-readable description and next run times.",
+      "category": "devops",
+      "tags": [
+        "command",
+        "devops",
+        "cron"
+      ],
+      "invocation": "/cron",
+      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/commands/devops/cron.md",
+      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/commands/devops/cron.md"
     },
     {
       "id": "command:.cursor/commands/devops/deploy.md",
@@ -1600,6 +2934,91 @@
       "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/commands/devops/docker-build.md"
     },
     {
+      "id": "command:.cursor/commands/devops/docker-compose.md",
+      "type": "command",
+      "path": ".cursor/commands/devops/docker-compose.md",
+      "name": "docker-compose",
+      "description": "Generate a docker-compose.yml snippet for a service (database, cache, queue, search, etc.).",
+      "shortDescription": "Generate a docker-compose.yml snippet for a service (database, cache, queue, search, etc.).",
+      "category": "devops",
+      "tags": [
+        "command",
+        "devops",
+        "docker-compose"
+      ],
+      "invocation": "/docker-compose",
+      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/commands/devops/docker-compose.md",
+      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/commands/devops/docker-compose.md"
+    },
+    {
+      "id": "command:.cursor/commands/devops/git-cleanup.md",
+      "type": "command",
+      "path": ".cursor/commands/devops/git-cleanup.md",
+      "name": "git-cleanup",
+      "description": "Delete merged and stale local branches to keep the repository tidy.",
+      "shortDescription": "Delete merged and stale local branches to keep the repository tidy.",
+      "category": "devops",
+      "tags": [
+        "command",
+        "devops",
+        "git-cleanup"
+      ],
+      "invocation": "/git-cleanup",
+      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/commands/devops/git-cleanup.md",
+      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/commands/devops/git-cleanup.md"
+    },
+    {
+      "id": "command:.cursor/commands/devops/jira-ticket.md",
+      "type": "command",
+      "path": ".cursor/commands/devops/jira-ticket.md",
+      "name": "jira-ticket",
+      "description": "Quickly generate a structured JIRA ticket from a brief description or code context.",
+      "shortDescription": "Quickly generate a structured JIRA ticket from a brief description or code context.",
+      "category": "devops",
+      "tags": [
+        "command",
+        "devops",
+        "jira-ticket"
+      ],
+      "invocation": "/jira-ticket",
+      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/commands/devops/jira-ticket.md",
+      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/commands/devops/jira-ticket.md"
+    },
+    {
+      "id": "command:.cursor/commands/devops/json-diff.md",
+      "type": "command",
+      "path": ".cursor/commands/devops/json-diff.md",
+      "name": "json-diff",
+      "description": "Compare two JSON objects or files and produce a structured diff showing additions, deletions, and modifications.",
+      "shortDescription": "Compare two JSON objects or files and produce a structured diff showing additions, deletions, and modifications.",
+      "category": "devops",
+      "tags": [
+        "command",
+        "devops",
+        "json-diff"
+      ],
+      "invocation": "/json-diff",
+      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/commands/devops/json-diff.md",
+      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/commands/devops/json-diff.md"
+    },
+    {
+      "id": "command:.cursor/commands/devops/openapi-spec.md",
+      "type": "command",
+      "path": ".cursor/commands/devops/openapi-spec.md",
+      "name": "openapi-spec",
+      "description": "Generate an OpenAPI 3.x spec snippet for a given endpoint or resource.",
+      "shortDescription": "Generate an OpenAPI 3.x spec snippet for a given endpoint or resource.",
+      "category": "devops",
+      "tags": [
+        "command",
+        "devops",
+        "openapi-spec"
+      ],
+      "invocation": "/openapi-spec",
+      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/commands/devops/openapi-spec.md",
+      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/commands/devops/openapi-spec.md"
+    },
+    {
       "id": "command:.cursor/commands/devops/pr-description.md",
       "type": "command",
       "path": ".cursor/commands/devops/pr-description.md",
@@ -1615,6 +3034,40 @@
       "invocation": "/pr-description",
       "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/commands/devops/pr-description.md",
       "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/commands/devops/pr-description.md"
+    },
+    {
+      "id": "command:.cursor/commands/devops/release.md",
+      "type": "command",
+      "path": ".cursor/commands/devops/release.md",
+      "name": "release",
+      "description": "Prepare a release — bump version, generate changelog, and create a git tag.",
+      "shortDescription": "Prepare a release — bump version, generate changelog, and create a git tag.",
+      "category": "devops",
+      "tags": [
+        "command",
+        "devops",
+        "release"
+      ],
+      "invocation": "/release",
+      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/commands/devops/release.md",
+      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/commands/devops/release.md"
+    },
+    {
+      "id": "command:.cursor/commands/devops/rollback-plan.md",
+      "type": "command",
+      "path": ".cursor/commands/devops/rollback-plan.md",
+      "name": "rollback-plan",
+      "description": "Generate a rollback strategy and checklist for a deployment or change.",
+      "shortDescription": "Generate a rollback strategy and checklist for a deployment or change.",
+      "category": "devops",
+      "tags": [
+        "command",
+        "devops",
+        "rollback-plan"
+      ],
+      "invocation": "/rollback-plan",
+      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/commands/devops/rollback-plan.md",
+      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/commands/devops/rollback-plan.md"
     },
     {
       "id": "command:.cursor/commands/security/audit-deps.md",
@@ -1668,6 +3121,23 @@
       "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/commands/security/check-secrets.md"
     },
     {
+      "id": "command:.cursor/commands/security/env-check.md",
+      "type": "command",
+      "path": ".cursor/commands/security/env-check.md",
+      "name": "env-check",
+      "description": "Validate .env file against .env.example to find missing, extra, or undocumented environment variables.",
+      "shortDescription": "Validate .env file against .env.example to find missing, extra, or undocumented environment variables.",
+      "category": "security",
+      "tags": [
+        "command",
+        "security",
+        "env-check"
+      ],
+      "invocation": "/env-check",
+      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/commands/security/env-check.md",
+      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/commands/security/env-check.md"
+    },
+    {
       "id": "command:.cursor/commands/security/fix-vulnerable-deps.md",
       "type": "command",
       "path": ".cursor/commands/security/fix-vulnerable-deps.md",
@@ -1685,6 +3155,57 @@
       "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/commands/security/fix-vulnerable-deps.md"
     },
     {
+      "id": "command:.cursor/commands/security/redact.md",
+      "type": "command",
+      "path": ".cursor/commands/security/redact.md",
+      "name": "redact",
+      "description": "Scan a file or snippet for secrets, PII, and internal infrastructure names, then redact them with safe placeholders.",
+      "shortDescription": "Scan a file or snippet for secrets, PII, and internal infrastructure names, then redact them with safe placeholders.",
+      "category": "security",
+      "tags": [
+        "command",
+        "security",
+        "redact"
+      ],
+      "invocation": "/redact",
+      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/commands/security/redact.md",
+      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/commands/security/redact.md"
+    },
+    {
+      "id": "command:.cursor/commands/testing/api-test.md",
+      "type": "command",
+      "path": ".cursor/commands/testing/api-test.md",
+      "name": "api-test",
+      "description": "Generate an integration test for an API endpoint with success, validation, auth, and error cases.",
+      "shortDescription": "Generate an integration test for an API endpoint with success, validation, auth, and error cases.",
+      "category": "testing",
+      "tags": [
+        "command",
+        "testing",
+        "api-test"
+      ],
+      "invocation": "/api-test",
+      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/commands/testing/api-test.md",
+      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/commands/testing/api-test.md"
+    },
+    {
+      "id": "command:.cursor/commands/testing/benchmark.md",
+      "type": "command",
+      "path": ".cursor/commands/testing/benchmark.md",
+      "name": "benchmark",
+      "description": "Create a micro-benchmark for a function to measure performance with statistical analysis.",
+      "shortDescription": "Create a micro-benchmark for a function to measure performance with statistical analysis.",
+      "category": "testing",
+      "tags": [
+        "command",
+        "testing",
+        "benchmark"
+      ],
+      "invocation": "/benchmark",
+      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/commands/testing/benchmark.md",
+      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/commands/testing/benchmark.md"
+    },
+    {
       "id": "command:.cursor/commands/testing/coverage.md",
       "type": "command",
       "path": ".cursor/commands/testing/coverage.md",
@@ -1700,6 +3221,23 @@
       "invocation": "/coverage",
       "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/commands/testing/coverage.md",
       "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/commands/testing/coverage.md"
+    },
+    {
+      "id": "command:.cursor/commands/testing/mock-data.md",
+      "type": "command",
+      "path": ".cursor/commands/testing/mock-data.md",
+      "name": "mock-data",
+      "description": "Generate realistic mock JSON data matching a schema, interface, or entity description.",
+      "shortDescription": "Generate realistic mock JSON data matching a schema, interface, or entity description.",
+      "category": "testing",
+      "tags": [
+        "command",
+        "testing",
+        "mock-data"
+      ],
+      "invocation": "/mock-data",
+      "githubUrl": "https://github.com/girijashankarj/cursor-handbook/blob/main/.cursor/commands/testing/mock-data.md",
+      "rawUrl": "https://github.com/girijashankarj/cursor-handbook/raw/main/.cursor/commands/testing/mock-data.md"
     },
     {
       "id": "command:.cursor/commands/testing/test-coverage.md",

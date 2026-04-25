@@ -34,6 +34,7 @@
 ## Table of Contents
 
 - [Ways to use](#ways-to-use-cursor-handbook)
+- [Use as a Cursor Plugin](#use-as-a-cursor-plugin)
 - [The Problem](#the-problem)
 - [Before vs After](#before-vs-after)
 - [Who is this for?](#who-is-this-for)
@@ -62,6 +63,32 @@ Pick the option that fits your workflow:
 | **6. Handbook website**       | **Browse** components or read **Guidelines** (Cursor IDE topics) in the browser — **[GitHub Pages](https://girijashankarj.github.io/cursor-handbook/)**. |
 
 **Improvements welcome.** See [CONTRIBUTING.md](CONTRIBUTING.md) to add or improve rules, skills, hooks, agents, or commands.
+
+---
+
+## Use as a Cursor Plugin
+
+This repository also works as a Cursor plugin. A plugin packages rules, skills, agents, commands, MCP servers, and hooks so they can be installed and reused across projects without copying files manually.
+
+### Local use (no publishing required)
+
+1. Ensure this repo contains `.cursor-plugin/plugin.json`.
+2. Symlink it into Cursor local plugins:
+   `ln -s /path/to/cursor-handbook ~/.cursor/plugins/local/cursor-handbook`
+3. Reload Cursor (`Developer: Reload Window`).
+4. Open any project and enable/use the plugin components in Settings.
+
+### Use in another project
+
+- Open the other project in Cursor.
+- Install/select `cursor-handbook` from local plugins.
+- Toggle rules/skills as needed for that project.
+
+### Public discovery in Cursor Marketplace
+
+For public marketplace listing, submit this plugin for review at [cursor.com/marketplace/publish](https://cursor.com/marketplace/publish). Marketplace listing requires review and approval.
+
+For the complete guide (beginner + team/admin workflows), see [Plugins guide](docs/getting-started/plugins.md).
 
 ---
 
@@ -564,6 +591,7 @@ graph LR
 | --------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- |
 | [Architecture](ARCHITECTURE.md)                                       | System design, data flow, extension points                                                        |
 | [Quick Start](docs/getting-started/quick-start.md)                    | Get running in 5 minutes                                                                          |
+| [Plugins guide](docs/getting-started/plugins.md)                      | Use this repository as a plugin locally, across projects, and in the marketplace                 |
 | [Project Setup](docs/getting-started/configuration.md)                | Customize rules to your stack                                                                     |
 | [Component Overview](docs/components/overview.md)                     | How components work together                                                                      |
 | [Best Practices](docs/guides/best-practices.md)                       | Get the most out of cursor-handbook                                                               |

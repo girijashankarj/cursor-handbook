@@ -42,6 +42,22 @@ npm uninstall cursor-handbook
 
 The `.cursor/` folder stays in your project after uninstalling. Commit it to version control.
 
+### Optional: use this as a Cursor plugin (after npm setup)
+
+If you want to reuse the same setup across multiple projects without copying files every time, you can also use this repository as a Cursor plugin:
+
+1. Ensure `.cursor-plugin/plugin.json` exists in the repository.
+2. Link it locally:
+
+```bash
+ln -s /absolute/path/to/cursor-handbook ~/.cursor/plugins/local/cursor-handbook
+```
+
+3. Reload Cursor (`Developer: Reload Window`).
+4. Open another project and install/select the local `cursor-handbook` plugin.
+
+For private team distribution and public marketplace publishing, see the [Plugins guide](./plugins.md).
+
 ## Setup (5 minutes) — Option 2: Clone & copy
 
 ```mermaid
@@ -148,6 +164,7 @@ Want to add or improve components? See [CONTRIBUTING.md](../../CONTRIBUTING.md).
 
 ## Next Steps
 
+- [Plugins guide](./plugins.md)
 - [Project Setup Guide](./configuration.md)
 - [Component Overview](../components/overview.md)
 - [Best Practices](../guides/best-practices.md)

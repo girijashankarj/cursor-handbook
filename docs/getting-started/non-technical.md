@@ -42,6 +42,7 @@ They can copy the handbook into your shared repo or subset rules for **documenta
 | Goal | Link |
 |------|------|
 | Full list of components | [COMPONENT_INDEX.md](../../COMPONENT_INDEX.md) |
+| Use cursor-handbook as a plugin | [Plugins guide](./plugins.md) |
 | What Cursor recognizes | [Cursor-recognized files](../reference/cursor-recognized-files.md) |
 | Map by SDLC role | [SDLC role map](../reference/sdlc-role-map.md) |
 | Public handbook website (browse, search) | [Handbook website](https://girijashankarj.github.io/cursor-handbook/) — use **Guidelines** for [Cursor topics](https://girijashankarj.github.io/cursor-handbook/#guide) |

@@ -6,6 +6,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Added
+
+- Plugin packaging metadata at `.cursor-plugin/plugin.json` to make `cursor-handbook` installable as a Cursor plugin
+- New guide `docs/getting-started/plugins.md` with local setup, cross-project usage, team private distribution, public publishing steps, and troubleshooting
+
+### Changed
+
+- `README.md` includes a new "Use as a Cursor Plugin" section and links to plugin documentation for discoverability
+- `docs/getting-started/quick-start.md` now includes npm-to-plugin guidance and a direct link to the plugins guide
+- `docs/getting-started/non-technical.md` now links to the plugins guide for beginner-friendly navigation
+
 ## [1.5.1] - 2026-04-13
 
 ### Added

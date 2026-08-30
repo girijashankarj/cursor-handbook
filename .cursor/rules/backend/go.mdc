@@ -1,0 +1,37 @@
+---
+description: "Go language conventions, error handling, and project structure."
+alwaysApply: false
+globs: "**/*.go"
+---
+
+# Backend: Go
+
+## Project Structure
+- Follow standard Go project layout: `cmd/`, `internal/`, `pkg/`
+- Keep `main.go` minimal — delegate to internal packages
+- Use `internal/` for code that should not be imported externally
+
+## Error Handling
+- Return errors as the last return value; never panic for expected failures
+- Wrap errors with context: `fmt.Errorf("operation failed: %w", err)`
+- Use sentinel errors or typed errors for errors callers need to check
+- Check every returned error; do not use `_` to discard errors in production code
+
+## Naming
+- Use short, descriptive variable names; single-letter for small scopes
+- Exported names are PascalCase; unexported are camelCase
+- Interfaces end in `-er` when they describe a single method (e.g. `Reader`, `Writer`)
+- Package names are lowercase, single-word, no underscores
+
+## Concurrency
+- Prefer channels for communication; use mutexes only for shared state protection
+- Always ensure goroutines can be cancelled via `context.Context`
+- Use `sync.WaitGroup` or `errgroup.Group` to wait for goroutine completion
+- Never start goroutines without a shutdown path
+
+## Conventions
+- Use `go vet`, `staticcheck`, and `golangci-lint` in CI
+- Format with `gofmt` or `goimports` — non-negotiable
+- Write table-driven tests using `testing` package
+- Use `context.Context` as the first parameter for functions that do I/O
+- Prefer dependency injection; avoid global state

@@ -1,0 +1,46 @@
+---
+description: "Backend logging standards: structured logging, levels, and PII rules."
+alwaysApply: false
+globs: "**/*.ts,**/*.js,**/*.java,**/*.py,**/*.go"
+---
+
+# Backend: Logging
+
+## Format
+- Use structured JSON logging in all environments
+- Every log entry MUST include: `timestamp`, `level`, `correlationId`, `service`
+- Add `operation`, `duration_ms`, and `status` for request-level logs
+- Use ISO 8601 timestamps with timezone (`2026-01-15T10:30:00Z`)
+
+## Log Levels
+| Level | Use for |
+|-------|---------|
+| `error` | Unexpected failures requiring attention |
+| `warn` | Recoverable issues or deprecation notices |
+| `info` | Key business events (request start/end, state changes) |
+| `debug` | Detailed diagnostic info (dev/staging only in high volume) |
+
+- Default production level: `info`
+- Never use `console.log` in production code; use the project logger
+
+## PII Rules (CRITICAL)
+- **NEVER** log: full names, emails, phone numbers, SSNs, credit card numbers, passwords
+- **NEVER** log `req.body` or `res.body` — may contain PII or secrets
+- Mask when necessary: `email: "j***@example.com"`, `phone: "***-***-1234"`
+- Use only `userId`, `sessionId`, `correlationId` to identify users in logs
+
+## Correlation
+- Generate a `correlationId` (UUID v4) at the request boundary if not provided
+- Propagate via `X-Correlation-Id` header across service calls
+- Include in every log entry and error response
+
+## Performance Logging
+- Log request duration for all API endpoints
+- Log slow queries (> 500ms) at `warn` level
+- Use sampling for high-volume debug logs (e.g. 1 in 100)
+
+## Anti-patterns
+- Don't log inside tight loops — aggregate or sample
+- Don't use string interpolation for log messages — use structured fields
+- Don't log secrets, tokens, or API keys under any circumstances
+- Don't use different logging libraries in the same project

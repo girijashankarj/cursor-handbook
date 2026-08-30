@@ -1,0 +1,50 @@
+---
+description: "Angular conventions, component patterns, and project structure."
+alwaysApply: false
+globs: "**/*.component.ts,**/*.module.ts,**/*.service.ts,**/*.directive.ts,**/*.pipe.ts,**/angular.json"
+---
+
+# Frontend: Angular
+
+## Project Structure
+- Use feature modules: group components, services, and routes by feature
+- Use a `shared/` module for reusable components, pipes, and directives
+- Use a `core/` module for singleton services (auth, HTTP interceptors, guards)
+- Lazy-load feature modules via router for performance
+
+## Components
+- Use standalone components (Angular 14+) for new code; migrate modules gradually
+- Use `OnPush` change detection strategy by default
+- Keep components focused — delegate logic to services
+- Use `input()` and `output()` signal-based APIs (Angular 17+) where possible
+- Prefix component selectors with the app or feature name: `app-order-list`
+
+## Services
+- Use `providedIn: 'root'` for singleton services
+- Use `inject()` function over constructor injection in standalone components
+- Keep HTTP calls in dedicated service classes; never call `HttpClient` from components
+- Handle errors in services; expose clean observables or signals to components
+
+## State Management
+- Use Angular Signals for local component state (Angular 16+)
+- Use NgRx or NGXS for complex global state with clear actions and reducers
+- Use RxJS operators for async data transformations
+- Avoid storing derived state — compute it
+
+## Routing
+- Use lazy loading for all feature routes
+- Use route guards for authentication and authorization
+- Use route resolvers for pre-fetching data
+- Define routes in a `*.routes.ts` file per feature
+
+## Testing
+- Use `TestBed` for component and service tests
+- Use `spectator` or `testing-library/angular` for simpler component tests
+- Mock HTTP calls with `HttpClientTestingModule`
+- Test components in isolation; mock child components
+
+## Conventions
+- Follow the Angular Style Guide (angular.io/guide/styleguide)
+- Use `ng lint` with `eslint` in CI
+- Use `trackBy` in `*ngFor` / `@for` for list performance
+- Use `async` pipe or `toSignal()` to auto-unsubscribe from observables

@@ -62,8 +62,8 @@ export async function handler(req: Request, res: Response, next: NextFunction) {
     // Step 4: Core Operation
     const result = await operation(processedData);
 
-    // Step 5: Post-Operation (async side effects)
-    await postOperation(result);
+    // Step 5: Post-Operation (fire-and-forget side effects)
+    void postOperation(result);
 
     // Step 6: Response
     const response = formatResponse(result);
@@ -81,7 +81,7 @@ export async function handler(req: Request, res: Response, next: NextFunction) {
 ## Rules
 - Each logic step MUST be a pure function (no side effects except in post-operation)
 - Each logic file should have a single default export
-- Schemas MUST be JSON Schema format for request/response validation
+- Schemas MUST use a validation library (JSON Schema, Zod, or equivalent) for request/response validation
 - Use dependency injection for external services
 - Handler functions MUST be async
 - Always pass correlationId through the entire flow

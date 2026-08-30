@@ -1,6 +1,6 @@
 # Cursor Component Enrichment Checklist
 
-Use this checklist when enriching `.cursor` components. Stay concise per [token-efficiency](../.cursor/rules/architecture/token-efficiency.mdc): bullet points, short examples, no paragraphs.
+Use this checklist when enriching `.cursor` components. Stay concise per [token-efficiency](../../.cursor/rules/architecture/token-efficiency.mdc): bullet points, short examples, no paragraphs.
 
 ## Principles
 

@@ -1,0 +1,25 @@
+{
+  "name": "cursor-handbook",
+  "displayName": "Cursor Handbook",
+  "description": "Open-source Cursor plugin with production-ready rules, agents, skills, commands, and hooks.",
+  "version": "1.0.0",
+  "author": {
+    "name": "cursor-handbook contributors",
+    "url": "https://github.com/girijashankarj/cursor-handbook"
+  },
+  "homepage": "https://girijashankarj.github.io/cursor-handbook/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/girijashankarj/cursor-handbook"
+  },
+  "license": "MIT",
+  "keywords": [
+    "cursor",
+    "rules",
+    "agents",
+    "skills",
+    "commands",
+    "hooks",
+    "developer-productivity"
+  ]
+}

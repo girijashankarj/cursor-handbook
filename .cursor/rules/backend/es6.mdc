@@ -1,0 +1,36 @@
+---
+description: "ES6+ JavaScript patterns and conventions for modern backend code."
+alwaysApply: false
+globs: "**/*.js,**/*.mjs,**/*.cjs"
+---
+
+# Backend: ES6+
+
+## Syntax
+- Use `const` by default; `let` only when reassignment is needed; **never** `var`
+- Use arrow functions for callbacks and short functions; named `function` for top-level exports
+- Use template literals over string concatenation
+- Use destructuring for objects and arrays at the call site
+
+## Modules
+- Prefer ES modules (`import/export`) when `"type": "module"` is set
+- Use named exports over default exports for discoverability
+- Keep one module per file; co-locate types if using JSDoc
+
+## Data Handling
+- Use `Array.map/filter/reduce` over imperative loops where intent is clearer
+- Use optional chaining (`?.`) and nullish coalescing (`??`) instead of manual checks
+- Use `Object.entries/Object.fromEntries` for object transformations
+- Prefer spread (`...`) over `Object.assign`
+
+## Async
+- Use `async/await` over `.then()` chains
+- Use `Promise.all` for independent concurrent operations
+- Use `Promise.allSettled` when partial failure is acceptable
+- Always handle rejections; never leave unhandled promises
+
+## Conventions
+- Use `for...of` for iterables; avoid `for...in` on arrays
+- Use computed property names and shorthand properties
+- Use `Set` and `Map` when uniqueness or key-value semantics are needed
+- Follow project import order: external → internal → relative

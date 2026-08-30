@@ -80,6 +80,56 @@ Rules use `{{CONFIG.section.key}}` placeholders that map to values in `project.j
 | eventsPath | string | Event handlers path |
 | configPath | string | Configuration path |
 
+### domain
+| Field | Type | Description |
+|-------|------|-------------|
+| entities | string[] | Domain entity names (e.g. Order, Product, Customer) |
+| lifecycles | object | Entity lifecycle state machines (key: entity, value: states) |
+| businessRules | string[] | Business rules to enforce across components |
+
+### patterns
+| Field | Type | Description |
+|-------|------|-------------|
+| handlerFlowSteps | integer | Number of steps in handler flow (e.g. 7) |
+| handlerFlow | string[] | Handler flow step names |
+| errorHandling | string | Error handling strategy: `centralized`, `distributed`, or `hybrid` |
+| logging | string | Logging strategy: `structured`, `unstructured`, or `hybrid` |
+
+### packages
+| Field | Type | Description |
+|-------|------|-------------|
+| internalPrefix | string | Internal package scope prefix (e.g. `@my-org`) |
+| registryUrl | string | Package registry URL |
+
+### fileNames
+| Field | Type | Description |
+|-------|------|-------------|
+| handlerEntry | string | Handler entry point filename (e.g. `index.ts`) |
+| requestSchema | string | Request schema filename |
+| responseSchema | string | Response schema filename |
+| *(additionalProperties)* | string | Any custom file naming conventions |
+
+### folderNames
+| Field | Type | Description |
+|-------|------|-------------|
+| logic | string | Logic folder name |
+| schemas | string | Schemas folder name |
+| common | string | Shared code folder name |
+| services | string | Services folder name |
+| types | string | Type definitions folder name |
+| utils | string | Utility functions folder name |
+| middleware | string | Middleware folder name |
+| models | string | Data models folder name |
+| controllers | string | Request handlers folder name |
+| routes | string | Route definitions folder name |
+
+### conventions
+| Field | Type | Description |
+|-------|------|-------------|
+| branchPrefix | object | Branch prefix mapping (e.g. `{ "feature": "feature/", "bugfix": "fix/" }`) |
+| commitFormat | string | Commit format: `conventional`, `angular`, or `custom` |
+| prTemplate | boolean | Whether to use PR template |
+
 ## Placeholder Syntax
 Use `{{CONFIG.section.key}}` in any component file:
 ```

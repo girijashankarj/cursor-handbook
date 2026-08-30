@@ -2,7 +2,7 @@
 
 > Complete reference of all cursor-handbook components.
 
-## Rules (29)
+## Rules (30)
 
 | #   | File                                           | Category     | Description                       |
 | --- | ---------------------------------------------- | ------------ | --------------------------------- |
@@ -32,9 +32,10 @@
 | 24  | `rules/testing/testing-standards.mdc`          | Testing      | Testing standards                 |
 | 25  | `rules/testing/mock-patterns.mdc`              | Testing      | Mock infrastructure               |
 | 26  | `rules/testing/integration-testing.mdc`        | Testing      | Integration test patterns         |
-| 27  | `rules/devops/ci-cd.mdc`                       | DevOps       | CI/CD pipelines                   |
-| 28  | `rules/devops/monitoring.mdc`                  | DevOps       | Monitoring and alerting           |
-| 29  | `rules/devops/documentation-standards.mdc`     | DevOps       | Documentation standards           |
+| 27  | `rules/testing/test-naming.mdc`                | Testing      | Test naming conventions          |
+| 28  | `rules/devops/ci-cd.mdc`                       | DevOps       | CI/CD pipelines                   |
+| 29  | `rules/devops/monitoring.mdc`                  | DevOps       | Monitoring and alerting           |
+| 30  | `rules/devops/documentation-standards.mdc`     | DevOps       | Documentation standards           |
 
 ## Agents (34)
 
@@ -77,7 +78,7 @@ Agents are at **root level** (`.cursor/agents/*.md`) — Cursor does not discove
 | 33  | `agents/documentation-docs-agent.md`    | Documentation | `/docs-agent`           |
 | 34  | `agents/platform-dx-agent.md`            | Platform      | `/dx-agent`             |
 
-## Skills (21)
+## Skills (22)
 
 | #   | Directory                                 | Domain        | Description                |
 | --- | ----------------------------------------- | ------------- | -------------------------- |
@@ -88,20 +89,21 @@ Agents are at **root level** (`.cursor/agents/*.md`) — Cursor does not discove
 | 5   | `skills/frontend/component-creation/`     | Frontend      | Create UI component        |
 | 6   | `skills/frontend/state-management/`       | Frontend      | State management setup     |
 | 7   | `skills/testing/fix-tests/`               | Testing       | Fix failing tests          |
-| 8   | `skills/testing/coverage-improvement/`    | Testing       | Improve coverage           |
-| 9   | `skills/database/migration/`              | Database      | Create migration           |
-| 10  | `skills/database/create-migration/`       | Database      | Scaffold new migration     |
-| 11  | `skills/database/query-optimization/`     | Database      | Optimize queries           |
-| 12  | `skills/cloud/infrastructure/`            | Cloud         | Set up infrastructure      |
-| 13  | `skills/cloud/aws-cost-estimator/`        | Cloud         | AWS cost estimation        |
-| 14  | `skills/cloud/opensearch/`                | Cloud         | OpenSearch setup           |
-| 15  | `skills/devops/ci-cd/`                    | DevOps        | CI/CD pipeline setup       |
-| 16  | `skills/devops/monitoring/`               | DevOps        | Monitoring setup           |
-| 17  | `skills/devops/setup-monitoring/`         | DevOps        | Monitoring infrastructure  |
-| 18  | `skills/devops/task-master/`              | DevOps        | Task management workflow   |
-| 19  | `skills/documentation/api-docs/`          | Documentation | API documentation          |
-| 20  | `skills/documentation/architecture-docs/` | Documentation | Architecture docs          |
-| 21  | `skills/documentation/websearch/`         | Documentation | Web research workflow      |
+| 8   | `skills/testing/flaky-test/`             | Testing       | Diagnose and fix flaky tests |
+| 9   | `skills/testing/coverage-improvement/`    | Testing       | Improve coverage           |
+| 10  | `skills/database/migration/`              | Database      | Create migration           |
+| 11  | `skills/database/create-migration/`       | Database      | Scaffold new migration     |
+| 12  | `skills/database/query-optimization/`     | Database      | Optimize queries           |
+| 13  | `skills/cloud/infrastructure/`            | Cloud         | Set up infrastructure      |
+| 14  | `skills/cloud/aws-cost-estimator/`        | Cloud         | AWS cost estimation        |
+| 15  | `skills/cloud/opensearch/`                | Cloud         | OpenSearch setup           |
+| 16  | `skills/devops/ci-cd/`                    | DevOps        | CI/CD pipeline setup       |
+| 17  | `skills/devops/monitoring/`               | DevOps        | Monitoring setup           |
+| 18  | `skills/devops/setup-monitoring/`         | DevOps        | Monitoring infrastructure  |
+| 19  | `skills/devops/task-master/`              | DevOps        | Task management workflow   |
+| 20  | `skills/documentation/api-docs/`          | Documentation | API documentation          |
+| 21  | `skills/documentation/architecture-docs/` | Documentation | Architecture docs          |
+| 22  | `skills/documentation/websearch/`         | Documentation | Web research workflow      |
 
 ## Commands (14)
 

@@ -1,3 +1,8 @@
+---
+name: schema-agent
+description: Designs and evolves database schemas following project conventions.
+---
+
 # Database Schema Agent
 
 ## Invocation

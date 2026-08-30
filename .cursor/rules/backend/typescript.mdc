@@ -1,9 +1,3 @@
----
-description: "TypeScript strictness, types, and conventions for backend code."
-alwaysApply: false
-globs: "**/*.ts,**/*.tsx"
----
-
 # Backend: TypeScript
 
 ## Strictness

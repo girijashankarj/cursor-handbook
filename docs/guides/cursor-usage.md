@@ -2,8 +2,6 @@
 
 Practical guides for common Cursor IDE tasks.
 
-For a broader topic index (settings, rules, skills, agents, hooks, token tips, security, MCP, and comparisons), see **[Cursor guidelines](../cursor-guidelines/README.md)** and the handbook website’s **Guidelines** tab ([GitHub Pages](https://girijashankarj.github.io/cursor-handbook/#guide)).
-
 ## Checking token usage
 
 Cursor tracks token consumption per request. To view your usage:

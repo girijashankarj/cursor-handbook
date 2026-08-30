@@ -167,8 +167,7 @@ sequenceDiagram
 ├── agents/           # .md files at root only
 ├── skills/           # <name>/SKILL.md + scripts/, references/, assets/
 ├── commands/         # .md files
-├── hooks.json        # Hook wiring (Cursor reads this at .cursor/hooks.json)
-├── hooks/            # .sh hook scripts (paths referenced from hooks.json)
+├── hooks/            # .sh scripts + hooks.json
 ├── templates/        # Code scaffolds
 ├── settings/         # IDE settings, keybindings
 └── BUGBOT.md         # BugBot PR review rules (separate from rules/)

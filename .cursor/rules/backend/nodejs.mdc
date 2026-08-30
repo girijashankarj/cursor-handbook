@@ -1,9 +1,3 @@
----
-description: "Node.js runtime conventions, async patterns, and import order."
-alwaysApply: false
-globs: "**/*.ts,**/*.js,**/*.mjs,**/*.cjs"
----
-
 # Backend: Node.js
 
 ## Runtime

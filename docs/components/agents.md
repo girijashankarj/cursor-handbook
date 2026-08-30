@@ -7,7 +7,7 @@ flowchart TB
     subgraph Discovered [Discovered by Cursor]
         A1[backend-code-reviewer.md]
         A2[backend-api-agent.md]
-        A3[testing-testing-agent.md]
+        A3[testing-agent.md]
     end
     subgraph NotDiscovered [NOT Discovered]
         N1[backend/specialist.md]
@@ -29,7 +29,7 @@ Each agent is a `.md` file at `.cursor/agents/<name>.md` (e.g. `backend-code-rev
 
 ### Naming convention
 
-- **File name**: `{domain}-{purpose}-agent.md` (e.g. `backend-code-reviewer.md`, `testing-testing-agent.md`)
+- **File name**: `{domain}-{purpose}-agent.md` (e.g. `backend-code-reviewer.md`, `testing-agent.md`)
 - **Invocation**: Use the agent's purpose or short name (e.g. `/code-reviewer`, `/api-agent`)
 - **Root level only**: Cursor discovers agents only at `.cursor/agents/*.md` — not in subdirectories
 

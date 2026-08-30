@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="The open-source rules engine for Cursor IDE — 117 components (rules, agents, skills, commands, hooks). Learn, set up, browse, and copy components for your project."
+    />
+    <meta name="author" content="cursor-handbook" />
+    <meta name="theme-color" content="#0f1419" id="meta-theme-color" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="cursor-handbook — Cursor IDE handbook" />
+    <meta
+      property="og:description"
+      content="The open-source rules engine for Cursor IDE. Learn, set up, and copy 117 components — rules, agents, skills, commands, and hooks."
+    />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="cursor-handbook — Cursor IDE handbook" />
+    <meta
+      name="twitter:description"
+      content="The open-source rules engine for Cursor IDE. Learn, set up, and copy 117 components."
+    />
+    <title>cursor-handbook — Cursor IDE handbook</title>
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <link rel="apple-touch-icon" href="./favicon.svg" />
+    <link rel="manifest" href="./site.webmanifest" />
+    <link rel="stylesheet" href="/src/style.css" />
+    <script>
+      (function () {
+        try {
+          var KEY = "cursor-handbook-theme";
+          var p = localStorage.getItem(KEY);
+          var lightQ = window.matchMedia("(prefers-color-scheme: light)");
+          var resolved =
+            p === "light"
+              ? "light"
+              : p === "dark"
+                ? "dark"
+                : lightQ.matches
+                  ? "light"
+                  : "dark";
+          if (resolved === "dark") document.documentElement.classList.add("dark");
+          else document.documentElement.classList.remove("dark");
+          var meta = document.getElementById("meta-theme-color");
+          if (meta)
+            meta.setAttribute(
+              "content",
+              resolved === "light" ? "#f8fafc" : "#0f1419",
+            );
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

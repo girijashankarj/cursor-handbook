@@ -1,0 +1,72 @@
+---
+description: 'End substantive replies with a brief response summary (files, tools, token note)'
+alwaysApply: true
+---
+
+# Response Summary (Assistive Footer)
+
+## Purpose
+
+Give the user a quick, scannable trace of what this turn involved: workspace edits, key references, and external research.
+
+## When to include or skip
+
+- **Include** the summary block after substantive answers (code changes, multi-step research, multi-file work).
+- **Skip** the entire block for trivial replies (single word, one-line confirmation, or when the user asked for no footer).
+- Do not fight **token efficiency**: default footer is **about 4–8 short lines**; optional bullets below only when clearly useful.
+- **Always** include the **Feedback** line when this block is shown.
+
+## Token Usage (Honesty)
+
+- You **do not** have access to Cursor’s exact token input/output counts for this chat.
+- **Do not** invent numbers. Either omit the line or use: *Exact token usage: see Cursor’s usage or analytics UI for this chat.*
+
+## Template
+
+Use this exact heading so users can scan consistently:
+
+```markdown
+---
+
+**Response summary**
+- **Files changed:** (list paths or "none")
+- **Files referenced:** (paths or "see citations above" / "none")
+- **Tools / research:** (e.g. read_file, grep, web search, MCP name, terminal — or "none")
+- **Tokens:** (omit, or the honesty line above)
+
+**Feedback:** Would you like to rate or review this activity? (A short yes/no or any feedback is welcome.)
+```
+
+## Optional bullets (add only when useful)
+
+Keep these **one line each**; skip entirely if nothing noteworthy.
+
+| Bullet | When to add |
+|--------|-------------|
+| **Suggested next step** | One concrete follow-up (e.g. run `npm run type-check`, open a PR, re-run a failing test). |
+| **Caveats / limitations** | Answer is partial, uncertain, or needs human or prod verification. |
+| **External links** | Important URLs cited in the reply (docs, tickets); omit if already obvious in body. |
+| **Tests / checks not run** | User should know validation was skipped (e.g. full suite) per token rules. |
+| **Security note** | Reminder if the turn touched auth, secrets, or PII handling (no secret values). |
+
+Example (optional lines only):
+
+```markdown
+- **Suggested next step:** Run `{{CONFIG.testing.typeCheckCommand}}` on the touched package.
+- **Caveats:** Behavior not verified against a live API; confirm in staging.
+```
+
+## Rules
+
+- **Files changed:** Only list files you created, edited, or deleted in this turn.
+- **Files referenced:** Optional if already cited inline; avoid duplicating long lists.
+- **Tools / research:** Self-report tools used (e.g. codebase search, web search, MCP tools).
+- **Feedback:** End every **Response summary** with the **Feedback** line exactly as in the template so the user can opt in to rating or reviewing the turn.
+- **Optional bullets:** Use the table above sparingly; never duplicate long paragraphs from the main answer.
+
+## Ideas for later (team customization)
+
+- **Time / duration:** Only if the product exposes elapsed time; do not guess.
+- **Model / mode:** Only if the user asked or it affects trust (“used agent vs ask”).
+- **Ticket / PR:** `Refs #123` when the user supplied it.
+- **Feedback hygiene:** If the user rates negatively, avoid arguing; offer one clarifying question or a fix.

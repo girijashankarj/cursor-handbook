@@ -1,0 +1,66 @@
+---
+description: "Jest testing framework configuration, patterns, and best practices."
+alwaysApply: false
+globs: "**/*.test.ts,**/*.test.js,**/*.spec.ts,**/*.spec.js,**/jest.config.*,**/jest.setup.*"
+---
+
+# Testing: Jest
+
+## Configuration
+- Use `jest.config.ts` for type-safe configuration
+- Set `testEnvironment` to `node` for backend, `jsdom` for frontend
+- Configure `moduleNameMapper` to match path aliases from `tsconfig.json`
+- Use `setupFilesAfterFramework` for global test setup (mock resets, custom matchers)
+- Set `collectCoverageFrom` to exclude generated code, configs, and type files
+
+## Patterns
+
+### Arrange-Act-Assert
+```typescript
+it('should calculate total when items have prices', () => {
+  // Arrange
+  const items = [{ price: 10 }, { price: 20 }];
+
+  // Act
+  const result = calculateTotal(items);
+
+  // Assert
+  expect(result).toBe(30);
+});
+```
+
+### Mocking
+- Use `jest.fn()` for function mocks
+- Use `jest.spyOn()` to mock specific methods while keeping original implementation available
+- Use `jest.mock('module')` for module-level mocking
+- Reset mocks in `beforeEach`: `jest.clearAllMocks()` or `jest.restoreAllMocks()`
+- Use `jest.mocked()` for typed mock access in TypeScript
+
+### Async Testing
+- Return the promise or use `async/await` — never forget to `await`
+- Use `expect.assertions(n)` when testing async error paths
+- Use `jest.useFakeTimers()` for timer-dependent code; call `jest.runAllTimers()` to flush
+
+### Snapshot Testing
+- Use sparingly — only for stable UI output or serializable config
+- Review snapshot diffs carefully; don't blindly update
+- Use `toMatchInlineSnapshot()` for small, readable snapshots
+
+## Performance
+- Use `--runInBand` for CI to avoid memory issues with parallel workers
+- Use `--changedSince` or `--findRelatedTests` for fast feedback loops
+- Use `jest.isolateModules()` when module state leaks between tests
+- Avoid heavy setup in `beforeAll` — prefer `beforeEach` for isolation
+
+## Anti-patterns
+- Don't test implementation details (internal method calls, state shape)
+- Don't share mutable state between tests without reset
+- Don't use `setTimeout` in tests — use fake timers
+- Don't write tests that depend on execution order
+- Don't mock what you don't own — wrap third-party code and mock the wrapper
+
+## Conventions
+- File naming: `module-name.test.ts` alongside the source file
+- Use `describe` blocks to group by function or class
+- Use `it` with `should...when...` naming pattern
+- Keep each test independent and idempotent

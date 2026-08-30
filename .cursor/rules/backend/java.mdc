@@ -1,0 +1,43 @@
+---
+description: "Java conventions, Spring patterns, and project structure."
+alwaysApply: false
+globs: "**/*.java"
+---
+
+# Backend: Java
+
+## Project Structure
+- Follow layered architecture: `controller/` → `service/` → `repository/`
+- Group by feature when the project grows large (e.g. `orders/`, `users/`)
+- Place DTOs in `dto/` or `model/`; entities in `entity/`
+- Configuration classes in `config/`
+
+## Conventions
+- Use Java 17+ features: records, sealed classes, pattern matching, text blocks
+- Prefer immutable objects; use `record` for DTOs and value objects
+- Use `Optional` for return types that may be absent; never for parameters or fields
+- Follow standard naming: `PascalCase` classes, `camelCase` methods/fields, `UPPER_SNAKE_CASE` constants
+
+## Spring Boot Patterns
+- Use constructor injection; avoid `@Autowired` on fields
+- Define beans via `@Configuration` classes or component scanning — be explicit
+- Use `@Transactional` at the service layer, not the controller
+- Externalize configuration via `application.yml` and `@ConfigurationProperties`
+- Use profiles (`dev`, `staging`, `prod`) for environment-specific config
+
+## Error Handling
+- Use `@ControllerAdvice` with `@ExceptionHandler` for centralized error handling
+- Define custom exception classes extending `RuntimeException`
+- Return consistent error response format: `{ error, message, status, correlationId }`
+- Never expose stack traces to API consumers
+
+## Testing
+- Use JUnit 5 with `@SpringBootTest` for integration tests
+- Use Mockito for unit tests; mock at service boundaries
+- Use Testcontainers for database integration tests
+- Follow AAA pattern; use `@DisplayName` for readable test names
+
+## Build
+- Use Maven or Gradle with dependency locking
+- Run `spotbugs`, `checkstyle`, or `spotless` in CI
+- Use multi-stage Docker builds for production images

@@ -1,0 +1,43 @@
+---
+description: "GraphQL schema design, resolver patterns, and security rules."
+alwaysApply: false
+globs: "**/*.graphql,**/*.gql,**/resolvers/**/*,**/schema/**/*"
+---
+
+# Backend: GraphQL
+
+## Schema Design
+- Use descriptive type and field names; follow domain language
+- Define input types for mutations; never accept raw JSON
+- Use enums for fixed sets of values
+- Add descriptions to all types, fields, and arguments in the schema
+- Version via schema evolution (additive changes), not URL versioning
+
+## Resolver Patterns
+- Keep resolvers thin — delegate business logic to services
+- Use DataLoader to prevent N+1 queries in nested resolvers
+- Return typed errors via a union type or `errors` field; never throw untyped exceptions
+- Validate input at the resolver boundary using Zod, Joi, or equivalent
+
+## Pagination
+- Use Relay-style cursor-based pagination (`first`, `after`, `last`, `before`)
+- Return `edges` and `pageInfo` with `hasNextPage` and `endCursor`
+- Never use offset-based pagination for large datasets
+
+## Security
+- Enforce authentication in middleware or directives, not in individual resolvers
+- Implement query depth limiting (max depth 7–10)
+- Implement query complexity analysis to prevent expensive queries
+- Disable introspection in production
+- Rate-limit by query complexity, not just request count
+
+## Performance
+- Use persisted queries or automatic persisted queries (APQ) in production
+- Enable response caching with appropriate cache-control hints
+- Use `@defer` and `@stream` directives for large responses when supported
+- Monitor resolver execution time; alert on p99 > 500ms
+
+## Conventions
+- Co-locate schema and resolvers by domain (e.g. `orders/schema.graphql`, `orders/resolvers.ts`)
+- Generate types from schema using codegen (e.g. GraphQL Code Generator)
+- Write integration tests against the actual GraphQL endpoint, not individual resolvers

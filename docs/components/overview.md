@@ -22,7 +22,7 @@ flowchart LR
 ### 1. Rules (.mdc files)
 
 **Location**: `.cursor/rules/`
-**Count**: 29
+**Count**: 47
 **Purpose**: Always-applied coding standards that guide every AI interaction.
 
 Rules are automatically loaded by Cursor IDE and applied to all prompts. They enforce:
@@ -35,7 +35,7 @@ Rules are automatically loaded by Cursor IDE and applied to all prompts. They en
 ### 2. Agents (.md files)
 
 **Location**: `.cursor/agents/`
-**Count**: 34
+**Count**: 62
 **Purpose**: Specialized AI assistants for complex tasks.
 
 Invoke agents with `/agent-name` in the Cursor chat:
@@ -48,7 +48,7 @@ Invoke agents with `/agent-name` in the Cursor chat:
 ### 3. Skills (SKILL.md)
 
 **Location**: `.cursor/skills/`
-**Count**: 21
+**Count**: 50
 **Purpose**: Step-by-step guided workflows with checklists.
 
 Skills are loaded automatically when context matches. They provide:
@@ -56,11 +56,12 @@ Skills are loaded automatically when context matches. They provide:
 - Checklists for complex tasks
 - Templates for common patterns
 - Step-by-step guidance
+- Bundled scripts in `scripts/` subdirectories (executable by the agent)
 
 ### 4. Commands (.md files)
 
 **Location**: `.cursor/commands/`
-**Count**: 14
+**Count**: 37
 **Purpose**: Quick single actions.
 
 Commands are lightweight operations:

@@ -2,7 +2,7 @@
   "$schema": "./project-schema.json",
   "project": {
     "name": "cursor-handbook",
-    "description": "Open-source rules engine for Cursor IDE: 110 rules, agents, skills, commands, hooks",
+    "description": "Open-source rules engine for Cursor IDE: 117 rules, agents, skills, commands, hooks",
     "version": "1.4.0",
     "repository": "https://github.com/YOUR_ORG/cursor-handbook"
   },

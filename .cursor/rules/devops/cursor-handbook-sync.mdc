@@ -1,0 +1,134 @@
+---
+description: 'Keep cursor-setup-agent in sync when .cursor/ components change — applies only to this repo (cursor-handbook), not consumer projects'
+globs: '.cursor/rules/**,.cursor/agents/**,.cursor/skills/**,.cursor/commands/**,.cursor/hooks/**,.cursor/templates/**'
+alwaysApply: true
+---
+
+# Cursor Handbook Sync Rule
+
+> **Scope**: This rule applies ONLY to the `cursor-handbook` repository itself. It is NOT intended for consumer projects that install components from this repo.
+
+## Trigger
+
+Whenever you **add, rename, remove, or recategorize** any file under:
+
+- `.cursor/rules/`
+- `.cursor/agents/`
+- `.cursor/skills/`
+- `.cursor/commands/`
+- `.cursor/hooks/`
+- `.cursor/templates/`
+
+you **MUST** also update:
+
+1. `.cursor/agents/cursor-setup-agent.md`
+2. The website UI data (`website/public/components.json`)
+3. `CHANGELOG.md` — add an entry under `## [Unreleased]`
+
+## CHANGELOG.md Update (on every commit)
+
+Whenever the user asks you to **create a commit**, you **MUST** also update `CHANGELOG.md` before committing:
+
+1. **Determine the change type** from the staged diff and commit message:
+   - `feat` / new file → **Added**
+   - `fix` / bug fix → **Fixed**
+   - `refactor` / rename / move → **Changed**
+   - `chore(deps)` / dependency bump → **Changed**
+   - delete / remove → **Removed**
+   - deprecation notice → **Deprecated**
+   - security patch → **Security**
+
+2. **Add a bullet** under the matching `### <Type>` heading inside `## [Unreleased]`. Create the heading if it doesn't exist yet.
+
+3. **Bullet format**: one concise line describing *what* changed and *why* (if non-obvious).
+   - Good: `- Agent `refactor-agent.md`: new agent for automated refactoring workflows`
+   - Bad: `- Updated files`
+
+4. **Do NOT** touch entries outside `## [Unreleased]` — released sections are immutable.
+
+5. **Do NOT** bump the version or move Unreleased to a release header unless the user explicitly asks for a release.
+
+## What to Update in cursor-setup-agent.md
+
+### 1. Component Manifest (Step 3)
+
+The setup agent contains a full mapping of **which components belong to which project type** (core, frontend, backend, database, cloud, testing, devops, documentation, security).
+
+- **Added a new component?** Add its path to the correct category section in the manifest.
+- **Removed a component?** Remove its entry from the manifest.
+- **Renamed a component?** Update the path in the manifest.
+- **Changed a component's category?** Move it to the correct section.
+
+### 2. Detection Heuristics (Step 2)
+
+If the new component introduces a **new framework, language, or tool** that the setup agent doesn't currently detect:
+
+- Add the detection signal to the appropriate table in Step 2
+- Add the framework/tool mapping to Step 2b–2e
+
+### 3. Counts and Examples
+
+The summary table in Step 4 shows example component counts. If the total count per category has changed significantly, update the example numbers so they remain realistic.
+
+### 4. Website UI (`website/public/components.json`)
+
+The website reads component metadata from `website/public/components.json`. When the `.cursor/` folder changes:
+
+- **Added a component?** Add its entry to the `components` array with: `id`, `name`, `type`, `category`, `description`, `path`, `tags`, `githubUrl`, `rawUrl`.
+- **Removed a component?** Remove its entry from the array.
+- **Renamed a component?** Update the `name`, `path`, `githubUrl`, and `rawUrl` fields.
+- **Changed category?** Update the `category` field.
+- **Update `componentCount`** at the top level to match the new total.
+
+The Browse page displays per-type totals (e.g. "Rules 47") and per-category counts, both derived from this file.
+
+## Checklist (copy into your PR description)
+
+```
+- [ ] New/changed component added to correct category in cursor-setup-agent.md Step 3
+- [ ] Detection heuristics updated (if new framework/tool introduced)
+- [ ] Step 4 example counts still realistic
+- [ ] README.md component count updated (if total changed)
+- [ ] CLAUDE.md component count updated (if total changed)
+- [ ] website/public/components.json updated (entry added/removed/renamed, componentCount correct)
+- [ ] CHANGELOG.md updated (entry added under `## [Unreleased]` with correct change type)
+```
+
+## Examples
+
+### Adding a new rule `.cursor/rules/backend/rust.mdc`
+
+1. Add to **Backend Components > Rules** in cursor-setup-agent.md:
+    ```
+    - `rules/backend/rust.mdc` (if Rust)
+    ```
+2. Add to **Step 2a** detection table:
+    ```
+    | `Cargo.toml` | Rust |
+    ```
+3. Update total rule count in README/CLAUDE.md if needed.
+4. Add to CHANGELOG.md under `## [Unreleased]` > `### Added`:
+    ```
+    - Rule `rust.mdc`: Rust language conventions and best practices
+    ```
+
+### Adding a new agent `.cursor/agents/frontend-testing-agent.md`
+
+1. Add to **Frontend Components > Agents** in cursor-setup-agent.md:
+    ```
+    - `agents/frontend-testing-agent.md`
+    ```
+2. No detection heuristic change needed (frontend category already exists).
+3. Add to CHANGELOG.md under `## [Unreleased]` > `### Added`:
+    ```
+    - Agent `frontend-testing-agent.md`: specialized agent for frontend test generation
+    ```
+
+### Removing a skill `.cursor/skills/cloud/opensearch/`
+
+1. Remove from **Cloud Components > Skills** in cursor-setup-agent.md.
+2. Update total skill count in README/CLAUDE.md if needed.
+3. Add to CHANGELOG.md under `## [Unreleased]` > `### Removed`:
+    ```
+    - Skill `cloud/opensearch`: removed in favor of consolidated search skill
+    ```

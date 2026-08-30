@@ -146,6 +146,10 @@ Examples:
 - Use generic placeholders: `[YOUR_ORG]`, `[API_KEY]`, `[ACCOUNT_ID]`
 - Check the data sanitization checklist before submitting
 
+## Contribution Examples
+
+See [Contribution Examples](docs/guides/contribution-examples.md) for concrete examples of adding rules, skills, and commands — including branch names, files to create, and workflow steps.
+
 ## Questions?
 
 Open an issue on GitHub if you have questions or need help. We're happy to assist!

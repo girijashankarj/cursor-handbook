@@ -1,3 +1,8 @@
+---
+name: api-agent
+description: Designs and implements RESTful APIs following best practices and project conventions.
+---
+
 # API Design Agent
 
 ## Invocation

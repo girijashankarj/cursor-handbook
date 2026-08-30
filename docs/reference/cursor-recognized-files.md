@@ -104,12 +104,10 @@ All skills use YAML frontmatter with required `name` and `description`. Optional
 .cursor/skills/
 └── my-skill/
     ├── SKILL.md
-    ├── scripts/        # Optional: executable scripts (Cursor skill layout only)
+    ├── scripts/        # Optional: executable scripts
     ├── references/     # Optional: additional docs
     └── assets/         # Optional: templates, data files
 ```
-
-A **`scripts/` directory at the repository root** (sibling to `.cursor/`) is **not** part of this layout—it is normal project tooling unless you choose to mirror the name for your own conventions.
 
 ---
 

@@ -1,0 +1,52 @@
+---
+description: "React conventions, hook patterns, and component architecture."
+alwaysApply: false
+globs: "**/*.tsx,**/*.jsx,**/components/**/*,**/hooks/**/*"
+---
+
+# Frontend: React
+
+## Component Patterns
+- Use functional components exclusively; no class components in new code
+- Use named exports for components; one component per file
+- Keep components small (<150 lines); extract sub-components when growing
+- Separate presentational components (UI) from container components (data/logic)
+- Co-locate styles, tests, and types with the component file
+
+## Hooks
+- Extract reusable logic into custom hooks (`useXxx`)
+- Follow the Rules of Hooks: only call at the top level, only in React functions
+- Use `useMemo` and `useCallback` only when there is a measured performance need
+- Use `useRef` for values that should not trigger re-renders
+- Prefer `useReducer` over `useState` for complex state logic
+
+## State Management
+- Use React Context for low-frequency global state (theme, auth, locale)
+- Use Zustand, Jotai, or Redux Toolkit for high-frequency or complex global state
+- Keep state as close to where it's used as possible — avoid prop drilling with composition
+- Derive values inline or with `useMemo` — don't store computed state
+
+## Data Fetching
+- Use TanStack Query (React Query) or SWR for server state
+- Handle loading, error, and empty states explicitly
+- Use Suspense boundaries for data-dependent UI
+- Never fetch data in `useEffect` without a caching/deduplication layer
+
+## Performance
+- Use `React.memo` only for components that re-render with unchanged props
+- Use `React.lazy` and `Suspense` for code splitting
+- Virtualize long lists with `react-window` or `react-virtuoso`
+- Avoid anonymous functions in JSX props when it causes unnecessary re-renders
+- Profile with React DevTools before optimizing
+
+## Testing
+- Use React Testing Library; test behavior, not implementation
+- Query by accessible role, label, or text — not by class or test ID
+- Test user interactions: click, type, submit
+- Mock API calls at the network layer (MSW) or at the hook boundary
+
+## Conventions
+- File naming: `PascalCase.tsx` for components, `camelCase.ts` for hooks and utils
+- Props interface: `interface XxxProps { ... }` defined above the component
+- Use `children` prop for composition; avoid excessive prop-passing
+- Follow project lint config with `eslint-plugin-react` and `eslint-plugin-react-hooks`

@@ -20,10 +20,10 @@ flowchart LR
 
 | Component | Location | Status |
 |-----------|----------|--------|
-| Rules | `.cursor/rules/` | Ready — 29 rules |
-| Agents | `.cursor/agents/` | Ready — 34 agents |
-| Skills | `.cursor/skills/` | Ready — 21 skills |
-| Commands | `.cursor/commands/` | Ready — format, lint, type-check, build, deploy, audit, coverage |
+| Rules | `.cursor/rules/` | Ready — 47 rules |
+| Agents | `.cursor/agents/` | Ready — 62 agents |
+| Skills | `.cursor/skills/` | Ready — 50 skills |
+| Commands | `.cursor/commands/` | Ready — 37 commands across backend, database, devops, security, testing |
 | Hooks | `.cursor/hooks/` | Ready — format, lint-check, type-check, scan-secrets, validate-sql, etc. |
 | Config | `.cursor/config/` | Ready — project.json, schema, templates |
 | Settings | `.cursor/settings/` | Ready — cursor-settings, keybindings, tasks |
